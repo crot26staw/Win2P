@@ -1,0 +1,93 @@
+/* Win2Partners — design tokens.
+   Значения перенесены из Figma-хэндоффа (project/tokens/*.css) без изменений. */
+
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap');
+
+@font-face{font-family:"Neutral Face";src:url('../fonts/NeutralFace.otf') format('opentype');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"Neutral Face";src:url('../fonts/NeutralFace-Bold.otf') format('opentype');font-weight:700;font-style:normal;font-display:swap}
+
+:root{
+/* --- базовая палитра --- */
+--w2p-black:rgb(11,1,0);
+--w2p-ink-900:rgb(15,15,15);
+--w2p-ink-850:rgb(20,20,21);
+--w2p-ink-800:rgb(31,31,31);
+--w2p-ink-700:rgb(43,43,44);
+--w2p-ink-600:rgb(46,46,46);
+--w2p-ink-500:rgb(37,37,37);
+--w2p-orange:rgb(243,64,13);
+--w2p-cream:rgb(234,232,201);
+--w2p-white:rgb(255,255,255);
+--w2p-light-500:rgb(249,249,249);
+--w2p-grey-400:rgb(153,153,153);
+--w2p-grey-200:rgb(217,217,217);
+--w2p-periwinkle:rgb(217,220,233);
+--w2p-green:rgb(42,210,83);
+
+/* --- альфа-рампы --- */
+--w2p-white-05:rgba(255,255,255,0.05);
+--w2p-white-20:rgba(255,255,255,0.2);
+--w2p-white-40:rgba(255,255,255,0.4);
+--w2p-white-50:rgba(255,255,255,0.5);
+--w2p-light-80:rgba(249,249,249,0.8);
+--w2p-periwinkle-04:rgba(217,220,233,0.04);
+--w2p-periwinkle-30:rgba(217,220,233,0.3);
+
+/* --- семантические алиасы --- */
+--surface-page:var(--w2p-black);
+--surface-card:linear-gradient(76.677deg,rgb(20,20,21) 28.68%,rgb(43,43,44) 103.17%);
+--surface-card-tall:linear-gradient(60.258deg,rgb(20,20,21) 44.26%,rgb(43,43,44) 136.94%);
+--surface-chrome:linear-gradient(85.583deg,rgb(15,15,15) 29.50%,rgb(31,31,31) 49.64%,rgb(20,20,21) 102.94%);
+--surface-footer:linear-gradient(71.749deg,rgb(15,15,15) 27.87%,rgb(31,31,31) 48.58%,rgb(20,20,21) 103.40%);
+--surface-tag:var(--w2p-periwinkle-30);
+--surface-social:var(--w2p-white-05);
+
+--text-primary:var(--w2p-light-500);
+--text-secondary:var(--w2p-light-80);
+--text-muted:var(--w2p-white-40);
+--text-accent:var(--w2p-orange);
+--text-display-cream:var(--w2p-cream);
+
+--border-card:var(--w2p-periwinkle-04);
+--border-outline:var(--w2p-light-500);
+--border-rule:var(--w2p-ink-600);
+
+--accent-primary:var(--w2p-orange);
+--accent-glow:var(--w2p-orange);
+
+/* --- типографика --- */
+--font-display:"Neutral Face",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+--font-text:"Manrope",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+--font-mono:"Home Video","Manrope",ui-monospace,monospace;
+
+--fw-regular:400;
+--fw-medium:500;
+--fw-semibold:600;
+--fw-bold:700;
+
+--ls-tight:-0.02em;
+--ls-label:-0.01em;
+--ls-tag:0.01em;
+
+/* --- радиусы и эффекты --- */
+--radius-token:4px;
+--radius-card:13px;
+--radius-pill:100px;
+--radius-blob:1000px;
+
+--shadow-card-border:inset 0 0 0 1px rgba(217,220,233,0.04);
+--shadow-card-border-hover:inset 0 0 0 1px rgba(217,220,233,0.12);
+--shadow-outline-button:inset 0 0 0 1px rgb(249,249,249);
+--shadow-rule:inset 0 0 0 0.5px rgb(46,46,46),0 0 0 0.5px rgb(46,46,46);
+--shadow-token-chip:inset 0 0 0 0.5px rgba(255,255,255,0.2);
+
+--blur-card:blur(62.8px);
+--blur-chrome:blur(50px);
+
+--glow-opacity:0.52;
+
+--ease-standard:cubic-bezier(0.4,0,0.2,1);
+--reveal-ease:cubic-bezier(0.22,0.61,0.36,1);
+--duration-fast:150ms;
+--duration-base:220ms;
+}

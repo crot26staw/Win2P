@@ -1,0 +1,422 @@
+/* Страницы Lite / Pro License.
+   В макете они нарисованы на фиксированной сетке 1440, поэтому композиция
+   воспроизведена на этой сетке дословно, а вся страница масштабируется через `zoom`,
+   а не перетекает — бриф требовал точной композиции, размеров, отступов и положения.
+   Ниже 1200px включается перетекающая раскладка (медиазапросы в конце файла). */
+
+.lic{--lic-bg:rgb(11,1,0);--lic-fg:rgb(249,249,249);--lic-accent:rgb(243,64,13);
+  --lic-green:rgb(42,210,83);
+  --lic-card:linear-gradient(85.032deg,rgb(20,20,21) 41.41%,rgb(43,43,44) 146.75%);
+  --lic-hair:inset 0 0 0 1px rgba(217,220,233,0.04);
+  --lic-dash-v:repeating-linear-gradient(180deg,rgba(255,255,255,.3) 0 3px,transparent 3px 6px);
+  --lic-dash-h:repeating-linear-gradient(90deg,rgba(255,255,255,.3) 0 3px,transparent 3px 6px);
+  background:var(--lic-bg);color:var(--lic-fg);font-family:var(--font-text);
+  width:1440px;margin:0 auto;position:relative;zoom:1}
+/* Между 1200 и 1440 фиксированная колонка ужимается, чтобы влезть; выше 1440 она
+   больше не растёт — секции просто центрируются. */
+@media (min-width:1200px){.lic{zoom:var(--lic-zoom,1);width:1440px;margin-inline:auto}}
+
+.lic-sec+.lic-sec,.lic-pin+.lic-sec,.lic-sec+.lic-pin,.lic-pin+.lic-pin{margin-top:var(--w2p-block)}
+.lic-sec{position:relative;width:1440px;background:var(--lic-bg);overflow:clip;overflow-clip-margin:520px}
+.lic-d{font-family:var(--font-display);font-weight:700;text-transform:uppercase;color:var(--lic-fg);margin:0}
+.lic-p{font-family:var(--font-text);font-weight:400;font-size:18px;line-height:1.3;
+  color:rgba(249,249,249,.8);margin:0}
+.lic-mono{font-family:var(--font-mono);font-weight:400}
+.lic a,.lic button,.lic [role="button"],.lic-gift-card,.lic-crumb{cursor:pointer}
+.lic-glow{position:absolute;opacity:var(--glow-opacity);border-radius:1000px;
+  background:radial-gradient(closest-side,var(--lic-accent) 0%,rgba(243,64,13,.55) 42%,rgba(243,64,13,0) 100%);
+  pointer-events:none;z-index:0}
+
+/* ---- 1. hero ---- */
+.lic-hero{height:800px;overflow:clip;overflow-clip-margin:520px}
+.lic-hero-crop{position:absolute;inset:0;overflow:hidden;z-index:2}
+.lic-hero-objects{position:absolute;inset:-80px;z-index:0;will-change:transform}
+.lic-hero-objects i{position:absolute;display:block;background-color:rgba(255,255,255,.07)}
+.lic-hero-bear{position:absolute;left:481px;top:324px;width:504px;height:794px;z-index:2;
+  background-position:center;background-repeat:no-repeat;background-size:contain}
+.lic-hero-title{position:absolute;left:255px;top:238px;width:1055px;height:257px;
+  font-size:128px;line-height:1;text-align:center;z-index:1}
+.lic-hero-fade{position:absolute;left:0;top:536px;width:100%;height:412px;z-index:3;
+  background:linear-gradient(180deg,rgba(11,1,0,0),rgb(11,1,0),rgb(11,1,0))}
+.lic-crumb{position:absolute;left:40px;top:98px;height:32px;z-index:4;display:flex;
+  flex-direction:row;gap:10px;align-items:center;text-decoration:none}
+.lic-crumb span{font-family:var(--font-text);font-weight:500;font-size:16px;line-height:1.3;
+  letter-spacing:-.01em;color:rgba(249,249,249,.7)}
+.lic-crumb .w2p-arrow{width:32px;height:32px}
+.lic-tag{position:absolute;left:661px;top:98px;width:119px;height:40px;z-index:4;
+  border-radius:8px;background-color:rgba(217,220,233,.12);box-shadow:var(--lic-hair);
+  display:flex;flex-direction:row;gap:10px;padding:8px 16px;justify-content:center;align-items:center}
+.lic-tag b{font-family:var(--font-text);font-weight:800;font-size:16px;line-height:1;
+  letter-spacing:-.01em;color:var(--lic-fg)}
+.lic-hero-copy{position:absolute;left:40px;top:608px;width:318px;z-index:4;display:flex;
+  flex-direction:column;gap:21px;align-items:flex-start}
+.lic-cta .w2p-btn{width:auto;padding:16px 32px}
+
+/* ---- 2. распределение взноса (скраб по скроллу) ---- */
+.lic-pin{position:relative;height:420vh}
+.lic-pin-inner{position:sticky;top:0;height:auto;display:flex;align-items:flex-start;
+  padding-top:24px;justify-content:center;overflow:clip;overflow-clip-margin:520px;background:var(--lic-bg)}
+.lic-pin-inner--bare{background:transparent;align-items:flex-start;padding-top:clamp(72px,11vh,150px)}
+.lic-pin-inner--bare .lic-stage{zoom:1}
+.lic-stage{position:relative;width:1440px;height:974px;flex-shrink:0;zoom:var(--lic-fit,1)}
+.lic-pin-inner:not(.lic-pin-inner--bare) .lic-stage{margin-top:-60px}
+.lic-head{position:absolute;left:368px;top:120px;width:704px;display:flex;flex-direction:column;
+  gap:12px;align-items:center;z-index:2}
+.lic-head h2{font-size:56px;line-height:1.1;text-align:center}
+.lic-head p{text-align:center}
+/* Подзаголовки этих двух секций: один кегль и одна ширина, уже колонки
+   заголовка. Ширина живёт здесь, а не в инлайн-стиле, иначе перетекающая
+   раскладка не может её снять и строка вылезает за экран телефона. */
+.lic-head p.lic-sub{width:486px;font-size:16px}
+.lic-levelart{position:absolute;left:499px;top:277px;width:443px;height:405px;z-index:1}
+.lic-levelart img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;
+  opacity:0;transition:opacity 420ms var(--ease-standard)}
+.lic-levelart img.is-on{opacity:1}
+.lic-split-card{position:absolute;width:308px;height:143px;overflow:hidden;border-radius:13px;
+  background:linear-gradient(66.944deg,rgb(20,20,21) 43.24%,rgb(43,43,44) 140.46%);
+  -webkit-backdrop-filter:blur(62.8px);backdrop-filter:blur(62.8px);box-shadow:var(--lic-hair);
+  display:flex;flex-direction:column;gap:20px;padding:24px;align-items:flex-start;z-index:3}
+.lic-split-card.is-accent{background:linear-gradient(-62.46deg,rgb(243,64,13) 43.75%,rgb(234,104,19) 96.78%)}
+.lic-split-card .v{font-family:var(--font-display);font-weight:700;font-size:32px;line-height:1.1;
+  color:var(--lic-fg);white-space:nowrap}
+.lic-split-card .l{font-family:var(--font-text);font-weight:700;font-size:20px;line-height:1;
+  letter-spacing:-.01em;color:var(--lic-fg);text-transform:uppercase;white-space:nowrap}
+.lic-split-card .n{font-family:var(--font-text);font-weight:400;font-size:14px;line-height:1.2;
+  color:rgba(255,255,255,.8)}
+.lic-split-card .top{display:flex;flex-direction:column;gap:8px;align-items:flex-start;align-self:stretch}
+.lic-rail{position:absolute;left:210px;top:816px;width:1018px;height:5px;border-radius:100px;
+  background:linear-gradient(89.821deg,rgb(20,20,21) 41.31%,rgb(43,43,44) 147.1%);z-index:1}
+.lic-partners{position:absolute;left:210px;top:771px;width:1021px;height:135px;display:flex;
+  flex-direction:row;gap:64px;align-items:flex-start;z-index:2}
+.lic-partner{position:relative;width:91px;height:135px;flex-shrink:0}
+.lic-partner .disc{position:absolute;left:0;top:3px;width:88px;height:88px;border-radius:100px;
+  background:linear-gradient(57.585deg,rgb(20,20,21) 44.69%,rgb(43,43,44) 135.48%);
+  display:flex;align-items:center;justify-content:center}
+.lic-partner .disc img{width:62px;height:62px;object-fit:contain;opacity:.25;
+  transition:opacity 320ms var(--ease-standard)}
+.lic-partner.is-on .disc img{opacity:1}
+.lic-partner .meta{position:absolute;left:16px;top:97px;width:55px;display:flex;
+  flex-direction:column;gap:8px;align-items:center}
+.lic-partner .meta b{font-family:var(--font-text);font-weight:700;font-size:18px;line-height:1;
+  letter-spacing:-.01em;color:var(--lic-fg);text-transform:uppercase;white-space:nowrap}
+.lic-partner .meta i{font-family:var(--font-text);font-style:normal;font-weight:400;font-size:14px;
+  line-height:1.2;text-align:center;color:rgba(255,255,255,.4)}
+.lic-partner .badge{position:absolute;left:62px;top:0;width:29px;height:29px;border-radius:100px;
+  background:rgb(43,43,44);display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-text);font-weight:700;font-size:18px;line-height:1;letter-spacing:-.01em;
+  color:var(--lic-fg);transition:background 320ms var(--ease-standard)}
+.lic-partner.is-on .badge{background:linear-gradient(-41.68deg,rgb(243,64,13) 39.99%,rgb(234,104,19) 95.15%)}
+
+/* ---- 3. автоматический перелив ---- */
+.lic-tree-sec{height:792px}
+.lic-tree{position:absolute;left:225px;top:312px;width:990px;height:410px;z-index:1}
+.lic-node{position:absolute;display:flex;flex-direction:column;align-items:center;gap:6px}
+.lic-node .ball{border-radius:100px;
+  background:linear-gradient(57.585deg,rgb(20,20,21) 44.69%,rgb(43,43,44) 135.48%);
+  display:flex;align-items:center;justify-content:center;overflow:hidden}
+.lic-node .ball img{width:76%;height:76%;object-fit:contain}
+.lic-node .cap{border-radius:100px;padding:3px 8px;font-family:var(--font-text);font-weight:500;
+  font-size:9px;line-height:1;color:var(--lic-fg);white-space:nowrap}
+.lic-node--root{width:108px}
+.lic-node--root .ball{width:88px;height:88px;box-shadow:0 0 0 2px var(--lic-accent)}
+.lic-node--root .cap{background:var(--lic-accent)}
+.lic-node--cell{width:88px}
+.lic-node--cell .ball{width:72px;height:72px;box-shadow:0 0 0 2px rgb(110,62,243)}
+.lic-node--cell .cap{background:rgb(110,62,243)}
+.lic-node--leaf{width:60px}
+.lic-node--leaf .ball{width:48px;height:48px;box-shadow:0 0 0 2px var(--lic-green)}
+.lic-node--leaf .cap{background:var(--lic-green);color:rgb(11,1,0)}
+/* Обёртка ветки на десктопе не создаёт бокса — узлы остаются на абсолютной сетке. */
+.lic-tree-branch{display:contents}
+.lic-dots{position:absolute;left:66px;top:20px;width:92px;height:20px;
+  display:flex;flex-direction:row;gap:4px;align-items:center}
+.lic-dots i{width:20px;height:20px;border-radius:100px;background-color:rgb(54,54,54);display:block;flex-shrink:0}
+.lic-tree svg{position:absolute;inset:0;width:990px;height:410px;overflow:visible}
+/* Пунктир бежит от «Вы» к ячейкам: шаг штриха 3+3, поэтому один период —
+   6 единиц, и смещение на 12 за цикл даёт ровно два штриха. */
+@keyframes lic-dash-run{to{stroke-dashoffset:-12}}
+.lic-tree svg line{animation:lic-dash-run 1.1s linear infinite}
+@media (prefers-reduced-motion:reduce){.lic-tree svg line{animation:none}}
+
+/* ---- 4. график дохода (скраб по скроллу) ---- */
+.lic-graph-pin{height:calc(150vh + 100px)}
+.lic-graph-bg{display:contents}
+.lic-graph-art{position:absolute;left:-7px;top:-22.66px;width:1454px;height:749px;
+  max-width:none;z-index:0}
+.lic-graph-line{position:absolute;left:4px;top:125px;width:1427px;height:526px;z-index:1;overflow:visible}
+.lic-graph-title{position:absolute;left:368px;top:70px;width:704px;height:124px;font-size:56px;
+  line-height:1.1;text-align:center;z-index:2}
+.lic-stat{position:absolute;top:314px;height:100px;width:442px;display:flex;flex-direction:column;
+  gap:4px;align-items:center;z-index:2;transition:opacity 380ms var(--ease-standard)}
+.lic-stat .num{font-family:var(--font-mono);font-weight:400;font-size:66px;line-height:1.1;
+  text-align:center;color:var(--lic-fg);align-self:stretch}
+.lic-stat .cap{font-family:var(--font-text);font-weight:400;font-size:18px;line-height:1.3;
+  text-align:center;color:rgba(249,249,249,.8);align-self:stretch}
+.lic-stat.is-money .num{color:var(--lic-accent)}
+.lic-final{position:absolute;left:499px;top:314px;height:100px;width:442px;display:flex;
+  flex-direction:column;gap:4px;align-items:center;z-index:3;opacity:0;
+  transition:opacity 420ms var(--ease-standard);pointer-events:none}
+.lic-final.is-on{opacity:1;pointer-events:auto}
+.lic-final .num{font-family:var(--font-mono);font-size:66px;line-height:1.1;color:var(--lic-accent);
+  text-align:center;align-self:stretch}
+.lic-final .cap{font-family:var(--font-text);font-size:18px;line-height:1.3;text-align:center;
+  color:rgba(249,249,249,.8);align-self:stretch}
+/* Кнопка вынесена из .lic-final в отдельный элемент, но на десктопе появляется
+   вместе с итоговой суммой, как и раньше: соседний селектор ловит момент, когда
+   сцена доиграла. Координаты те же, что были внутри итогового блока
+   (499+109, 314+124). Показ сразу — только в мобильной раскладке. */
+.lic-cta--graph{position:absolute;left:608px;top:438px;z-index:4;opacity:0;
+  pointer-events:none;transition:opacity 420ms var(--ease-standard)}
+.lic-final.is-on ~ .lic-cta--graph{opacity:1;pointer-events:auto}
+
+/* ---- 5. бонус за 72 часа ---- */
+.lic-bonus-sec{height:741px}
+.lic-bonus{position:absolute;left:384px;top:312px;width:672px;display:flex;flex-direction:column;
+  gap:16px;align-items:flex-start;z-index:2}
+.lic-line-card{position:relative;height:92px;border-radius:13px;background:var(--lic-card);
+  -webkit-backdrop-filter:blur(62.8px);backdrop-filter:blur(62.8px);box-shadow:var(--lic-hair);
+  display:flex;flex-direction:column;gap:16px;padding:24px;justify-content:center;
+  align-items:flex-start;align-self:stretch;opacity:0;transform:translateY(16px);
+  transition:opacity 460ms var(--ease-standard),transform 460ms var(--ease-standard)}
+.lic-line-card.is-on{opacity:1;transform:none}
+.lic-line-card .row{height:16px;display:flex;flex-direction:row;justify-content:space-between;
+  align-items:center;align-self:stretch}
+.lic-line-card .left{display:flex;flex-direction:row;gap:16px;align-items:center}
+.lic-line-card .chip{display:flex;flex-direction:row;gap:8px;align-items:center}
+.lic-line-card .sq{width:16px;height:16px;border-radius:1.5576px;background-color:rgba(52,171,81,.5);
+  display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);
+  font-size:12px;line-height:1;color:var(--lic-green)}
+.lic-line-card .lbl{font-family:var(--font-text);font-weight:500;font-size:14px;line-height:1;
+  letter-spacing:.01em;color:rgb(255,255,255)}
+.lic-line-card .cnt{font-family:var(--font-text);font-weight:400;font-size:14px;line-height:1.2;
+  color:rgba(255,255,255,.4);white-space:nowrap}
+.lic-line-card .pct{font-family:var(--font-mono);font-size:14px;line-height:1;color:var(--lic-green)}
+.lic-line-card .track{position:relative;height:10px;border-radius:100px;
+  background-color:rgba(255,255,255,.06);align-self:stretch;overflow:hidden}
+.lic-line-card .fill{position:absolute;left:0;top:0;bottom:0;width:0;border-radius:100px;
+  background-color:var(--lic-green)}
+.lic-bonus-cards{height:143px;display:flex;flex-direction:row;gap:16px;justify-content:center;
+  align-items:center;align-self:stretch}
+.lic-bonus-card{position:relative;height:143px;overflow:hidden;border-radius:13px;
+  background:linear-gradient(66.944deg,rgb(20,20,21) 43.24%,rgb(43,43,44) 140.46%);
+  -webkit-backdrop-filter:blur(62.8px);backdrop-filter:blur(62.8px);box-shadow:var(--lic-hair);
+  display:flex;flex-direction:column;gap:20px;padding:24px;justify-content:center;align-items:center;
+  flex-grow:1;opacity:0;transform:translateY(16px);
+  transition:opacity 460ms var(--ease-standard),transform 460ms var(--ease-standard)}
+.lic-bonus-card.is-on{opacity:1;transform:none}
+.lic-bonus-card .top{height:63px;display:flex;flex-direction:column;gap:8px;
+  justify-content:flex-end;align-items:flex-start;align-self:stretch}
+.lic-bonus-card .v{font-family:var(--font-display);font-weight:700;font-size:32px;line-height:1.1;
+  color:var(--lic-fg);align-self:stretch}
+.lic-bonus-card .u{font-family:var(--font-text);font-weight:700;font-size:20px;line-height:1;
+  letter-spacing:-.01em;color:var(--lic-fg);text-transform:uppercase;align-self:stretch}
+.lic-bonus-card .n{font-family:var(--font-text);font-weight:400;font-size:14px;line-height:1.2;
+  color:rgba(255,255,255,.4);align-self:stretch}
+
+/* ---- 6. подарки ---- */
+.lic-gift-sec{min-height:892.2px;display:flex;flex-direction:column;gap:40px;
+  padding:70px 40px 140px;align-items:center}
+.lic-gift-head{width:689px;display:flex;flex-direction:column;gap:12px;align-items:center;z-index:2}
+.lic-gift-head .t{display:flex;flex-direction:column;align-items:center;align-self:stretch}
+.lic-gift-head .t span{font-family:var(--font-display);font-weight:700;font-size:56px;line-height:1.1;
+  text-align:center;text-transform:uppercase;align-self:stretch}
+.lic-gift-head .t span:last-child{color:rgba(255,255,255,.5)}
+.lic-gift-head p{width:486px;text-align:center}
+.lic-gift-row{height:409.2px;display:flex;flex-direction:row;gap:16px;align-items:center;
+  align-self:stretch;z-index:2}
+.lic-gift-card{position:relative;height:409.2px;border-radius:13px;
+  background:linear-gradient(44.93deg,rgb(20,20,21) 46.64%,rgb(43,43,44) 128.76%);
+  -webkit-backdrop-filter:blur(62.8px);backdrop-filter:blur(62.8px);box-shadow:var(--lic-hair);
+  display:flex;flex-direction:column;gap:20px;padding:24px;align-items:flex-start;
+  flex-grow:1;flex-basis:0;min-width:0}
+.lic-gift-card .hd{height:16px;display:flex;flex-direction:row;justify-content:space-between;
+  align-items:center;align-self:stretch}
+.lic-gift-card .hd>div{display:flex;flex-direction:row;gap:10px;align-items:center}
+.lic-gift-card .sq{width:16px;height:16px;border-radius:1.5576px;background-color:rgba(52,171,81,.5);
+  display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:12px;
+  line-height:1;color:var(--lic-green)}
+.lic-gift-card .lbl{font-family:var(--font-text);font-weight:500;font-size:14px;line-height:1;
+  letter-spacing:.01em;color:rgb(255,255,255)}
+.lic-gift-card .pct{font-family:var(--font-mono);font-size:12px;line-height:1;color:var(--lic-green)}
+.lic-gift-card .nm{font-family:var(--font-text);font-weight:700;font-size:20px;line-height:1;
+  letter-spacing:-.01em;color:var(--lic-fg);text-transform:uppercase;align-self:stretch}
+/* background-size задавался двумя процентами по осям и растягивал квадратный
+   арт по ширине карточки; cover сохраняет пропорции и подрезает по высоте. */
+.lic-gift-card .art{height:209.2px;border-radius:11.7865px;align-self:stretch;
+  background-position:49.443% 14.473%;background-size:cover;background-repeat:no-repeat;
+  background-color:rgba(255,255,255,.02)}
+.lic-gift-card .ft{display:flex;flex-direction:column;gap:16px;align-items:flex-start;align-self:stretch}
+.lic-gift-card .ft>div:first-child{display:flex;flex-direction:column;gap:10px;align-self:stretch}
+.lic-gift-card .pn{font-family:var(--font-text);font-weight:400;font-size:14px;line-height:1.2;
+  color:rgba(255,255,255,.4);align-self:stretch}
+.lic-gift-card .bar{position:relative;height:8px;border-radius:27.3477px;
+  background-color:rgba(52,171,81,.16);align-self:stretch;overflow:hidden}
+.lic-gift-card .bar i{position:absolute;left:0;top:0;bottom:0;width:0;border-radius:27.3477px;
+  background-color:var(--lic-green);display:block}
+.lic-gift-card .earn{display:flex;flex-direction:row;gap:8px;align-items:center;align-self:stretch}
+.lic-gift-card .earn i{width:10px;height:10px;border-radius:2.5069px;background-color:rgb(80,175,149);flex-shrink:0}
+.lic-gift-card .earn span{font-family:var(--font-text);font-weight:400;font-size:14px;line-height:1.2;
+  color:rgba(255,255,255,.4)}
+
+/* ---- ниже 1200px: перетекание вместо сжатия сетки 1440 ----
+   Зумирование фиксированной сетки сохраняет композицию, но ужимает 18px текста до 9px
+   уже на планшете, поэтому с 1200 вниз страница течёт как главная и Wintime:
+   одна лестница clamp(), абсолютное позиционирование снято, гриды 4 → 2 → 1. */
+@media (max-width:1199px){
+  /* Один ритм между блоками: собственные вертикальные отступы секций обнулены,
+     расстояние задаёт только --w2p-block. Иначе зазоры расходились на 100–210px,
+     потому что у каждой секции был свой padding поверх общего margin. */
+  .lic{width:100%;zoom:1;--lic-gutter:clamp(20px,3.3vw,40px)}
+  .lic-sec{width:100%;padding:0 var(--lic-gutter)}
+  .lic-d{text-wrap:pretty}
+  .lic-pin{height:auto}
+  .lic-graph-pin{height:auto}
+  .lic-hero{height:auto;padding:clamp(92px,11vw,132px) var(--lic-gutter) 0;
+    display:flex;flex-direction:column;align-items:center;gap:20px}
+  /* Плашки-параллакс требуют жёсткой сетки — на планшете и телефоне их нет,
+     но сам слой остаётся: в нём лежит заголовок hero. */
+  .lic-hero-objects{position:static;inset:auto;width:100%}
+  .lic-hero-objects i{display:none}
+  .lic-hero-title{position:static;width:100%;height:auto;font-size:clamp(38px,8.9vw,104px)}
+  .lic-hero-crop{position:static;display:flex;justify-content:center}
+  .lic-hero-bear{position:static;width:min(504px,62vw);height:min(794px,98vw);flex-shrink:0}
+  .lic-hero-fade{display:none}
+  /* Порядок колонки как в мобильном макете: крошка, плашка тарифа, заголовок,
+     лид с кнопкой и только потом персонаж. Плашка центрируется вместе с
+     заголовком — по макету это один центрированный блок. */
+  .lic-crumb{position:static;align-self:flex-start;order:-3}
+  .lic-tag{position:static;align-self:center;order:-2}
+  .lic-hero-objects{order:-1}
+  .lic-hero-copy{position:static;width:100%;align-items:center;text-align:center;order:0}
+  .lic-hero-crop{order:1}
+  /* 6px запаса снизу: у пина стоит overflow:clip, и подпись последнего партнёра
+     упиралась в самый край — при округлении дробных высот это срезало хвосты букв. */
+  .lic-pin-inner{position:static;height:auto;padding:0 0 6px}
+  /* Подтяжка сцены на -60px нужна только закреплённому пину на десктопе.
+     В потоке она затаскивала заголовок «Куда идут твои $6?» в зазор под
+     hero, и он обрезался. */
+  .lic-pin-inner:not(.lic-pin-inner--bare) .lic-stage{margin-top:0}
+  .lic-stage{width:100%;height:auto!important;display:flex;flex-direction:column;gap:24px;
+    align-items:center;zoom:1}
+  .lic-head,.lic-partners,.lic-rail,.lic-split-card,.lic-graph-title,
+  .lic-stat,.lic-final,.lic-bonus,.lic-gift-head{position:static!important}
+  .lic-head{width:100%}
+  .lic-head p.lic-sub{width:100%}
+  .lic-head h2{font-size:clamp(26px,4.6vw,48px)}
+  .lic-split-card{width:100%;max-width:340px;height:auto}
+  .lic-split-cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:16px;width:100%;max-width:700px;justify-items:center}
+  /* Иллюстрация уровня — задний план всей секции, по центру: смена уровней видна
+     всё время, пока блок листается, а не только над карточками. Содержимое
+     поднято над ней явным z-index, поэтому сброс position в static здесь снят. */
+  .lic-levelart{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+    width:min(620px,132vw);height:min(566px,120vw);z-index:0;pointer-events:none;
+    opacity:.55}
+  .lic-split-pin .lic-head,
+  .lic-split-pin .lic-split-cards,
+  .lic-split-pin .lic-partners{position:relative!important;left:auto!important;
+    top:auto!important;z-index:2}
+  .lic-split-cards .lic-split-card{position:relative!important;left:auto!important;
+    top:auto!important;z-index:3}
+  .lic-rail{display:none}
+  .lic-partners{width:100%;height:auto;flex-wrap:wrap;gap:20px;justify-content:center}
+  /* На жёсткой сетке карточка партнёра — коробка 91×135 с абсолютными диском и
+     подписью, и подпись вылезала за её низ: в потоке этот излишек упирался в
+     обрезку пина, и «$1.5» под последним партнёром срезалось. В колонке ставим
+     всё в поток, высота считается по содержимому. */
+  .lic-partner{height:auto;width:auto;display:flex;flex-direction:column;
+    align-items:center;gap:8px}
+  .lic-partner .disc{position:static;flex-shrink:0}
+  .lic-partner .meta{position:static;width:auto;gap:4px}
+  .lic-tree-sec{height:auto;padding:0 20px;display:flex;flex-direction:column;
+    gap:40px;align-items:center}
+  /* ---- дерево перелива: та же структура, что на десктопе (Вы → пять ячеек →
+     пять листьев), но пересобранная под телефон, а не ужатая целиком. Узлы
+     стоят в сетке 5×2 в натуральную величину, связи нарисованы пунктирными
+     ножками и шиной — svg с жёстким viewBox 990×410 здесь не годится. ---- */
+  .lic-tree{position:relative;left:auto;top:auto;width:100%;height:auto;zoom:1;
+    display:flex;flex-direction:column;align-items:center;gap:0}
+  .lic-tree svg{display:none}
+  .lic-dots{display:none}
+  .lic-node{position:relative;left:auto!important;top:auto!important;width:auto!important;
+    display:flex;flex-direction:column;align-items:center;gap:6px}
+  .lic-node .cap{font-size:clamp(8px,1.2vw,11px);padding:3px 6px;line-height:1}
+  .lic-node--root{margin-bottom:16px}
+  .lic-node--root .ball{width:clamp(64px,10vw,96px);height:clamp(64px,10vw,96px)}
+  .lic-node--cell .ball{width:clamp(44px,7vw,72px);height:clamp(44px,7vw,72px)}
+  .lic-node--leaf .ball{width:clamp(38px,6vw,60px);height:clamp(38px,6vw,60px)}
+  .lic-tree-branch{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));
+    row-gap:28px;width:100%;position:relative;padding-top:16px}
+  /* Ножка от «Вы», шина над рядом ячеек и ножки в каждый узел. Пунктир —
+     повторяющийся градиент, а не border:dashed: только его можно «пустить бежать». */
+  .lic-node--root::after,.lic-node--cell::before,.lic-node--leaf::before{content:"";
+    position:absolute;left:50%;width:1px;background-image:var(--lic-dash-v);
+    animation:lic-dash-down 1.1s linear infinite}
+  .lic-node--root::after{top:100%;height:16px}
+  .lic-node--cell::before{top:-16px;height:16px}
+  .lic-node--leaf::before{top:-28px;height:28px}
+  .lic-tree-branch::before{content:"";position:absolute;left:10%;right:10%;top:0;height:1px;
+    background-image:var(--lic-dash-h);animation:lic-dash-right 1.1s linear infinite}
+  @keyframes lic-dash-down{to{background-position-y:12px}}
+  @keyframes lic-dash-right{to{background-position-x:-12px}}
+  @media (prefers-reduced-motion:reduce){
+    .lic-node--root::after,.lic-node--cell::before,.lic-node--leaf::before,
+    .lic-tree-branch::before{animation:none}
+  }
+
+  .lic-graph-sec{height:auto;padding:0 20px;display:flex;flex-direction:column;gap:20px;align-items:center}
+  /* Подложка с сеткой и кривая остаются и на узких экранах — блок «Твой доход
+     растёт вместе с линией» без линии читался как пустой. Пара масштабируется
+     как одно целое, коэффициент считает js/license.js. */
+  .lic-graph-art,.lic-graph-line{display:block}
+  /* Пара «сетка + кривая» растягивается на блок, а не масштабируется целиком:
+     иначе интересная часть кривой уходит за края узкого экрана и остаётся
+     видна одна горизонтальная полка. У svg стоит preserveAspectRatio="none",
+     поэтому кривая честно проходит из нижнего левого угла в верхний правый. */
+  .lic-graph-bg{display:block;position:absolute;inset:0;z-index:0;pointer-events:none}
+  .lic-graph-art{position:absolute;inset:0;left:0;top:0;width:100%;height:100%;
+    object-fit:cover;opacity:.6}
+  /* Кривой нужна своя пропорция: растянутая на всю высоту блока, она вырождается
+     в вертикальный скачок и полку. Держим её широкой полосой в нижней половине,
+     как в мобильном макете. */
+  .lic-graph-line{position:absolute;left:-4%;top:42%;width:108%;height:auto;
+    aspect-ratio:1427 / 526}
+  .lic-graph-sec{overflow:hidden}
+  /* relative вместо static, чтобы работал z-index над подложкой, но координаты
+     жёсткой сетки обязательно сбрасываются — иначе left/top сдвигают элементы
+     относительно их места в потоке. Часть из них стоит инлайном, отсюда !important. */
+  .lic-graph-sec .lic-graph-title,.lic-graph-sec .lic-stat,
+  .lic-graph-sec .lic-final{position:relative!important;left:auto!important;
+    top:auto!important;z-index:2}
+  .lic-graph-title{width:100%;height:auto;font-size:clamp(26px,4.6vw,48px)}
+  .lic-graph-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;width:100%}
+  /* В колонке итоговая сумма стоит под статистикой, а не поверх неё, поэтому
+     подмена одного другим оставила бы дыру в 200px: показываем оба блока. */
+  .lic-stat{width:100%;opacity:1!important}
+  .lic-stat .num{font-size:clamp(34px,6.2vw,64px)}
+  .lic-final{width:100%;height:auto;opacity:1;pointer-events:auto}
+  /* Кнопка встаёт в поток под статистикой и видна с самого появления блока. */
+  .lic-cta--graph{position:static;margin-top:4px;opacity:1;pointer-events:auto}
+  .lic-bonus-sec{height:auto;padding:0 20px;display:flex;flex-direction:column;
+    gap:40px;align-items:center}
+  .lic-bonus{width:100%}
+  .lic-bonus-cards{height:auto;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+  .lic-bonus-card{width:100%;height:auto;min-height:143px}
+  .lic-gift-sec{min-height:0;padding:0 20px var(--w2p-block)}
+  .lic-gift-head{width:100%}
+  .lic-gift-head .t span{font-size:clamp(26px,4.6vw,48px)}
+  .lic-gift-head p{width:100%}
+  .lic-gift-row{height:auto;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+  .lic-gift-card{width:100%;height:auto}
+  .lic-gift-card .art{height:clamp(140px,18vw,209.2px)}
+}
+
+/* ---- телефон: всё в одну колонку, украшения, которым нужна ширина, убраны ---- */
+@media (max-width:767px){
+  .lic-hero-bear{width:min(320px,82vw);height:min(504px,130vw)}
+
+  .lic-split-cards,.lic-graph-stats,.lic-bonus-cards,.lic-gift-row{grid-template-columns:minmax(0,1fr)}
+  .lic-partners{gap:14px}
+  .lic-stat .num{font-size:clamp(34px,12vw,52px)}
+  .lic-gift-card .art{height:209.2px}
+}
