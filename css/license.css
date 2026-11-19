@@ -125,12 +125,16 @@
 .lic-node--cell .cap{background:rgb(110,62,243)}
 .lic-node--leaf{width:60px}
 .lic-node--leaf .ball{width:48px;height:48px;box-shadow:0 0 0 2px var(--lic-green)}
-.lic-node--leaf .cap{background:var(--lic-green);color:rgb(11,1,0)}
+.lic-node--leaf .cap{background:var(--lic-green);color:#fff}
+/* В макете аватары ячеек и листьев обесцвечены, цветной только «Вы». */
+.lic-node--cell .ball img,.lic-node--leaf .ball img{filter:grayscale(1) contrast(1.2) brightness(.95)}
 /* Обёртка ветки на десктопе не создаёт бокса — узлы остаются на абсолютной сетке. */
 .lic-tree-branch{display:contents}
 .lic-dots{position:absolute;left:66px;top:20px;width:92px;height:20px;
   display:flex;flex-direction:row;gap:4px;align-items:center}
-.lic-dots i{width:20px;height:20px;border-radius:100px;background-color:rgb(54,54,54);display:block;flex-shrink:0}
+/* Пустое место в ячейке: серый круг с силуэтом человечка, как в макете. */
+.lic-dots i{width:20px;height:20px;border-radius:100px;display:block;flex-shrink:0;
+  background:rgb(54,54,54) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 9 9'%3E%3Ccircle cx='4.5' cy='2.4' r='2.1' fill='%23515151'/%3E%3Cpath d='M0.6 9C0.6 6.6 2.3 5.2 4.5 5.2S8.4 6.6 8.4 9Z' fill='%23515151'/%3E%3C/svg%3E") center/9px no-repeat}
 .lic-tree svg{position:absolute;inset:0;width:990px;height:410px;overflow:visible}
 /* Пунктир бежит от «Вы» к ячейкам: шаг штриха 3+3, поэтому один период —
    6 единиц, и смещение на 12 за цикл даёт ровно два штриха. */
@@ -254,7 +258,9 @@
 .lic-gift-card .bar i{position:absolute;left:0;top:0;bottom:0;width:0;border-radius:27.3477px;
   background-color:var(--lic-green);display:block}
 .lic-gift-card .earn{display:flex;flex-direction:row;gap:8px;align-items:center;align-self:stretch}
-.lic-gift-card .earn i{width:10px;height:10px;border-radius:2.5069px;background-color:rgb(80,175,149);flex-shrink:0}
+/* Значок Tether: белая «₮» на зелёной плашке. */
+.lic-gift-card .earn i{width:10px;height:10px;border-radius:2.5069px;flex-shrink:0;
+  background:rgb(80,175,149) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 6 6'%3E%3Cpath d='M0.5 0.6H5.5V1.6H3.5V5.6H2.5V1.6H0.5Z' fill='%23fff'/%3E%3Cellipse cx='3' cy='2.9' rx='2.3' ry='0.6' fill='none' stroke='%23fff' stroke-width='0.5'/%3E%3C/svg%3E") center/6px no-repeat}
 .lic-gift-card .earn span{font-family:var(--font-text);font-weight:400;font-size:14px;line-height:1.2;
   color:rgba(255,255,255,.4)}
 
@@ -330,38 +336,53 @@
   .lic-partner .meta{position:static;width:auto;gap:4px}
   .lic-tree-sec{height:auto;padding:0 20px;display:flex;flex-direction:column;
     gap:40px;align-items:center}
-  /* ---- дерево перелива: та же структура, что на десктопе (Вы → пять ячеек →
-     пять листьев), но пересобранная под телефон, а не ужатая целиком. Узлы
-     стоят в сетке 5×2 в натуральную величину, связи нарисованы пунктирными
-     ножками и шиной — svg с жёстким viewBox 990×410 здесь не годится. ---- */
-  .lic-tree{position:relative;left:auto;top:auto;width:100%;height:auto;zoom:1;
-    display:flex;flex-direction:column;align-items:center;gap:0}
-  .lic-tree svg{display:none}
-  .lic-dots{display:none}
-  .lic-node{position:relative;left:auto!important;top:auto!important;width:auto!important;
-    display:flex;flex-direction:column;align-items:center;gap:6px}
-  .lic-node .cap{font-size:clamp(8px,1.2vw,11px);padding:3px 6px;line-height:1}
-  .lic-node--root{margin-bottom:16px}
-  .lic-node--root .ball{width:clamp(64px,10vw,96px);height:clamp(64px,10vw,96px)}
-  .lic-node--cell .ball{width:clamp(44px,7vw,72px);height:clamp(44px,7vw,72px)}
-  .lic-node--leaf .ball{width:clamp(38px,6vw,60px);height:clamp(38px,6vw,60px)}
-  .lic-tree-branch{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));
-    row-gap:28px;width:100%;position:relative;padding-top:16px}
-  /* Ножка от «Вы», шина над рядом ячеек и ножки в каждый узел. Пунктир —
-     повторяющийся градиент, а не border:dashed: только его можно «пустить бежать». */
-  .lic-node--root::after,.lic-node--cell::before,.lic-node--leaf::before{content:"";
-    position:absolute;left:50%;width:1px;background-image:var(--lic-dash-v);
-    animation:lic-dash-down 1.1s linear infinite}
-  .lic-node--root::after{top:100%;height:16px}
-  .lic-node--cell::before{top:-16px;height:16px}
-  .lic-node--leaf::before{top:-28px;height:28px}
-  .lic-tree-branch::before{content:"";position:absolute;left:10%;right:10%;top:0;height:1px;
-    background-image:var(--lic-dash-h);animation:lic-dash-right 1.1s linear infinite}
-  @keyframes lic-dash-down{to{background-position-y:12px}}
-  @keyframes lic-dash-right{to{background-position-x:-12px}}
-  @media (prefers-reduced-motion:reduce){
-    .lic-node--root::after,.lic-node--cell::before,.lic-node--leaf::before,
-    .lic-tree-branch::before{animation:none}
+  /* ---- дерево перелива ----
+     Планшет показывает десктопное дерево целиком, ужатое zoom до ширины колонки
+     (в макете 768 это та же схема 990×410 в масштабе 0.71, коэффициент считает
+     js/license.js). Телефон — свой список ниже. */
+  @media (max-width:767px){
+    /* Телефон: «Вы» сверху слева, от него пунктирный ствол вниз; в каждой строке
+       ячейка 1–5, отвод к её листу 6–10 и четыре пустых места. Это колонки
+       мобильного макета (там они разложены на три экрана), собранные в одну. */
+    .lic-tree{position:relative;left:auto;top:auto;width:100%;max-width:330px;height:auto;zoom:1;
+      margin-inline:auto;display:grid;grid-template-columns:64px 72px 32px minmax(0,1fr);
+      grid-template-rows:auto;grid-auto-rows:84px;row-gap:16px;align-items:start}
+    .lic-tree svg{display:none}
+    .lic-tree-branch{display:contents}
+    .lic-node{position:relative;left:auto!important;top:auto!important;width:auto!important;
+      display:flex;flex-direction:column;align-items:center;gap:0}
+    .lic-node .cap{position:relative;z-index:1;line-height:1}
+    .lic-node--root{grid-column:1/3;grid-row:1;justify-self:start;width:88px!important}
+    .lic-node--root .ball{width:88px;height:88px}
+    .lic-node--root .cap{font-size:14px;padding:4px 10px;margin-top:-16px}
+    .lic-node--cell{grid-column:2}
+    .lic-node--cell .ball{width:72px;height:72px}
+    .lic-node--cell .cap{font-size:12px;padding:4px 8px;margin-top:-12px}
+    .lic-node--leaf{grid-column:4;justify-self:start;margin-top:10px}
+    .lic-node--leaf .ball{width:52px;height:52px}
+    .lic-node--leaf .cap{font-size:10px;padding:3px 6px;margin-top:-9px}
+    .lic-node--cell:nth-child(1),.lic-node--leaf:nth-child(6){grid-row:2}
+    .lic-node--cell:nth-child(2),.lic-node--leaf:nth-child(7){grid-row:3}
+    .lic-node--cell:nth-child(3),.lic-node--leaf:nth-child(8){grid-row:4}
+    .lic-node--cell:nth-child(4),.lic-node--leaf:nth-child(9){grid-row:5}
+    .lic-node--cell:nth-child(5),.lic-node--leaf:nth-child(10){grid-row:6}
+    .lic-dots{display:flex;left:60px;top:16px}
+    /* Ствол: у каждой ячейки свой отрезок вверх на шаг строки (84 + 16) и отвод
+       вправо к шару; у первой — только до низа плашки «Вы». Пунктир —
+       повторяющийся градиент, а не border:dashed: только его можно «пустить бежать». */
+    .lic-node--cell::before,.lic-node--cell::after,.lic-node--leaf::before{content:"";position:absolute}
+    .lic-node--cell::after{left:-20px;top:-64px;width:1px;height:100px;
+      background-image:var(--lic-dash-v);animation:lic-dash-down 1.1s linear infinite}
+    .lic-node--cell:nth-child(1)::after{top:-16px;height:52px}
+    .lic-node--cell::before{left:-20px;top:36px;width:20px;height:1px;
+      background-image:var(--lic-dash-h);animation:lic-dash-right 1.1s linear infinite}
+    .lic-node--leaf::before{left:-32px;top:26px;width:32px;height:1px;
+      background-image:var(--lic-dash-h);animation:lic-dash-right 1.1s linear infinite}
+    @keyframes lic-dash-down{to{background-position-y:12px}}
+    @keyframes lic-dash-right{to{background-position-x:-12px}}
+    @media (prefers-reduced-motion:reduce){
+      .lic-node--cell::before,.lic-node--cell::after,.lic-node--leaf::before{animation:none}
+    }
   }
 
   .lic-graph-sec{height:auto;padding:0 20px;display:flex;flex-direction:column;gap:20px;align-items:center}
@@ -392,9 +413,9 @@
   .lic-graph-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;width:100%}
   /* В колонке итоговая сумма стоит под статистикой, а не поверх неё, поэтому
      подмена одного другим оставила бы дыру в 200px: показываем оба блока. */
-  .lic-stat{width:100%;opacity:1!important}
+  .lic-stat{width:100%}
   .lic-stat .num{font-size:clamp(34px,6.2vw,64px)}
-  .lic-final{width:100%;height:auto;opacity:1;pointer-events:auto}
+  .lic-final{width:100%;height:auto}
   /* Кнопка встаёт в поток под статистикой и видна с самого появления блока. */
   .lic-cta--graph{position:static;margin-top:4px;opacity:1;pointer-events:auto}
   .lic-bonus-sec{height:auto;padding:0 20px;display:flex;flex-direction:column;
@@ -418,5 +439,415 @@
   .lic-split-cards,.lic-graph-stats,.lic-bonus-cards,.lic-gift-row{grid-template-columns:minmax(0,1fr)}
   .lic-partners{gap:14px}
   .lic-stat .num{font-size:clamp(34px,12vw,52px)}
+  /* Телефон: как в мобильном макете — только три показателя, они видны всё
+     время и доходят до 7-го уровня; отдельной итоговой суммы под ними нет
+     (подмена, как на планшете, здесь срабатывала раньше, чем блок доезжал до
+     середины экрана, и уровни почти не было видно). */
+  .lic-stat{opacity:1!important}
+  .lic-final{display:none}
   .lic-gift-card .art{height:209.2px}
+}
+
+/* ---- Lite: структура по макету от 03.11 ----
+   Модификаторы (--net, --note, --cols, --plain) стоят только в разметке Lite,
+   поэтому Pro остаётся на прежней структуре, пока его не переведут так же.
+   Раскладка на сетке 1440 — только от 1200px; ниже работает перетекающий блок
+   в конце файла. */
+
+/* hero: вместо призыва с кнопкой — одна строка внизу слева */
+.lic-hero-copy--note p{font-size:18px;line-height:1.3;color:rgba(249,249,249,.8)}
+
+/* куда идут $6: сеть из 7 уровней стала панелью под иллюстрацией */
+.lic-net{border-radius:13px;box-shadow:var(--lic-hair);
+  background:linear-gradient(134.53deg,rgb(20,20,21) 43.2%,rgb(43,43,44) 111.35%);
+  -webkit-backdrop-filter:blur(62.8px);backdrop-filter:blur(62.8px);
+  display:flex;flex-direction:column;gap:40px;padding:24px;z-index:3}
+.lic-net-top{display:flex;flex-direction:column;gap:8px;align-items:flex-start}
+.lic-net-top .v{font-family:var(--font-display);font-weight:700;font-size:32px;line-height:1;
+  letter-spacing:-.01em;color:var(--lic-fg);text-transform:uppercase;white-space:nowrap}
+.lic-net-top .l{font-family:var(--font-text);font-weight:700;font-size:18px;line-height:1.1;
+  letter-spacing:-.01em;color:var(--lic-fg);text-transform:uppercase;white-space:nowrap}
+.lic-net-top .n{font-family:var(--font-text);font-weight:400;font-size:14px;line-height:1.2;
+  color:rgba(255,255,255,.4)}
+.lic-net .lic-rail i{position:absolute;left:63px;top:0;height:5px;width:89px;border-radius:100px;
+  background:var(--lic-accent);transition:width 320ms var(--ease-standard)}
+/* Оранжевый отрезок дотягивается до последнего активного уровня: шаг 91 + 64 = 155. */
+.lic-net-chain:has(.lic-partner:nth-child(2).is-on) .lic-rail i{width:244px}
+.lic-net-chain:has(.lic-partner:nth-child(3).is-on) .lic-rail i{width:399px}
+.lic-net-chain:has(.lic-partner:nth-child(4).is-on) .lic-rail i{width:554px}
+.lic-net-chain:has(.lic-partner:nth-child(5).is-on) .lic-rail i{width:709px}
+.lic-net-chain:has(.lic-partner:nth-child(6).is-on) .lic-rail i{width:864px}
+.lic-net-chain:has(.lic-partner:nth-child(7).is-on) .lic-rail i{width:955px}
+/* В макете неактивные уровни — обесцвеченные аватары и приглушённая сумма. */
+.lic-net .lic-partner .disc img{opacity:1;filter:grayscale(1);
+  transition:filter 320ms var(--ease-standard)}
+.lic-net .lic-partner.is-on .disc img{filter:none}
+.lic-net .lic-partner .meta b{opacity:.4;transition:opacity 320ms var(--ease-standard)}
+.lic-net .lic-partner.is-on .meta b{opacity:1}
+.lic-net .lic-partner .badge{background:rgb(33,33,34)}
+.lic-net .lic-partner.is-on .badge{background:linear-gradient(-28.81deg,rgb(243,64,13) 38.69%,rgb(234,104,19) 94.59%)}
+
+/* специальные бонусы: две колонки «Уровни» / «Бонус Пак» */
+.lic-pill{display:inline-flex;align-items:center;justify-content:center;padding:2px 12px 4px;
+  border-radius:100px;background:rgba(217,220,233,.3);font-family:var(--font-text);
+  font-weight:600;font-size:16px;line-height:1.35;letter-spacing:.01em;color:var(--lic-fg);
+  white-space:nowrap;align-self:flex-start}
+.lic-pill--accent{background:linear-gradient(-11.51deg,rgb(243,64,13) 1.21%,rgb(234,104,19) 94.92%);
+  letter-spacing:-.02em}
+.lic-bonus--cols{flex-direction:row;gap:40px;align-items:flex-start}
+.lic-bonus-col{flex:1 1 0;min-width:0;display:flex;flex-direction:column;gap:24px}
+.lic-bonus-list{display:flex;flex-direction:column;gap:12px}
+.lic-bonus-card--row{height:auto;flex-direction:row;justify-content:flex-start;align-items:center;
+  gap:120px;flex-grow:0;background:linear-gradient(143.72deg,rgb(20,20,21) 43.2%,rgb(43,43,44) 111.35%)}
+.lic-bonus-card--row .top{height:auto;justify-content:center;align-self:auto;flex-shrink:0}
+.lic-bonus-card--row .u{font-size:18px;line-height:1.1}
+.lic-bonus-card--row .v{line-height:1;letter-spacing:-.01em;white-space:nowrap;align-self:auto}
+
+/* подарки: один белый заголовок в две строки, квадратный арт */
+.lic-gift-sec--plain .lic-gift-head{width:836px}
+.lic-gift-sec--plain .lic-gift-head .t{margin:0}
+.lic-gift-sec--plain .lic-gift-head .t span:last-child{color:inherit}
+.lic-gift-sec--plain .lic-gift-row{gap:12px;height:auto}
+.lic-gift-sec--plain .lic-gift-card{height:auto}
+.lic-gift-sec--plain .lic-gift-card .art{height:auto;aspect-ratio:1}
+
+@media (min-width:1200px){
+  /* Без «твой» строка короче и влезала бы в одну; в макете колонка 930 по центру
+     (слой плашек сдвинут на −80, отсюда 255 + 80). */
+  .lic-hero-title--short{left:335px;width:930px}
+  .lic-hero-copy--note{top:714px;width:215px}
+  /* Pro: «$24» длиннее, колонка 1030 и явный перенос после «старт», как в макете. */
+  .lic-hero-title--pro{left:285px;width:1030px}
+  .lic-hero-copy--pro{top:713px;width:204px}
+  .lic-split-pin--net .lic-levelart{top:249px}
+  .lic-net{position:absolute;left:186px;top:648px;width:1068px}
+  .lic-net-chain{position:relative;width:1018px;height:135px}
+  .lic-net .lic-rail{left:0;top:47px}
+  .lic-net .lic-partners{left:0;top:0}
+  .lic-bonus-sec--cols{height:617px}
+  .lic-bonus-sec--cols .lic-head{left:0;width:1440px}
+  .lic-bonus-sec--cols .lic-head p.lic-sub{width:auto;font-size:18px;white-space:nowrap}
+  .lic-bonus--cols{left:269px;top:207px;width:902px}
+}
+
+@media (max-width:1199px){
+  .lic-net{position:relative;width:100%;max-width:700px;gap:24px;padding:20px}
+  .lic-net-chain{position:relative}
+  .lic-net .lic-partners{justify-content:center}
+  .lic-bonus--cols{flex-direction:column;gap:32px;max-width:560px;margin-inline:auto}
+  .lic-bonus-col{width:100%}
+  .lic-bonus-card--row{justify-content:space-between;gap:24px;min-height:0}
+  .lic-gift-sec--plain .lic-gift-head{width:100%}
+  .lic-gift-sec--plain .lic-gift-card .art{height:auto}
+}
+
+/* ---- правки по комментариям дизайнера от 09.11 (Lite и Pro) ---- */
+
+/* Подпись карусели партнёров нужна только телефону. */
+
+/* Десктоп: блок графика в макете высотой 614, а не 974, и «Специальные бонусы»
+   идут сразу за ним без общего зазора — раньше между итогом и заголовком
+   набегало почти 500px пустоты. */
+@media (min-width:1200px){
+  .lic-stage.lic-graph-sec{height:614px}
+  /* Без своей подложки: иначе она резала свечение и сетку графика ровной линией. */
+  .lic-graph-pin+.lic-sec{margin-top:0;background:transparent}
+}
+
+/* Планшет: раскладка по макету 768. */
+@media (min-width:768px) and (max-width:1199px){
+  /* У секций своя подложка цвета страницы, и она резала свечение предыдущего
+     блока ровной линией прямо над заголовком. */
+  .lic-sec{background:transparent}
+  .lic-head h2,.lic-graph-title,.lic-gift-head .t span{font-size:56px;line-height:1.1}
+  .lic-head p,.lic-head p.lic-sub{font-size:18px}
+
+  /* Ритм между блоками как в макете. */
+  .lic-pin+.lic-sec.lic-tree-sec{margin-top:180px}
+  .lic-sec+.lic-pin.lic-graph-pin{margin-top:140px}
+  .lic-pin+.lic-sec.lic-bonus-sec{margin-top:70px}
+  .lic-sec+.lic-sec.lic-gift-sec{margin-top:141px}
+
+  /* Куда идут $6: медведь по центру, $1 слева и $0.50 справа поверх него,
+     ниже — панель сети на всю ширину с семью уровнями в один ряд. */
+  .lic-split-pin .lic-stage{display:grid;grid-template-columns:minmax(0,1fr);gap:0;
+    justify-items:stretch;padding:0 var(--lic-gutter)}
+  .lic-split-pin .lic-head{grid-row:1;max-width:560px;justify-self:center}
+  .lic-split-pin .lic-levelart{grid-row:2;grid-column:1;position:relative;left:auto;top:auto;
+    transform:none;width:365px;height:333px;justify-self:center;margin:121px 0 -28px;
+    opacity:1;z-index:1}
+  .lic-split-pin .lic-split-cards{grid-row:2;grid-column:1;display:flex;justify-content:space-between;
+    align-items:flex-start;width:100%;max-width:none;margin-top:86px}
+  .lic-split-cards .lic-split-card{width:224px;max-width:31%;height:auto;min-height:180px}
+  .lic-split-cards .lic-split-card:nth-child(2){order:-1}
+  .lic-split-card .l{white-space:normal}
+  .lic-split-pin .lic-net{grid-row:3;width:100%;max-width:none;gap:40px;padding:24px}
+  .lic-net .lic-partners{display:flex;flex-wrap:nowrap;justify-content:space-between;gap:0;width:100%}
+  .lic-net .lic-partner{width:75px}
+  .lic-net .lic-partner .disc{width:64px;height:64px}
+  .lic-net .lic-partner .disc img{width:46px;height:46px}
+  .lic-net .lic-partner .badge{left:auto;right:-2px;top:-6px;width:26px;height:26px;font-size:14px}
+  .lic-net .lic-partner .meta b{font-size:16px}
+  .lic-net .lic-partner .meta i{font-size:12px}
+  .lic-net .lic-rail{display:block;position:absolute!important;left:37px;right:37px;top:30px;width:auto}
+  /* Оранжевый отрезок тянется к следующему уровню; шаг в процентах, а не в px сетки 1440. */
+  .lic-net .lic-rail i{left:0;width:min(100%,calc((var(--lic-step,0) + .5) / 6 * 100%))!important}
+
+  /* График: итог подменяет статистику на том же месте, как на десктопе, а не
+     встаёт под ней; под цифрами остаётся поле для кривой. */
+  .lic-graph-sec{display:grid;grid-template-columns:minmax(0,1fr);align-content:start;gap:0;
+    min-height:585px;padding:0 var(--lic-gutter)}
+  .lic-graph-sec .lic-graph-title{grid-row:1}
+  .lic-graph-sec .lic-graph-stats,.lic-graph-sec .lic-final{grid-row:2;grid-column:1;margin-top:162px}
+  .lic-graph-line{top:34%}
+
+  /* Специальные бонусы: две колонки, в карточке пака сумма под названием. */
+  .lic-bonus--cols{flex-direction:row;gap:12px;max-width:none;width:100%}
+  .lic-bonus-card--row{flex-direction:column;align-items:flex-start;justify-content:space-between;
+    min-height:155px;gap:24px}
+
+  /* Подарки: сетка в две колонки, арт квадратный. */
+  .lic-gift-sec--plain .lic-gift-row{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  .lic-gift-head p{max-width:456px}
+}
+
+/* Телефон: «Куда идут $6» по мобильному макету — без медведя. Сверху карточки
+   $0.50 и $1, последней — карточка сети с крупным партнёром текущего уровня.
+   Ленту партнёров листают свайпом, независимо от прокрутки страницы. */
+@media (max-width:767px){
+  .lic-split-pin .lic-levelart{display:none}
+  .lic-split-pin .lic-stage{gap:8px;padding:0 16px}
+  .lic-split-pin .lic-head{gap:8px;margin-bottom:58px}
+  .lic-split-pin .lic-head h2{font-size:30px}
+  .lic-split-pin .lic-head p{font-size:14px}
+  .lic-split-pin .lic-net{order:3;width:100%;max-width:none;margin-top:8px;padding:24px;gap:40px;overflow:hidden}
+  .lic-split-pin .lic-split-cards{order:2;display:flex;flex-direction:column;gap:8px;max-width:none}
+  .lic-split-cards .lic-split-card{width:100%;max-width:none;height:auto}
+  .lic-split-card .top{flex-direction:row;justify-content:space-between;align-items:center}
+  .lic-split-card .v{font-size:24px}
+  .lic-split-card .l{font-size:16px}
+  .lic-split-card .n{color:rgba(255,255,255,.4)}
+
+  .lic-net-chain{order:1;margin:0 -24px;overflow-x:auto;overflow-y:hidden;
+    scroll-snap-type:x mandatory;overscroll-behavior-x:contain;scrollbar-width:none;
+    -webkit-overflow-scrolling:touch}
+  .lic-net-chain::-webkit-scrollbar{display:none}
+  .lic-net-top{order:2;display:grid;grid-template-columns:auto 1fr;gap:10px 8px;align-items:center}
+  .lic-net-top .v{font-size:24px}
+  .lic-net-top .l{justify-self:end}
+  .lic-net-top .n{grid-column:1/-1}
+
+  .lic-net .lic-partners{display:flex;flex-wrap:nowrap;gap:0;justify-content:flex-start;width:100%}
+  .lic-net .lic-partner{flex:0 0 100%;width:100%;gap:12px;padding-top:5px;
+    scroll-snap-align:center;scroll-snap-stop:always}
+  .lic-net .lic-partner .disc{width:155px;height:155px}
+  .lic-net .lic-partner .disc img{width:109px;height:109px}
+  .lic-net .lic-partner .badge{left:calc(50% + 33px);top:0;width:50px;height:50px;font-size:24px}
+  .lic-net .lic-partner .meta{gap:12px}
+  .lic-net .lic-partner .meta b{font-size:24px;opacity:1}
+  .lic-net .lic-partner .meta i{font-size:16px;font-weight:700;color:var(--lic-fg);text-transform:uppercase}
+  /* Нить между партнёрами: от края диска до края ленты, у пройденных — оранжевая. */
+  .lic-net .lic-partner::before,.lic-net .lic-partner::after{content:"";position:absolute;
+    top:calc(5px + 77.5px - 4px);height:8px;background:rgb(43,43,44);
+    transition:background 320ms var(--ease-standard)}
+  .lic-net .lic-partner::after{left:calc(50% + 77.5px);right:0;border-radius:100px 0 0 100px}
+  .lic-net .lic-partner::before{left:0;right:calc(50% + 77.5px);border-radius:0 100px 100px 0}
+  .lic-net .lic-partner:first-child::before,.lic-net .lic-partner:last-child::after{display:none}
+  .lic-net .lic-partner.is-on::before,.lic-net .lic-partner.is-on::after{background:var(--lic-accent)}
+}
+
+/* ---- сверка отступов с макетом (09.11): Lite и Pro ----
+   Числа сняты с макета по координатам. В макете блоки стоят встык со своими
+   внутренними полями, поэтому общий зазор --w2p-block между ними заменён на
+   поблочные значения. */
+
+/* Карточки подарков: в макете подписи обрезаны по высоте букв, у нас это даёт
+   лишние ~14px на карточку. Межстрочный 1 возвращает высоту к макету. */
+.lic-gift-card .pn,.lic-gift-card .earn span{line-height:1}
+.lic-gift-card .ft{gap:12px}
+.lic-gift-card .ft>div:first-child{gap:8px}
+
+@media (min-width:1200px){
+  /* Градиент низа hero длиннее самого hero на 148px. При зазоре 37 его хвост
+     ложился чёрной полосой поверх заголовка «Куда идут», поэтому пин поднят
+     над ним по слоям. */
+  .lic-hero+.lic-pin{margin-top:37px;z-index:4}
+  /* От низа карточки партнёрской сети до заголовка перелива в макете 93px.
+     Отрицательный зазор (−49) заводил сплошной фон перелива на карточку и
+     срезал имена партнёров. */
+  .lic-split-pin+.lic-tree-sec{margin-top:4px}
+  /* У пина графика верхнее поле 11vh под шапку — вычитаем его. */
+  .lic-tree-sec+.lic-graph-pin{margin-top:calc(2px - clamp(72px,11vh,150px))}
+  .lic-bonus-sec+.lic-gift-sec{margin-top:15px}
+  /* min-height 892 добавлял к нижнему полю ещё ~58px пустоты перед подвалом. */
+  .lic-gift-sec{min-height:0}
+
+  .lic-split-card .l{font-size:18px;line-height:1.1}
+  .lic-split-cards .lic-split-card:nth-child(2){width:283px}
+  .lic-tree-sec .lic-head p.lic-sub{width:588px;font-size:18px}
+  .lic-stat,.lic-final{top:274px}
+
+}
+
+/* Дерево (десктоп и планшет — на планшете оно же, ужатое zoom): в макете узлы
+   108 / 88 / 60, плашки подписей заходят на круг снизу. */
+@media (min-width:768px){
+  .lic-node--root .ball{width:108px;height:108px}
+  .lic-node--cell .ball{width:88px;height:88px}
+  .lic-node--leaf .ball{width:60px;height:60px}
+  .lic-node--root .cap,.lic-node--cell .cap{font-size:14px;padding:4px 10px}
+  .lic-node--leaf .cap{font-size:11px;padding:4px 8px}
+  .lic-node--root .cap{margin-top:-20px}
+  .lic-node--cell .cap{margin-top:-18px}
+  .lic-node--leaf .cap{margin-top:-13px}
+}
+
+@media (min-width:768px) and (max-width:1199px){
+  .lic{--lic-gutter:32px}
+  .lic-tree-sec,.lic-graph-sec,.lic-bonus-sec,.lic-gift-sec{padding-left:32px;padding-right:32px}
+
+  /* Первый экран: высота 1000, медведь 467×736 обрезан снизу градиентом. */
+  .lic-hero{height:1000px;overflow:hidden;padding-top:98px;gap:0}
+  .lic-tag{height:33px;padding:6px 12px;margin-top:24px}
+  .lic-tag b{font-size:14px}
+  .lic-hero-objects{margin-top:28px}
+  .lic-hero-title{font-size:72px;line-height:1.1;max-width:636px;margin-inline:auto}
+  .lic-hero-copy{margin-top:16px}
+  .lic-hero-crop{margin-top:113px}
+  .lic-hero-bear{width:467px;height:736px}
+  .lic-hero-fade{display:block;position:absolute;left:0;top:537px;width:100%;height:463px}
+  .lic-hero+.lic-pin{margin-top:110px}
+
+  /* Строка сетки «Куда идут» центровалась по вертикали (наследство флекса),
+     и карточки $1 / $0.50 сползали на 77px вниз. */
+  .lic-split-pin .lic-stage{align-items:start}
+  .lic-net .lic-partner{padding-top:8px;gap:6px}
+  .lic-net .lic-partner .disc{width:66px;height:66px}
+  .lic-net .lic-partner .badge{right:0;top:0;width:29px;height:29px;font-size:18px}
+  .lic-net .lic-partner .meta{gap:6px}
+  .lic-net .lic-partner .meta i{font-weight:700}
+  .lic-net .lic-rail{top:39px}
+
+  .lic-stat .cap{font-size:16px}
+  .lic-gift-sec{padding-bottom:141px}
+}
+
+@media (max-width:767px){
+  .lic{--lic-gutter:16px}
+  .lic-tree-sec,.lic-graph-sec,.lic-bonus-sec,.lic-gift-sec{padding-left:16px;padding-right:16px}
+
+  .lic-crumb span{font-size:14px}
+  .lic-tag b{font-size:14px}
+  .lic-hero-title{font-size:36px}
+  .lic-hero-copy--note p{font-size:16px}
+
+  /* Заголовки блоков 30, подзаголовки 14 — как в мобильном макете. */
+  .lic-head h2,.lic-graph-title,.lic-gift-head .t span{font-size:30px;line-height:1.2}
+  .lic-head p,.lic-head p.lic-sub,.lic-gift-head p{font-size:14px}
+
+  .lic-pin+.lic-sec.lic-tree-sec{margin-top:198px}
+  .lic-pin+.lic-sec.lic-bonus-sec{margin-top:129px}
+
+  /* График: три показателя столбиком, цифры 36, между ними 40. */
+  .lic-graph-stats{gap:40px;margin-top:70px}
+  .lic-stat{gap:8px;height:auto}
+  .lic-stat .num{font-size:36px}
+  .lic-stat .cap{font-size:14px}
+
+  /* Бонусы: от подзаголовка до плашек 32; в карточке пака сумма во второй
+     половине, а не прижата вправо. */
+  .lic-bonus-sec{gap:32px}
+  .lic-bonus-sec .lic-head p.lic-sub{max-width:281px;margin-inline:auto}
+  .lic-bonus-card--row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;align-items:center}
+}
+
+/* ---- первый экран по макету (09.11): хромированные фигуры, плашки, свечение ----
+   Координаты каждой фигуры и плашки лежат в разметке переменными: --d* для
+   сетки 1440, --t* для планшета 768, --m* для телефона 375. */
+.lic-hero-objects i.lic-hc{background:none;width:calc(var(--w) * 1px);height:calc(var(--h) * 1px)}
+.lic-hc b{display:block;width:100%;height:100%;
+  background:url(../assets/license/hero-chrome.webp) center/cover no-repeat}
+/* Одно размытое оранжевое пятно справа вместо двух круглых свечений. */
+.lic-hero-blur{position:absolute;left:876px;top:106.5px;width:408px;height:1061px;z-index:0;
+  background:rgb(243,64,13);opacity:.52;transform:rotate(-58.6deg);filter:blur(72px);pointer-events:none}
+
+@media (min-width:1200px){
+  /* Слой плашек сдвинут на −80 (inset), отсюда +80. */
+  .lic-hero-objects i.lic-hp,.lic-hero-objects i.lic-hc{left:calc(var(--dl) * 1px + 80px);
+    top:calc(var(--dt) * 1px + 80px)}
+  .lic-hero-objects i.lic-hp{width:calc(var(--dw) * 1px);height:calc(var(--dh) * 1px)}
+  /* Как в макете, всё обрезается по краю первого экрана: иначе пятно свечения
+     и угол хромированной фигуры вылезали полосой под градиентом. */
+  .lic-hero{overflow:hidden}
+  /* Градиент низа в макете 264px — ровно до конца экрана, не дальше. */
+  .lic-hero-fade{top:536px;height:264px;background:linear-gradient(180deg,rgba(11,1,0,0),rgb(11,1,0))}
+}
+@media (max-width:1199px){
+  .lic-hero-blur{display:none}
+  .lic-hero-title{position:relative;z-index:1;left:auto;top:auto}
+  /* will-change:transform делал слой точкой отсчёта для плашек — координаты
+     макета должны считаться от самого экрана. */
+  .lic-hero-objects{will-change:auto}
+  .lic-hero-fade{background:linear-gradient(180deg,rgba(11,1,0,0),rgb(11,1,0))}
+}
+@media (min-width:768px) and (max-width:1199px){
+  .lic-hero-objects i.lic-hp,.lic-hero-objects i.lic-hc{display:block;z-index:0;
+    left:calc(var(--tl) * 100% / 768);top:calc(var(--tt) * 1px)}
+  .lic-hero-objects i.lic-hp{width:calc(var(--tw) * 1px);height:calc(var(--th) * 1px)}
+  .lic-hero-crop{position:absolute;left:0;right:0;top:525px;margin:0;z-index:2}
+}
+@media (max-width:767px){
+  .lic-hero{height:800px;overflow:hidden}
+  .lic-hero-objects i.lic-hp{display:block;z-index:0;left:calc(var(--ml) * 100% / 375);
+    top:calc(var(--mt) * 1px);width:calc(var(--mw) * 1px);height:calc(var(--mh) * 1px)}
+  .lic-hero-crop{position:absolute;left:0;right:0;top:393px;z-index:2}
+  .lic-hero-bear{width:343px;height:540px}
+  .lic-hero-fade{display:block;position:absolute;left:0;top:537px;width:100%;height:263px;z-index:3}
+}
+
+/* Планшет: «Куда идут» закреплён на экране, как на десктопе, — уровни 1→7
+   проходят по скроллу, пока блок стоит, а не пока он проезжает мимо. */
+@media (min-width:768px) and (max-width:1199px){
+  .lic-split-pin{height:300vh}
+  .lic-split-pin .lic-pin-inner{position:sticky;top:var(--lic-stick,0px);padding-top:90px}
+  .lic-hero+.lic-pin{margin-top:20px}
+}
+
+/* Телефон: «Куда идут» не закреплён — лента партнёров листается свайпом. */
+@media (max-width:767px){
+  .lic-split-pin{height:auto}
+  .lic-split-pin .lic-pin-inner{position:static;padding-top:100px}
+  .lic-hero+.lic-pin{margin-top:24px}
+}
+
+/* ---- правки по сверке с макетом (10.11): Lite и Pro ---- */
+
+/* Свечения как в макете: размытые прямоугольники (layer blur 145 в Figma ≈ blur 72).
+   Белое за персонажем «Куда идут», оранжевое слева у дерева перелива и справа
+   от графика — оно же заходит на «Специальные бонусы», поэтому у бонусов своего
+   нет. В макетах 768 и 375 свечений нет. */
+.lic-blur{position:absolute;display:none;border-radius:1000px;background:rgb(243,64,13);
+  opacity:.52;filter:blur(72px);pointer-events:none;z-index:0}
+@media (min-width:1200px){
+  .lic-blur{display:block}
+  .lic-blur--net{left:469px;top:269px;width:496px;height:467px;background:#fff}
+  .lic-blur--tree{left:-512px;top:400px;width:737px;height:708px}
+  /* Пятно справа внизу графика, центр — на уровне заголовка «Специальные бонусы»
+     (как на рендере макета). Хвост блюра уходит ниже сцены на ~650px — запас
+     обрезки пина увеличен, а у подарков снята своя подложка, иначе пятно
+     резалось ровной линией. */
+  .lic-blur--graph{left:1154px;top:252px;width:1046px;height:865px}
+  .lic-graph-pin .lic-pin-inner{overflow-clip-margin:720px}
+  .lic-bonus-sec+.lic-gift-sec{background:transparent}
+}
+
+@media (min-width:768px) and (max-width:1199px){
+  /* Дерево: десктопная схема 990×410, ужатая до ширины колонки (zoom из js). */
+  .lic-tree-sec{gap:48px}
+  .lic-tree{position:relative;left:auto;top:auto;flex-shrink:0;zoom:var(--lic-tree-z,.711)}
+  /* Цифры графика в макете 36px. */
+  .lic-stat .num{font-size:36px}
+  /* Имена партнёров: прописные, у активного уровня — белые. */
+  .lic-net .lic-partner .meta i{text-transform:uppercase}
+  .lic-net .lic-partner.is-on .meta i{color:#fff}
 }

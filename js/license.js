@@ -24,9 +24,28 @@
     // Оставляем место под фиксированную шапку плюс воздух, затем делим на зум
     // страницы, чтобы сцена мерялась в тех же единицах, в которых рисуется.
     var avail = (window.innerHeight - 24 - 16) / z;
-    root.style.setProperty("--lic-fit", String(Math.min(1, avail / 846)));
+    // В Lite уровни сидят в панели под иллюстрацией, и сцена кончается ниже (~956 − 60).
+    var need = root.querySelector(".lic-split-pin--net") ? 900 : 846;
+    root.style.setProperty("--lic-fit", String(Math.min(1, avail / need)));
+    // Планшет: блок «Куда идут» закреплён, как на десктопе. Если окно ниже
+    // блока, он прилипает с отрицательным отступом, чтобы низ панели сети
+    // оставался на экране. На телефоне блок не закреплён.
+    var splitInner = root.querySelector(".lic-split-pin .lic-pin-inner");
+    if (splitInner) {
+      var stick = 0;
+      if (w >= 768 && w < 1200) stick = Math.min(0, window.innerHeight - splitInner.offsetHeight);
+      splitInner.style.setProperty("--lic-stick", stick + "px");
+    }
+    // Планшет: дерево перелива — десктопная схема 990 px, ужатая до ширины колонки.
+    var treeSec = root.querySelector(".lic-tree-sec");
+    if (treeSec && w >= 768 && w < 1200) {
+      var cs = getComputedStyle(treeSec);
+      var inner = treeSec.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+      treeSec.style.setProperty("--lic-tree-z", String(Math.min(1, inner / 990)));
+    }
   }
   fit();
+  window.addEventListener("load", fit);
   window.addEventListener("resize", fit);
 
   /* Прогресс прокрутки внутри закреплённой секции: 0, когда её верх дошёл до верха
@@ -109,19 +128,35 @@
     if (!pin) return;
     var art = pin.querySelectorAll(".lic-levelart img");
     var partners = pin.querySelectorAll(".lic-partner");
+    var chain = pin.querySelector(".lic-net-chain");
     var last = -1;
+    var mqPhone = window.matchMedia("(max-width: 767px)");
+    // Телефон: блок не закреплён, уровень = партнёр, до которого долистали ленту
+    // свайпом (горизонтальный скролл не зависит от прокрутки страницы).
+    // Планшет и десктоп: уровень по прокрутке закреплённого пина.
+    function currentStep() {
+      if (chain && mqPhone.matches) {
+        var w = chain.clientWidth || 1;
+        return Math.round(chain.scrollLeft / w) + 1;
+      }
+      return Math.floor(progressOf(pin) * 7) + 1;
+    }
     function apply() {
-      var step = Math.min(7, Math.max(1, Math.floor(progressOf(pin) * 7) + 1));
+      var step = Math.min(7, Math.max(1, currentStep()));
       if (step === last) return;
       last = step;
       for (var i = 0; i < art.length; i++) art[i].classList.toggle("is-on", i + 1 === step);
       for (var j = 0; j < partners.length; j++) partners[j].classList.toggle("is-on", j < step);
+      // Планшет: оранжевая нить ленты дорастает до текущего уровня через --lic-step.
+      if (chain) chain.style.setProperty("--lic-step", String(step - 1));
     }
     (function tick() {
       if (isNear(pin)) apply();
       requestAnimationFrame(tick);
     })();
     scrollHooks.push(apply);
+    if (chain) chain.addEventListener("scroll", apply, { passive: true });
+    mqPhone.addEventListener && mqPhone.addEventListener("change", function () { last = -1; apply(); });
   })();
 
   /* ---------- 3. график дохода ---------- */
@@ -173,8 +208,14 @@
         var cells = stats.querySelectorAll(".lic-stat");
         for (var i = 0; i < cells.length; i++) cells[i].style.opacity = done ? 0 : 1;
       }
-      // Линия прочерчивается от левого нижнего угла к правому верхнему по мере прокрутки.
-      if (path) line.style.strokeDashoffset = String(len * (1 - Math.min(p / RUNWAY, 1)));
+      // Линия прочерчивается от левого нижнего угла к правому верхнему, пока блок
+      // заезжает на экран, и к первому шагу уже целая — в макете она полная на всех шагах.
+      if (path) {
+        var r = pin.getBoundingClientRect();
+        var vh = window.innerHeight;
+        var enter = Math.min(Math.max((vh - r.top) / (vh * 0.85), 0), 1);
+        line.style.strokeDashoffset = String(len * (1 - enter));
+      }
     }
     (function tick() {
       if (isNear(pin)) apply();

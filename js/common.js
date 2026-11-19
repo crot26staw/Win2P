@@ -92,12 +92,13 @@
   function initHeader() {
     var shell = document.querySelector(".w2p-header-fix");
     if (!shell) return;
-    var attr = shell.getAttribute("data-threshold");
-    var fixed = attr ? Number(attr) : null;
     // Переключение класса не читает вёрстку, только scrollY, поэтому обходимся без
     // requestAnimationFrame: фон шапки меняется в том же кадре, что и прокрутка.
+    // Атрибут читаем на каждом вызове — страница может снять его (Wintime без пина
+    // на портретных планшете/мобильном).
     function apply() {
-      var limit = fixed != null ? fixed : window.innerHeight * 0.82;
+      var attr = shell.getAttribute("data-threshold");
+      var limit = attr ? Number(attr) : window.innerHeight * 0.82;
       shell.classList.toggle("is-solid", (window.scrollY || 0) > limit);
     }
     apply();

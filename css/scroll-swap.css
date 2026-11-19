@@ -1,0 +1,64 @@
+/* Смена блоков по прокрутке (ai-panda, pando), как на skinlove.ae/injection.
+   Разметка: .sw[data-swap] > .sw-pin > секции [data-swap-item] с [data-swap-art] и [data-swap-copy].
+   Класс .sw-on ставит js/scroll-swap.js на всех ширинах, кроме reduce-motion —
+   тогда секции идут друг за другом как обычно. */
+
+/* Экран под фиксированной шапкой целиком: блок от низа шапки до низа окна.
+   --sw-hdr — реальная высота шапки (меряет js, выше 1440 она растёт с шириной).
+   На ≥1200 блок внутри .wz с zoom, а шапка — снаружи: vh и высоту шапки делим на зум,
+   иначе на экранах шире 1440 блок выходит больше окна (ниже 1200 зум = 1).
+   svh — чтобы на телефоне низ блока не прятался под панелью браузера. */
+.sw-on{--sw-vh:100vh;--sw-z:var(--wz-zoom,1);--sw-head:calc(var(--sw-hdr,78px) / var(--sw-z));
+  --sw-h:calc((var(--sw-vh) - var(--sw-hdr,78px)) / var(--sw-z));
+  --sw-step:calc(var(--sw-vh) * .9 / var(--sw-z));position:relative;
+  height:calc(var(--sw-h) + (var(--sw-n) - 1) * var(--sw-step))}
+@supports (height:100svh){.sw-on{--sw-vh:100svh}}
+.sw-on>.sw-pin{position:sticky;top:var(--sw-head);height:var(--sw-h);overflow:hidden}
+.sw-on [data-swap-item]{position:absolute;inset:0;height:auto;grid-template-rows:100%}
+.sw-on [data-swap-item]:not(:first-child){background:transparent}
+.sw-on [data-swap-art]{will-change:clip-path,transform}
+
+/* Текст: активный на месте, следующие ждут снизу, пройденные ушли вверх */
+.sw-on [data-swap-copy]{opacity:0;visibility:hidden;transform:translateY(40px);
+  transition:opacity .6s cubic-bezier(.22,.61,.36,1),transform .8s cubic-bezier(.22,.61,.36,1),
+    visibility 0s linear .8s}
+.sw-on [data-swap-copy].is-past{transform:translateY(-40px)}
+.sw-on [data-swap-copy].is-active{opacity:1;visibility:visible;transform:none;
+  transition-delay:.12s,.12s,0s}
+
+/* ---------- мобильный: текст сверху (высота — по самому высокому тексту, --sw-copy
+   ставит js, чтобы картинки всех секций стояли в одном месте), картинка — до низа ---------- */
+@media (max-width:767px){
+  .sw-on [data-swap-item]{display:grid;grid-template-columns:100%;
+    grid-template-rows:var(--sw-copy,auto) minmax(0,1fr);padding:0;gap:0}
+  .sw-on [data-swap-copy]{grid-column:1;grid-row:1;min-height:0;padding:28px 20px;justify-content:center}
+  .sw-on [data-swap-art]{grid-column:1;grid-row:2;aspect-ratio:auto;min-height:0}
+  /* Pando: картинка в пропорциях макета 375×417, а не на весь остаток экрана (иначе cover
+     увеличивает кадр); лишняя высота — поровну сверху и снизу, на низких экранах — как раньше */
+  .sw-on .pd-split-art{align-self:center;height:min(100%,111.2vw)}
+}
+
+/* ---------- планшет: сетка макета, растянутая на высоту экрана ---------- */
+@media (min-width:768px) and (max-width:1199px){
+  .sw-on .pd-split-art{margin-top:0}
+  .sw-on .pd-split-copy{padding-top:0}
+  /* Экран сцены выше макетного блока (636), поэтому картинка не тянется на всю высоту,
+     а держит пропорции макета (Pando 420×574, AI Panda 404×636) и стоит по центру:
+     на всю высоту cover увеличивал кадр в ~1.5 раза и резал края (голограмма «Маркетинг») */
+  .sw-on [data-swap-art]{align-self:center;max-height:100%}
+  .sw-on .pd-split-art{aspect-ratio:420/574}
+  .sw-on .ap-split-art{aspect-ratio:404/636}
+}
+
+/* ---------- десктоп: картинка на всю высоту в пропорциях макета (кадр не увеличивается),
+   ширина колонки следует из высоты, но не шире макетной 720 (на 1440×900 было 740–787) ---------- */
+@media (min-width:1200px){
+  .sw-on.ap-swap{--sw-ar:720/752}
+  .sw-on.pd-swap{--sw-ar:720/800}
+  .sw-on [data-swap-item]{grid-template-columns:min(calc(var(--sw-h) * var(--sw-ar)),720px) minmax(0,1fr)}
+  .sw-on [data-swap-art]{grid-column:1;grid-row:1;margin:0}
+  /* колонка текста уже макетной — поля и заголовок по ширине экрана */
+  .sw-on [data-swap-copy]{grid-column:2;grid-row:1;padding:0 32px}
+  /* 56 на 1440, как в макете; уже — уменьшается вместе с колонкой текста */
+  .sw-on .ap-split-title,.sw-on .pd-split-title{font-size:min(56px,calc(3.9vw / var(--sw-z)))}
+}

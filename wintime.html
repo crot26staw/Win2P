@@ -21,10 +21,14 @@
 <meta name="twitter:title" content="WinTime — нативный токен экосистемы Win2Partners">
 <meta name="twitter:description" content="WinTime — цифровой актив, который объединяет социальный нетворкинг, вознаграждения, игровые механики и доступ к продуктам экосистемы Win2Partners.">
 <meta name="twitter:image" content="https://win2partners.com/assets/statement-pig-bg.png">
-<link rel="preload" as="image" href="assets/wintime-frames/f000.jpg">
-<link rel="stylesheet" href="css/tokens.css">
-<link rel="stylesheet" href="css/components.css">
-<link rel="stylesheet" href="css/site.css">
+<link rel="preload" as="image" href="assets/wintime-frames/f000.jpg" media="(min-width: 1201px), (orientation: landscape)">
+<link rel="preload" as="image" href="assets/wintime-hero.webp" media="(max-width: 1200px) and (orientation: portrait)">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="css/tokens.css?v=20261110">
+<link rel="stylesheet" href="css/components.css?v=20261118">
+<link rel="stylesheet" href="css/site.css?v=20261118">
 </head>
 <body>
 <div class="w2p-header-fix" data-threshold="2400">
@@ -58,11 +62,80 @@
     </div>
   </div>
 
-  <section class="w2p-section w2p-section--overhero w2p-section--bare">
-    <div class="w2p-glowfield" aria-hidden="true">
-      <div class="w2p-glow" style="left:-20%;top:-22%;width:46%;height:52%"></div>
-      <div class="w2p-glow" style="right:-16%;top:22%;width:42%;height:46%"></div>
+  <!-- Роль токена: карта социального слоя и две карточки механик.
+       Аватары и плашки с монетами стоят в процентах карточки 754×504 из макета,
+       поэтому композиция масштабируется вместе с картой.
+       Яркие монеты в плашке = токены WinTime, от них зависит размер аватара:
+       5 монет (pill.webp) — аватар 60px, 2 (pill-2) — шпион 52px, 1 (pill-1) — 38/29px. -->
+  <section class="w2p-section w2p-section--overhero w2p-section--bare w2p-role">
+    <div class="w2p-glowfield w2p-role-glow" aria-hidden="true">
+      <div class="w2p-glow" style="left:-30%;top:56%;width:42%;height:49%"></div>
     </div>
+    <h2 class="w2p-display w2p-display--section w2p-center w2p-above w2p-role-title">
+      <span class="w2p-rise">Роль токена</span>
+      <span class="w2p-display--dim w2p-rise" data-reveal-delay="90">в экосистеме</span>
+    </h2>
+    <div class="w2p-role-grid w2p-above">
+      <div class="w2p-role-map w2p-rise">
+        <div class="w2p-role-art" aria-hidden="true">
+          <img loading="lazy" decoding="async" class="w2p-role-bg" src="assets/wintime-role/map.jpg" alt="">
+          <img loading="lazy" decoding="async" class="w2p-role-pin" src="assets/wintime-role/spy.webp" alt="" style="left:65.915%;top:46.825%;width:6.897%">
+          <img loading="lazy" decoding="async" class="w2p-role-pin" src="assets/wintime-role/spy.webp" alt="" style="left:59.682%;top:35.913%;width:3.846%">
+          <img loading="lazy" decoding="async" class="w2p-role-pin" src="assets/wintime-role/spy.webp" alt="" style="left:36.737%;top:49.603%;width:5.040%">
+          <img loading="lazy" decoding="async" class="w2p-role-pin" src="assets/wintime-role/spy.webp" alt="" style="left:52.387%;top:67.857%;width:6.897%">
+          <img loading="lazy" decoding="async" class="w2p-role-pin w2p-role-av" src="assets/wintime-role/av-1.webp" alt="" style="left:11.804%;top:35.317%">
+          <img loading="lazy" decoding="async" class="w2p-role-pin w2p-role-av" src="assets/wintime-role/av-2.webp" alt="" style="left:17.109%;top:64.484%">
+          <img loading="lazy" decoding="async" class="w2p-role-pin w2p-role-av" src="assets/wintime-role/av-3.webp" alt="" style="left:48.011%;top:45.238%">
+          <img loading="lazy" decoding="async" class="w2p-role-pin w2p-role-av" src="assets/wintime-role/av-4.webp" alt="" style="left:55.968%;top:17.262%">
+          <img loading="lazy" decoding="async" class="w2p-role-pin w2p-role-av" src="assets/wintime-role/av-5.webp" alt="" style="left:76.525%;top:26.984%">
+          <img loading="lazy" decoding="async" class="w2p-role-pin w2p-role-av" src="assets/wintime-role/av-6.webp" alt="" style="left:85.942%;top:63.690%">
+          <img loading="lazy" decoding="async" class="w2p-role-pin w2p-role-av" src="assets/wintime-role/av-7.webp" alt="" style="left:28.912%;top:18.056%">
+          <img loading="lazy" decoding="async" class="w2p-role-pin w2p-role-coins" src="assets/wintime-role/pill.webp" alt="" style="left:11.141%;top:29.960%">
+          <img loading="lazy" decoding="async" class="w2p-role-pin w2p-role-coins" src="assets/wintime-role/pill.webp" alt="" style="left:28.249%;top:13.294%">
+          <img loading="lazy" decoding="async" class="w2p-role-pin w2p-role-coins" src="assets/wintime-role/pill.webp" alt="" style="left:55.305%;top:12.103%">
+          <img loading="lazy" decoding="async" class="w2p-role-pin w2p-role-coins" src="assets/wintime-role/pill.webp" alt="" style="left:75.862%;top:21.825%">
+          <img loading="lazy" decoding="async" class="w2p-role-pin w2p-role-coins" src="assets/wintime-role/pill.webp" alt="" style="left:85.279%;top:58.532%">
+          <img loading="lazy" decoding="async" class="w2p-role-pin w2p-role-coins" src="assets/wintime-role/pill.webp" alt="" style="left:47.347%;top:40.079%">
+          <img loading="lazy" decoding="async" class="w2p-role-pin w2p-role-coins" src="assets/wintime-role/pill-2.webp" alt="" style="left:50.796%;top:63.492%">
+          <img loading="lazy" decoding="async" class="w2p-role-pin w2p-role-coins" src="assets/wintime-role/pill-2.webp" alt="" style="left:64.324%;top:42.460%">
+          <img loading="lazy" decoding="async" class="w2p-role-pin w2p-role-coins" src="assets/wintime-role/pill-1.webp" alt="" style="left:57.029%;top:31.548%">
+          <img loading="lazy" decoding="async" class="w2p-role-pin w2p-role-coins" src="assets/wintime-role/pill-1.webp" alt="" style="left:34.615%;top:45.238%">
+          <img loading="lazy" decoding="async" class="w2p-role-pin w2p-role-coins" src="assets/wintime-role/pill.webp" alt="" style="left:16.446%;top:59.325%">
+        </div>
+        <h3 class="w2p-role-map-title">Социальный слой</h3>
+        <ul class="w2p-role-facts">
+          <li>Увеличивает видимость профиля в&nbsp;глобальной карте</li>
+          <li>Формирует рейтинг и&nbsp;позицию пользователя</li>
+          <li>Усиливает нетворкинг внутри экосистемы</li>
+        </ul>
+      </div>
+      <div class="w2p-role-side">
+        <div class="w2p-role-card w2p-rise" data-reveal-delay="90">
+          <h3 class="w2p-role-card-title">Механики вовлечения</h3>
+          <ul class="w2p-role-list">
+            <li><svg class="w2p-role-star" width="11" height="11" viewBox="0 0 11 11" aria-hidden="true"><path d="M2.2 4.4H4.4V0H6.6V4.4H8.8V6.6H6.6V11H4.4V6.6H2.2V4.4ZM0 2.2H2.2V4.4H0V2.2ZM8.8 2.2H11V4.4H8.8V2.2ZM0 6.6H2.2V8.8H0V6.6ZM8.8 6.6H11V8.8H8.8V6.6Z" fill="currentColor"/></svg><span>Участие в ежедневных розыгрышах</span></li>
+            <li><svg class="w2p-role-star" width="11" height="11" viewBox="0 0 11 11" aria-hidden="true"><path d="M2.2 4.4H4.4V0H6.6V4.4H8.8V6.6H6.6V11H4.4V6.6H2.2V4.4ZM0 2.2H2.2V4.4H0V2.2ZM8.8 2.2H11V4.4H8.8V2.2ZM0 6.6H2.2V8.8H0V6.6ZM8.8 6.6H11V8.8H8.8V6.6Z" fill="currentColor"/></svg><span>Конвертация активности в&nbsp;вознаграждения</span></li>
+            <li><svg class="w2p-role-star" width="11" height="11" viewBox="0 0 11 11" aria-hidden="true"><path d="M2.2 4.4H4.4V0H6.6V4.4H8.8V6.6H6.6V11H4.4V6.6H2.2V4.4ZM0 2.2H2.2V4.4H0V2.2ZM8.8 2.2H11V4.4H8.8V2.2ZM0 6.6H2.2V8.8H0V6.6ZM8.8 6.6H11V8.8H8.8V6.6Z" fill="currentColor"/></svg><span>Внутренние бонусные программы</span></li>
+          </ul>
+        </div>
+        <div class="w2p-role-card w2p-rise" data-reveal-delay="180">
+          <h3 class="w2p-role-card-title">Доступ к продуктам</h3>
+          <div class="w2p-role-card-body">
+            <p class="w2p-role-intro">WinTime используется как ключ доступа к&nbsp;сервисам:</p>
+            <ul class="w2p-role-list">
+              <li><svg class="w2p-role-star" width="11" height="11" viewBox="0 0 11 11" aria-hidden="true"><path d="M2.2 4.4H4.4V0H6.6V4.4H8.8V6.6H6.6V11H4.4V6.6H2.2V4.4ZM0 2.2H2.2V4.4H0V2.2ZM8.8 2.2H11V4.4H8.8V2.2ZM0 6.6H2.2V8.8H0V6.6ZM8.8 6.6H11V8.8H8.8V6.6Z" fill="currentColor"/></svg><span>VPN-инфраструктура</span></li>
+              <li><svg class="w2p-role-star" width="11" height="11" viewBox="0 0 11 11" aria-hidden="true"><path d="M2.2 4.4H4.4V0H6.6V4.4H8.8V6.6H6.6V11H4.4V6.6H2.2V4.4ZM0 2.2H2.2V4.4H0V2.2ZM8.8 2.2H11V4.4H8.8V2.2ZM0 6.6H2.2V8.8H0V6.6ZM8.8 6.6H11V8.8H8.8V6.6Z" fill="currentColor"/></svg><span>Контент платформа</span></li>
+              <li><svg class="w2p-role-star" width="11" height="11" viewBox="0 0 11 11" aria-hidden="true"><path d="M2.2 4.4H4.4V0H6.6V4.4H8.8V6.6H6.6V11H4.4V6.6H2.2V4.4ZM0 2.2H2.2V4.4H0V2.2ZM8.8 2.2H11V4.4H8.8V2.2ZM0 6.6H2.2V8.8H0V6.6ZM8.8 6.6H11V8.8H8.8V6.6Z" fill="currentColor"/></svg><span>Криптокарты</span></li>
+              <li><svg class="w2p-role-star" width="11" height="11" viewBox="0 0 11 11" aria-hidden="true"><path d="M2.2 4.4H4.4V0H6.6V4.4H8.8V6.6H6.6V11H4.4V6.6H2.2V4.4ZM0 2.2H2.2V4.4H0V2.2ZM8.8 2.2H11V4.4H8.8V2.2ZM0 6.6H2.2V8.8H0V6.6ZM8.8 6.6H11V8.8H8.8V6.6Z" fill="currentColor"/></svg><span>Экосистемные цифровые продукты</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="w2p-section w2p-section--bare w2p-model">
+    <div class="w2p-model-glow" aria-hidden="true"></div>
     <div class="w2p-col w2p-col--center w2p-above" style="width:100%">
       <h2 class="w2p-display w2p-display--section w2p-center w2p-rise">Модель начисления</h2>
       <p class="w2p-body w2p-center w2p-rise" data-reveal-delay="90">Подписки увеличивают мультипликатор всех начислений</p>
@@ -80,13 +153,12 @@
             <div class="w2p-tc-row w2p-tc-row--token"><span class="w2p-tc-lead"><span class="w2p-tc-value">1 440</span><span class="w2p-token" aria-hidden="true"><svg viewBox="0 0 15.201 10" fill="none"><path d="M 1.266 0 L 0.3 0 C 0.091 0 -0.004 0.094 0 0.305 C 0.001 0.366 0.01 0.426 0.029 0.484 C 0.398 1.595 0.768 2.705 1.14 3.815 C 1.627 5.267 2.115 6.719 2.604 8.171 C 2.632 8.256 2.656 8.342 2.69 8.425 C 2.701 8.453 2.736 8.49 2.758 8.49 C 2.781 8.49 2.821 8.455 2.831 8.427 C 2.912 8.207 2.987 7.985 3.064 7.763 C 3.344 6.956 3.625 6.149 3.906 5.342 C 3.978 5.138 4.047 4.932 4.121 4.729 C 4.16 4.618 4.156 4.512 4.118 4.401 C 3.838 3.578 3.559 2.754 3.282 1.929 C 3.104 1.402 2.925 0.876 2.745 0.35 C 2.669 0.13 2.484 0.002 2.246 0.001 C 1.919 -0.001 1.592 0 1.266 0 Z" fill="currentColor" fill-rule="evenodd"/><path d="M 4.227 10 L 5.261 10 C 5.555 10 5.722 9.87 5.817 9.592 C 5.99 9.082 6.17 8.575 6.348 8.067 L 7.357 5.181 C 7.721 4.139 8.081 3.097 8.448 2.057 C 8.492 1.933 8.567 1.82 8.629 1.703 C 8.672 1.623 8.67 1.542 8.636 1.46 C 8.482 1.085 8.329 0.709 8.169 0.337 C 8.078 0.124 7.91 0.013 7.676 0.013 C 7.112 0.012 7.032 0 6.468 0 C 6.21 0 6.041 0.142 5.966 0.387 L 3.046 8.923 C 3.001 9.049 2.993 9.168 3.042 9.295 C 3.083 9.402 3.113 9.513 3.147 9.623 C 3.217 9.85 3.405 9.987 3.655 9.988 C 4.007 9.989 3.875 10 4.227 10 Z" fill="currentColor" fill-rule="evenodd"/><path d="M 10.015 9.986 L 11.194 9.986 L 11.256 9.986 C 11.49 9.978 11.615 9.821 11.551 9.595 C 11.484 9.359 11.403 9.128 11.326 8.896 C 10.931 7.693 10.542 6.489 10.138 5.289 C 9.799 4.287 9.442 3.292 9.094 2.293 C 9.069 2.221 9.023 2.178 8.951 2.177 C 8.873 2.175 8.828 2.227 8.804 2.299 L 7.625 5.556 C 7.595 5.643 7.594 5.738 7.624 5.826 C 7.849 6.553 8.244 8.167 8.468 8.894 C 8.537 9.118 8.607 9.341 8.675 9.566 C 8.754 9.828 8.96 9.985 9.238 9.986 C 9.641 9.987 9.611 9.986 10.015 9.986 Z" fill="currentColor" fill-rule="evenodd"/><path d="M 13.765 0.001 C 13.425 0.001 13.085 0 12.746 0.001 C 12.52 0.003 12.324 0.072 12.186 0.261 C 12.149 0.309 12.12 0.363 12.099 0.421 C 11.703 1.568 11.308 2.716 10.915 3.865 C 10.797 4.209 10.678 4.553 10.558 4.897 C 10.521 5.001 10.521 5.115 10.558 5.219 C 10.843 6.088 11.128 6.957 11.412 7.827 C 11.576 8.326 11.736 8.826 11.901 9.325 C 11.91 9.354 11.943 9.374 11.965 9.399 C 11.988 9.375 12.022 9.356 12.032 9.329 C 12.264 8.688 12.493 8.047 12.721 7.405 C 13.168 6.149 13.614 4.893 14.059 3.637 C 14.399 2.681 14.739 1.725 15.081 0.77 C 15.111 0.688 15.139 0.606 15.168 0.525 C 15.273 0.226 15.118 0.004 14.798 0.002 C 14.454 -0.001 14.109 0.001 13.765 0.001 Z" fill="currentColor" fill-rule="evenodd"/></svg></span></span><span class="w2p-tc-label">токенов / сутки</span></div>
             <div class="w2p-tc-row"><span class="w2p-tc-label">Лимит рефералов —</span><span class="w2p-tc-value">10</span></div>
           </div>
-          <a class="w2p-btn w2p-btn--primary w2p-btn--block" href="https://t.me/win2partners" target="_blank" rel="noreferrer noopener">Выбрать</a>
         </div>
       </div>
       <div class="w2p-rise" data-reveal-delay="90">
         <div class="w2p-tc">
           <div class="w2p-tc-head">
-            <div class="w2p-tc-title"><h3 class="w2p-tc-name">Lite</h3><span class="w2p-tc-price">$6</span></div>
+            <div class="w2p-tc-title"><h3 class="w2p-tc-name">Lite</h3></div>
             <div class="w2p-tc-rule"></div>
           </div>
           <div class="w2p-tc-rows">
@@ -95,13 +167,15 @@
             <div class="w2p-tc-row w2p-tc-row--token"><span class="w2p-tc-lead"><span class="w2p-tc-value">2 880</span><span class="w2p-token" aria-hidden="true"><svg viewBox="0 0 15.201 10" fill="none"><path d="M 1.266 0 L 0.3 0 C 0.091 0 -0.004 0.094 0 0.305 C 0.001 0.366 0.01 0.426 0.029 0.484 C 0.398 1.595 0.768 2.705 1.14 3.815 C 1.627 5.267 2.115 6.719 2.604 8.171 C 2.632 8.256 2.656 8.342 2.69 8.425 C 2.701 8.453 2.736 8.49 2.758 8.49 C 2.781 8.49 2.821 8.455 2.831 8.427 C 2.912 8.207 2.987 7.985 3.064 7.763 C 3.344 6.956 3.625 6.149 3.906 5.342 C 3.978 5.138 4.047 4.932 4.121 4.729 C 4.16 4.618 4.156 4.512 4.118 4.401 C 3.838 3.578 3.559 2.754 3.282 1.929 C 3.104 1.402 2.925 0.876 2.745 0.35 C 2.669 0.13 2.484 0.002 2.246 0.001 C 1.919 -0.001 1.592 0 1.266 0 Z" fill="currentColor" fill-rule="evenodd"/><path d="M 4.227 10 L 5.261 10 C 5.555 10 5.722 9.87 5.817 9.592 C 5.99 9.082 6.17 8.575 6.348 8.067 L 7.357 5.181 C 7.721 4.139 8.081 3.097 8.448 2.057 C 8.492 1.933 8.567 1.82 8.629 1.703 C 8.672 1.623 8.67 1.542 8.636 1.46 C 8.482 1.085 8.329 0.709 8.169 0.337 C 8.078 0.124 7.91 0.013 7.676 0.013 C 7.112 0.012 7.032 0 6.468 0 C 6.21 0 6.041 0.142 5.966 0.387 L 3.046 8.923 C 3.001 9.049 2.993 9.168 3.042 9.295 C 3.083 9.402 3.113 9.513 3.147 9.623 C 3.217 9.85 3.405 9.987 3.655 9.988 C 4.007 9.989 3.875 10 4.227 10 Z" fill="currentColor" fill-rule="evenodd"/><path d="M 10.015 9.986 L 11.194 9.986 L 11.256 9.986 C 11.49 9.978 11.615 9.821 11.551 9.595 C 11.484 9.359 11.403 9.128 11.326 8.896 C 10.931 7.693 10.542 6.489 10.138 5.289 C 9.799 4.287 9.442 3.292 9.094 2.293 C 9.069 2.221 9.023 2.178 8.951 2.177 C 8.873 2.175 8.828 2.227 8.804 2.299 L 7.625 5.556 C 7.595 5.643 7.594 5.738 7.624 5.826 C 7.849 6.553 8.244 8.167 8.468 8.894 C 8.537 9.118 8.607 9.341 8.675 9.566 C 8.754 9.828 8.96 9.985 9.238 9.986 C 9.641 9.987 9.611 9.986 10.015 9.986 Z" fill="currentColor" fill-rule="evenodd"/><path d="M 13.765 0.001 C 13.425 0.001 13.085 0 12.746 0.001 C 12.52 0.003 12.324 0.072 12.186 0.261 C 12.149 0.309 12.12 0.363 12.099 0.421 C 11.703 1.568 11.308 2.716 10.915 3.865 C 10.797 4.209 10.678 4.553 10.558 4.897 C 10.521 5.001 10.521 5.115 10.558 5.219 C 10.843 6.088 11.128 6.957 11.412 7.827 C 11.576 8.326 11.736 8.826 11.901 9.325 C 11.91 9.354 11.943 9.374 11.965 9.399 C 11.988 9.375 12.022 9.356 12.032 9.329 C 12.264 8.688 12.493 8.047 12.721 7.405 C 13.168 6.149 13.614 4.893 14.059 3.637 C 14.399 2.681 14.739 1.725 15.081 0.77 C 15.111 0.688 15.139 0.606 15.168 0.525 C 15.273 0.226 15.118 0.004 14.798 0.002 C 14.454 -0.001 14.109 0.001 13.765 0.001 Z" fill="currentColor" fill-rule="evenodd"/></svg></span></span><span class="w2p-tc-label">токенов / сутки</span></div>
             <div class="w2p-tc-row"><span class="w2p-tc-label">Лимит рефералов —</span><span class="w2p-tc-value">20</span></div>
           </div>
-          <a class="w2p-btn w2p-btn--primary w2p-btn--block" href="https://t.me/win2partners" target="_blank" rel="noreferrer noopener">Выбрать</a>
         </div>
       </div>
-      <div class="w2p-rise" data-reveal-delay="180">
+      <div class="w2p-rise w2p-tc-wrap" data-reveal-delay="180">
+        <svg class="w2p-asterisk w2p-above" width="41" height="41" viewBox="0 0 41 41" aria-hidden="true">
+      <path d="M 8.2 16.4 L 16.4 16.4 L 16.4 0 L 24.6 0 L 24.6 16.4 L 32.8 16.4 L 32.8 24.6 L 24.6 24.6 L 24.6 41 L 16.4 41 L 16.4 24.6 L 8.2 24.6 L 8.2 16.4 Z M 0 8.2 L 8.2 8.2 L 8.2 16.4 L 0 16.4 L 0 8.2 Z M 32.8 8.2 L 41 8.2 L 41 16.4 L 32.8 16.4 L 32.8 8.2 Z M 0 24.6 L 8.2 24.6 L 8.2 32.8 L 0 32.8 L 0 24.6 Z M 32.8 24.6 L 41 24.6 L 41 32.8 L 32.8 32.8 L 32.8 24.6 Z" fill="var(--accent-primary)" fill-rule="nonzero"/>
+    </svg>
         <div class="w2p-tc">
           <div class="w2p-tc-head">
-            <div class="w2p-tc-title"><h3 class="w2p-tc-name">Pro</h3><span class="w2p-tc-price">$24</span></div>
+            <div class="w2p-tc-title"><h3 class="w2p-tc-name">Pro</h3></div>
             <div class="w2p-tc-rule"></div>
           </div>
           <div class="w2p-tc-rows">
@@ -110,13 +184,12 @@
             <div class="w2p-tc-row w2p-tc-row--token"><span class="w2p-tc-lead"><span class="w2p-tc-value">4 320</span><span class="w2p-token" aria-hidden="true"><svg viewBox="0 0 15.201 10" fill="none"><path d="M 1.266 0 L 0.3 0 C 0.091 0 -0.004 0.094 0 0.305 C 0.001 0.366 0.01 0.426 0.029 0.484 C 0.398 1.595 0.768 2.705 1.14 3.815 C 1.627 5.267 2.115 6.719 2.604 8.171 C 2.632 8.256 2.656 8.342 2.69 8.425 C 2.701 8.453 2.736 8.49 2.758 8.49 C 2.781 8.49 2.821 8.455 2.831 8.427 C 2.912 8.207 2.987 7.985 3.064 7.763 C 3.344 6.956 3.625 6.149 3.906 5.342 C 3.978 5.138 4.047 4.932 4.121 4.729 C 4.16 4.618 4.156 4.512 4.118 4.401 C 3.838 3.578 3.559 2.754 3.282 1.929 C 3.104 1.402 2.925 0.876 2.745 0.35 C 2.669 0.13 2.484 0.002 2.246 0.001 C 1.919 -0.001 1.592 0 1.266 0 Z" fill="currentColor" fill-rule="evenodd"/><path d="M 4.227 10 L 5.261 10 C 5.555 10 5.722 9.87 5.817 9.592 C 5.99 9.082 6.17 8.575 6.348 8.067 L 7.357 5.181 C 7.721 4.139 8.081 3.097 8.448 2.057 C 8.492 1.933 8.567 1.82 8.629 1.703 C 8.672 1.623 8.67 1.542 8.636 1.46 C 8.482 1.085 8.329 0.709 8.169 0.337 C 8.078 0.124 7.91 0.013 7.676 0.013 C 7.112 0.012 7.032 0 6.468 0 C 6.21 0 6.041 0.142 5.966 0.387 L 3.046 8.923 C 3.001 9.049 2.993 9.168 3.042 9.295 C 3.083 9.402 3.113 9.513 3.147 9.623 C 3.217 9.85 3.405 9.987 3.655 9.988 C 4.007 9.989 3.875 10 4.227 10 Z" fill="currentColor" fill-rule="evenodd"/><path d="M 10.015 9.986 L 11.194 9.986 L 11.256 9.986 C 11.49 9.978 11.615 9.821 11.551 9.595 C 11.484 9.359 11.403 9.128 11.326 8.896 C 10.931 7.693 10.542 6.489 10.138 5.289 C 9.799 4.287 9.442 3.292 9.094 2.293 C 9.069 2.221 9.023 2.178 8.951 2.177 C 8.873 2.175 8.828 2.227 8.804 2.299 L 7.625 5.556 C 7.595 5.643 7.594 5.738 7.624 5.826 C 7.849 6.553 8.244 8.167 8.468 8.894 C 8.537 9.118 8.607 9.341 8.675 9.566 C 8.754 9.828 8.96 9.985 9.238 9.986 C 9.641 9.987 9.611 9.986 10.015 9.986 Z" fill="currentColor" fill-rule="evenodd"/><path d="M 13.765 0.001 C 13.425 0.001 13.085 0 12.746 0.001 C 12.52 0.003 12.324 0.072 12.186 0.261 C 12.149 0.309 12.12 0.363 12.099 0.421 C 11.703 1.568 11.308 2.716 10.915 3.865 C 10.797 4.209 10.678 4.553 10.558 4.897 C 10.521 5.001 10.521 5.115 10.558 5.219 C 10.843 6.088 11.128 6.957 11.412 7.827 C 11.576 8.326 11.736 8.826 11.901 9.325 C 11.91 9.354 11.943 9.374 11.965 9.399 C 11.988 9.375 12.022 9.356 12.032 9.329 C 12.264 8.688 12.493 8.047 12.721 7.405 C 13.168 6.149 13.614 4.893 14.059 3.637 C 14.399 2.681 14.739 1.725 15.081 0.77 C 15.111 0.688 15.139 0.606 15.168 0.525 C 15.273 0.226 15.118 0.004 14.798 0.002 C 14.454 -0.001 14.109 0.001 13.765 0.001 Z" fill="currentColor" fill-rule="evenodd"/></svg></span></span><span class="w2p-tc-label">токенов / сутки</span></div>
             <div class="w2p-tc-row"><span class="w2p-tc-label">Лимит рефералов —</span><span class="w2p-tc-value">30</span></div>
           </div>
-          <a class="w2p-btn w2p-btn--primary w2p-btn--block" href="https://t.me/win2partners" target="_blank" rel="noreferrer noopener">Выбрать</a>
         </div>
       </div>
       <div class="w2p-rise" data-reveal-delay="270">
         <div class="w2p-tc">
           <div class="w2p-tc-head">
-            <div class="w2p-tc-title"><h3 class="w2p-tc-name">Lite + Pro</h3><span class="w2p-tc-price w2p-tc-price--accent">бонус</span></div>
+            <div class="w2p-tc-title"><h3 class="w2p-tc-name">Lite + Pro</h3></div>
             <div class="w2p-tc-rule"></div>
           </div>
           <div class="w2p-tc-rows">
@@ -125,42 +198,68 @@
             <div class="w2p-tc-row w2p-tc-row--token"><span class="w2p-tc-lead"><span class="w2p-tc-value">7 200</span><span class="w2p-token" aria-hidden="true"><svg viewBox="0 0 15.201 10" fill="none"><path d="M 1.266 0 L 0.3 0 C 0.091 0 -0.004 0.094 0 0.305 C 0.001 0.366 0.01 0.426 0.029 0.484 C 0.398 1.595 0.768 2.705 1.14 3.815 C 1.627 5.267 2.115 6.719 2.604 8.171 C 2.632 8.256 2.656 8.342 2.69 8.425 C 2.701 8.453 2.736 8.49 2.758 8.49 C 2.781 8.49 2.821 8.455 2.831 8.427 C 2.912 8.207 2.987 7.985 3.064 7.763 C 3.344 6.956 3.625 6.149 3.906 5.342 C 3.978 5.138 4.047 4.932 4.121 4.729 C 4.16 4.618 4.156 4.512 4.118 4.401 C 3.838 3.578 3.559 2.754 3.282 1.929 C 3.104 1.402 2.925 0.876 2.745 0.35 C 2.669 0.13 2.484 0.002 2.246 0.001 C 1.919 -0.001 1.592 0 1.266 0 Z" fill="currentColor" fill-rule="evenodd"/><path d="M 4.227 10 L 5.261 10 C 5.555 10 5.722 9.87 5.817 9.592 C 5.99 9.082 6.17 8.575 6.348 8.067 L 7.357 5.181 C 7.721 4.139 8.081 3.097 8.448 2.057 C 8.492 1.933 8.567 1.82 8.629 1.703 C 8.672 1.623 8.67 1.542 8.636 1.46 C 8.482 1.085 8.329 0.709 8.169 0.337 C 8.078 0.124 7.91 0.013 7.676 0.013 C 7.112 0.012 7.032 0 6.468 0 C 6.21 0 6.041 0.142 5.966 0.387 L 3.046 8.923 C 3.001 9.049 2.993 9.168 3.042 9.295 C 3.083 9.402 3.113 9.513 3.147 9.623 C 3.217 9.85 3.405 9.987 3.655 9.988 C 4.007 9.989 3.875 10 4.227 10 Z" fill="currentColor" fill-rule="evenodd"/><path d="M 10.015 9.986 L 11.194 9.986 L 11.256 9.986 C 11.49 9.978 11.615 9.821 11.551 9.595 C 11.484 9.359 11.403 9.128 11.326 8.896 C 10.931 7.693 10.542 6.489 10.138 5.289 C 9.799 4.287 9.442 3.292 9.094 2.293 C 9.069 2.221 9.023 2.178 8.951 2.177 C 8.873 2.175 8.828 2.227 8.804 2.299 L 7.625 5.556 C 7.595 5.643 7.594 5.738 7.624 5.826 C 7.849 6.553 8.244 8.167 8.468 8.894 C 8.537 9.118 8.607 9.341 8.675 9.566 C 8.754 9.828 8.96 9.985 9.238 9.986 C 9.641 9.987 9.611 9.986 10.015 9.986 Z" fill="currentColor" fill-rule="evenodd"/><path d="M 13.765 0.001 C 13.425 0.001 13.085 0 12.746 0.001 C 12.52 0.003 12.324 0.072 12.186 0.261 C 12.149 0.309 12.12 0.363 12.099 0.421 C 11.703 1.568 11.308 2.716 10.915 3.865 C 10.797 4.209 10.678 4.553 10.558 4.897 C 10.521 5.001 10.521 5.115 10.558 5.219 C 10.843 6.088 11.128 6.957 11.412 7.827 C 11.576 8.326 11.736 8.826 11.901 9.325 C 11.91 9.354 11.943 9.374 11.965 9.399 C 11.988 9.375 12.022 9.356 12.032 9.329 C 12.264 8.688 12.493 8.047 12.721 7.405 C 13.168 6.149 13.614 4.893 14.059 3.637 C 14.399 2.681 14.739 1.725 15.081 0.77 C 15.111 0.688 15.139 0.606 15.168 0.525 C 15.273 0.226 15.118 0.004 14.798 0.002 C 14.454 -0.001 14.109 0.001 13.765 0.001 Z" fill="currentColor" fill-rule="evenodd"/></svg></span></span><span class="w2p-tc-label">токенов / сутки</span></div>
             <div class="w2p-tc-row"><span class="w2p-tc-label">Лимит рефералов —</span><span class="w2p-tc-value">∞</span></div>
           </div>
-          <a class="w2p-btn w2p-btn--primary w2p-btn--block" href="https://t.me/win2partners" target="_blank" rel="noreferrer noopener">Выбрать</a>
+        </div>
+      </div>
+      <div class="w2p-rise w2p-invite-wrap" data-reveal-delay="120">
+        <div class="w2p-tc w2p-invite">
+          <span class="w2p-invite-tag">бонус за приглашение</span>
+          <div class="w2p-invite-row">
+          <div class="w2p-invite-first">
+            <div class="w2p-invite-val w2p-invite-val--lg"><b>+1</b><span class="w2p-token w2p-token--lg" aria-hidden="true"><svg viewBox="0 0 15.201 10" fill="none"><path d="M 1.266 0 L 0.3 0 C 0.091 0 -0.004 0.094 0 0.305 C 0.001 0.366 0.01 0.426 0.029 0.484 C 0.398 1.595 0.768 2.705 1.14 3.815 C 1.627 5.267 2.115 6.719 2.604 8.171 C 2.632 8.256 2.656 8.342 2.69 8.425 C 2.701 8.453 2.736 8.49 2.758 8.49 C 2.781 8.49 2.821 8.455 2.831 8.427 C 2.912 8.207 2.987 7.985 3.064 7.763 C 3.344 6.956 3.625 6.149 3.906 5.342 C 3.978 5.138 4.047 4.932 4.121 4.729 C 4.16 4.618 4.156 4.512 4.118 4.401 C 3.838 3.578 3.559 2.754 3.282 1.929 C 3.104 1.402 2.925 0.876 2.745 0.35 C 2.669 0.13 2.484 0.002 2.246 0.001 C 1.919 -0.001 1.592 0 1.266 0 Z" fill="currentColor" fill-rule="evenodd"/><path d="M 4.227 10 L 5.261 10 C 5.555 10 5.722 9.87 5.817 9.592 C 5.99 9.082 6.17 8.575 6.348 8.067 L 7.357 5.181 C 7.721 4.139 8.081 3.097 8.448 2.057 C 8.492 1.933 8.567 1.82 8.629 1.703 C 8.672 1.623 8.67 1.542 8.636 1.46 C 8.482 1.085 8.329 0.709 8.169 0.337 C 8.078 0.124 7.91 0.013 7.676 0.013 C 7.112 0.012 7.032 0 6.468 0 C 6.21 0 6.041 0.142 5.966 0.387 L 3.046 8.923 C 3.001 9.049 2.993 9.168 3.042 9.295 C 3.083 9.402 3.113 9.513 3.147 9.623 C 3.217 9.85 3.405 9.987 3.655 9.988 C 4.007 9.989 3.875 10 4.227 10 Z" fill="currentColor" fill-rule="evenodd"/><path d="M 10.015 9.986 L 11.194 9.986 L 11.256 9.986 C 11.49 9.978 11.615 9.821 11.551 9.595 C 11.484 9.359 11.403 9.128 11.326 8.896 C 10.931 7.693 10.542 6.489 10.138 5.289 C 9.799 4.287 9.442 3.292 9.094 2.293 C 9.069 2.221 9.023 2.178 8.951 2.177 C 8.873 2.175 8.828 2.227 8.804 2.299 L 7.625 5.556 C 7.595 5.643 7.594 5.738 7.624 5.826 C 7.849 6.553 8.244 8.167 8.468 8.894 C 8.537 9.118 8.607 9.341 8.675 9.566 C 8.754 9.828 8.96 9.985 9.238 9.986 C 9.641 9.987 9.611 9.986 10.015 9.986 Z" fill="currentColor" fill-rule="evenodd"/><path d="M 13.765 0.001 C 13.425 0.001 13.085 0 12.746 0.001 C 12.52 0.003 12.324 0.072 12.186 0.261 C 12.149 0.309 12.12 0.363 12.099 0.421 C 11.703 1.568 11.308 2.716 10.915 3.865 C 10.797 4.209 10.678 4.553 10.558 4.897 C 10.521 5.001 10.521 5.115 10.558 5.219 C 10.843 6.088 11.128 6.957 11.412 7.827 C 11.576 8.326 11.736 8.826 11.901 9.325 C 11.91 9.354 11.943 9.374 11.965 9.399 C 11.988 9.375 12.022 9.356 12.032 9.329 C 12.264 8.688 12.493 8.047 12.721 7.405 C 13.168 6.149 13.614 4.893 14.059 3.637 C 14.399 2.681 14.739 1.725 15.081 0.77 C 15.111 0.688 15.139 0.606 15.168 0.525 C 15.273 0.226 15.118 0.004 14.798 0.002 C 14.454 -0.001 14.109 0.001 13.765 0.001 Z" fill="currentColor" fill-rule="evenodd"/></svg></span><span>токен / мин</span></div>
+            <span class="w2p-invite-note">за каждого лично приглашенного партнера</span>
+          </div>
+          <div class="w2p-invite-step">
+            <span class="w2p-invite-bar" style="height:36px;opacity:0.5"></span>
+            <div class="w2p-invite-copy">
+              <div class="w2p-invite-val"><b>+10</b><span class="w2p-token" aria-hidden="true"><svg viewBox="0 0 15.201 10" fill="none"><path d="M 1.266 0 L 0.3 0 C 0.091 0 -0.004 0.094 0 0.305 C 0.001 0.366 0.01 0.426 0.029 0.484 C 0.398 1.595 0.768 2.705 1.14 3.815 C 1.627 5.267 2.115 6.719 2.604 8.171 C 2.632 8.256 2.656 8.342 2.69 8.425 C 2.701 8.453 2.736 8.49 2.758 8.49 C 2.781 8.49 2.821 8.455 2.831 8.427 C 2.912 8.207 2.987 7.985 3.064 7.763 C 3.344 6.956 3.625 6.149 3.906 5.342 C 3.978 5.138 4.047 4.932 4.121 4.729 C 4.16 4.618 4.156 4.512 4.118 4.401 C 3.838 3.578 3.559 2.754 3.282 1.929 C 3.104 1.402 2.925 0.876 2.745 0.35 C 2.669 0.13 2.484 0.002 2.246 0.001 C 1.919 -0.001 1.592 0 1.266 0 Z" fill="currentColor" fill-rule="evenodd"/><path d="M 4.227 10 L 5.261 10 C 5.555 10 5.722 9.87 5.817 9.592 C 5.99 9.082 6.17 8.575 6.348 8.067 L 7.357 5.181 C 7.721 4.139 8.081 3.097 8.448 2.057 C 8.492 1.933 8.567 1.82 8.629 1.703 C 8.672 1.623 8.67 1.542 8.636 1.46 C 8.482 1.085 8.329 0.709 8.169 0.337 C 8.078 0.124 7.91 0.013 7.676 0.013 C 7.112 0.012 7.032 0 6.468 0 C 6.21 0 6.041 0.142 5.966 0.387 L 3.046 8.923 C 3.001 9.049 2.993 9.168 3.042 9.295 C 3.083 9.402 3.113 9.513 3.147 9.623 C 3.217 9.85 3.405 9.987 3.655 9.988 C 4.007 9.989 3.875 10 4.227 10 Z" fill="currentColor" fill-rule="evenodd"/><path d="M 10.015 9.986 L 11.194 9.986 L 11.256 9.986 C 11.49 9.978 11.615 9.821 11.551 9.595 C 11.484 9.359 11.403 9.128 11.326 8.896 C 10.931 7.693 10.542 6.489 10.138 5.289 C 9.799 4.287 9.442 3.292 9.094 2.293 C 9.069 2.221 9.023 2.178 8.951 2.177 C 8.873 2.175 8.828 2.227 8.804 2.299 L 7.625 5.556 C 7.595 5.643 7.594 5.738 7.624 5.826 C 7.849 6.553 8.244 8.167 8.468 8.894 C 8.537 9.118 8.607 9.341 8.675 9.566 C 8.754 9.828 8.96 9.985 9.238 9.986 C 9.641 9.987 9.611 9.986 10.015 9.986 Z" fill="currentColor" fill-rule="evenodd"/><path d="M 13.765 0.001 C 13.425 0.001 13.085 0 12.746 0.001 C 12.52 0.003 12.324 0.072 12.186 0.261 C 12.149 0.309 12.12 0.363 12.099 0.421 C 11.703 1.568 11.308 2.716 10.915 3.865 C 10.797 4.209 10.678 4.553 10.558 4.897 C 10.521 5.001 10.521 5.115 10.558 5.219 C 10.843 6.088 11.128 6.957 11.412 7.827 C 11.576 8.326 11.736 8.826 11.901 9.325 C 11.91 9.354 11.943 9.374 11.965 9.399 C 11.988 9.375 12.022 9.356 12.032 9.329 C 12.264 8.688 12.493 8.047 12.721 7.405 C 13.168 6.149 13.614 4.893 14.059 3.637 C 14.399 2.681 14.739 1.725 15.081 0.77 C 15.111 0.688 15.139 0.606 15.168 0.525 C 15.273 0.226 15.118 0.004 14.798 0.002 C 14.454 -0.001 14.109 0.001 13.765 0.001 Z" fill="currentColor" fill-rule="evenodd"/></svg></span><span>токен / мин</span></div>
+              <span class="w2p-invite-note">10 партнеров</span>
+            </div>
+          </div>
+          <div class="w2p-invite-step">
+            <span class="w2p-invite-bar" style="height:54px;opacity:0.7"></span>
+            <div class="w2p-invite-copy">
+              <div class="w2p-invite-val"><b>+20</b><span class="w2p-token" aria-hidden="true"><svg viewBox="0 0 15.201 10" fill="none"><path d="M 1.266 0 L 0.3 0 C 0.091 0 -0.004 0.094 0 0.305 C 0.001 0.366 0.01 0.426 0.029 0.484 C 0.398 1.595 0.768 2.705 1.14 3.815 C 1.627 5.267 2.115 6.719 2.604 8.171 C 2.632 8.256 2.656 8.342 2.69 8.425 C 2.701 8.453 2.736 8.49 2.758 8.49 C 2.781 8.49 2.821 8.455 2.831 8.427 C 2.912 8.207 2.987 7.985 3.064 7.763 C 3.344 6.956 3.625 6.149 3.906 5.342 C 3.978 5.138 4.047 4.932 4.121 4.729 C 4.16 4.618 4.156 4.512 4.118 4.401 C 3.838 3.578 3.559 2.754 3.282 1.929 C 3.104 1.402 2.925 0.876 2.745 0.35 C 2.669 0.13 2.484 0.002 2.246 0.001 C 1.919 -0.001 1.592 0 1.266 0 Z" fill="currentColor" fill-rule="evenodd"/><path d="M 4.227 10 L 5.261 10 C 5.555 10 5.722 9.87 5.817 9.592 C 5.99 9.082 6.17 8.575 6.348 8.067 L 7.357 5.181 C 7.721 4.139 8.081 3.097 8.448 2.057 C 8.492 1.933 8.567 1.82 8.629 1.703 C 8.672 1.623 8.67 1.542 8.636 1.46 C 8.482 1.085 8.329 0.709 8.169 0.337 C 8.078 0.124 7.91 0.013 7.676 0.013 C 7.112 0.012 7.032 0 6.468 0 C 6.21 0 6.041 0.142 5.966 0.387 L 3.046 8.923 C 3.001 9.049 2.993 9.168 3.042 9.295 C 3.083 9.402 3.113 9.513 3.147 9.623 C 3.217 9.85 3.405 9.987 3.655 9.988 C 4.007 9.989 3.875 10 4.227 10 Z" fill="currentColor" fill-rule="evenodd"/><path d="M 10.015 9.986 L 11.194 9.986 L 11.256 9.986 C 11.49 9.978 11.615 9.821 11.551 9.595 C 11.484 9.359 11.403 9.128 11.326 8.896 C 10.931 7.693 10.542 6.489 10.138 5.289 C 9.799 4.287 9.442 3.292 9.094 2.293 C 9.069 2.221 9.023 2.178 8.951 2.177 C 8.873 2.175 8.828 2.227 8.804 2.299 L 7.625 5.556 C 7.595 5.643 7.594 5.738 7.624 5.826 C 7.849 6.553 8.244 8.167 8.468 8.894 C 8.537 9.118 8.607 9.341 8.675 9.566 C 8.754 9.828 8.96 9.985 9.238 9.986 C 9.641 9.987 9.611 9.986 10.015 9.986 Z" fill="currentColor" fill-rule="evenodd"/><path d="M 13.765 0.001 C 13.425 0.001 13.085 0 12.746 0.001 C 12.52 0.003 12.324 0.072 12.186 0.261 C 12.149 0.309 12.12 0.363 12.099 0.421 C 11.703 1.568 11.308 2.716 10.915 3.865 C 10.797 4.209 10.678 4.553 10.558 4.897 C 10.521 5.001 10.521 5.115 10.558 5.219 C 10.843 6.088 11.128 6.957 11.412 7.827 C 11.576 8.326 11.736 8.826 11.901 9.325 C 11.91 9.354 11.943 9.374 11.965 9.399 C 11.988 9.375 12.022 9.356 12.032 9.329 C 12.264 8.688 12.493 8.047 12.721 7.405 C 13.168 6.149 13.614 4.893 14.059 3.637 C 14.399 2.681 14.739 1.725 15.081 0.77 C 15.111 0.688 15.139 0.606 15.168 0.525 C 15.273 0.226 15.118 0.004 14.798 0.002 C 14.454 -0.001 14.109 0.001 13.765 0.001 Z" fill="currentColor" fill-rule="evenodd"/></svg></span><span>токен / мин</span></div>
+              <span class="w2p-invite-note">20 партнеров</span>
+            </div>
+          </div>
+          <div class="w2p-invite-step">
+            <span class="w2p-invite-bar" style="height:70px;opacity:0.9"></span>
+            <div class="w2p-invite-copy">
+              <div class="w2p-invite-val"><b>+30</b><span class="w2p-token" aria-hidden="true"><svg viewBox="0 0 15.201 10" fill="none"><path d="M 1.266 0 L 0.3 0 C 0.091 0 -0.004 0.094 0 0.305 C 0.001 0.366 0.01 0.426 0.029 0.484 C 0.398 1.595 0.768 2.705 1.14 3.815 C 1.627 5.267 2.115 6.719 2.604 8.171 C 2.632 8.256 2.656 8.342 2.69 8.425 C 2.701 8.453 2.736 8.49 2.758 8.49 C 2.781 8.49 2.821 8.455 2.831 8.427 C 2.912 8.207 2.987 7.985 3.064 7.763 C 3.344 6.956 3.625 6.149 3.906 5.342 C 3.978 5.138 4.047 4.932 4.121 4.729 C 4.16 4.618 4.156 4.512 4.118 4.401 C 3.838 3.578 3.559 2.754 3.282 1.929 C 3.104 1.402 2.925 0.876 2.745 0.35 C 2.669 0.13 2.484 0.002 2.246 0.001 C 1.919 -0.001 1.592 0 1.266 0 Z" fill="currentColor" fill-rule="evenodd"/><path d="M 4.227 10 L 5.261 10 C 5.555 10 5.722 9.87 5.817 9.592 C 5.99 9.082 6.17 8.575 6.348 8.067 L 7.357 5.181 C 7.721 4.139 8.081 3.097 8.448 2.057 C 8.492 1.933 8.567 1.82 8.629 1.703 C 8.672 1.623 8.67 1.542 8.636 1.46 C 8.482 1.085 8.329 0.709 8.169 0.337 C 8.078 0.124 7.91 0.013 7.676 0.013 C 7.112 0.012 7.032 0 6.468 0 C 6.21 0 6.041 0.142 5.966 0.387 L 3.046 8.923 C 3.001 9.049 2.993 9.168 3.042 9.295 C 3.083 9.402 3.113 9.513 3.147 9.623 C 3.217 9.85 3.405 9.987 3.655 9.988 C 4.007 9.989 3.875 10 4.227 10 Z" fill="currentColor" fill-rule="evenodd"/><path d="M 10.015 9.986 L 11.194 9.986 L 11.256 9.986 C 11.49 9.978 11.615 9.821 11.551 9.595 C 11.484 9.359 11.403 9.128 11.326 8.896 C 10.931 7.693 10.542 6.489 10.138 5.289 C 9.799 4.287 9.442 3.292 9.094 2.293 C 9.069 2.221 9.023 2.178 8.951 2.177 C 8.873 2.175 8.828 2.227 8.804 2.299 L 7.625 5.556 C 7.595 5.643 7.594 5.738 7.624 5.826 C 7.849 6.553 8.244 8.167 8.468 8.894 C 8.537 9.118 8.607 9.341 8.675 9.566 C 8.754 9.828 8.96 9.985 9.238 9.986 C 9.641 9.987 9.611 9.986 10.015 9.986 Z" fill="currentColor" fill-rule="evenodd"/><path d="M 13.765 0.001 C 13.425 0.001 13.085 0 12.746 0.001 C 12.52 0.003 12.324 0.072 12.186 0.261 C 12.149 0.309 12.12 0.363 12.099 0.421 C 11.703 1.568 11.308 2.716 10.915 3.865 C 10.797 4.209 10.678 4.553 10.558 4.897 C 10.521 5.001 10.521 5.115 10.558 5.219 C 10.843 6.088 11.128 6.957 11.412 7.827 C 11.576 8.326 11.736 8.826 11.901 9.325 C 11.91 9.354 11.943 9.374 11.965 9.399 C 11.988 9.375 12.022 9.356 12.032 9.329 C 12.264 8.688 12.493 8.047 12.721 7.405 C 13.168 6.149 13.614 4.893 14.059 3.637 C 14.399 2.681 14.739 1.725 15.081 0.77 C 15.111 0.688 15.139 0.606 15.168 0.525 C 15.273 0.226 15.118 0.004 14.798 0.002 C 14.454 -0.001 14.109 0.001 13.765 0.001 Z" fill="currentColor" fill-rule="evenodd"/></svg></span><span>токен / мин</span></div>
+              <span class="w2p-invite-note">30 партнеров</span>
+            </div>
+          </div>
+          </div>
         </div>
       </div>
     </div>
-    <svg class="w2p-asterisk w2p-above" width="41" height="41" viewBox="0 0 41 41" aria-hidden="true">
-      <path d="M 8.2 16.4 L 16.4 16.4 L 16.4 0 L 24.6 0 L 24.6 16.4 L 32.8 16.4 L 32.8 24.6 L 24.6 24.6 L 24.6 41 L 16.4 41 L 16.4 24.6 L 8.2 24.6 L 8.2 16.4 Z M 0 8.2 L 8.2 8.2 L 8.2 16.4 L 0 16.4 L 0 8.2 Z M 32.8 8.2 L 41 8.2 L 41 16.4 L 32.8 16.4 L 32.8 8.2 Z M 0 24.6 L 8.2 24.6 L 8.2 32.8 L 0 32.8 L 0 24.6 Z M 32.8 24.6 L 41 24.6 L 41 32.8 L 32.8 32.8 L 32.8 24.6 Z" fill="var(--accent-primary)" fill-rule="nonzero"/>
-    </svg>
   </section>
 
-  <!-- Подарки: плитки едут по дуге очень большой окружности; та, что доходит до верха,
-       стоит прямо, в полный размер и с подписью. -->
+  <!-- Подарки: плитки едут по пологой дуге; та, что доходит до верха, стоит прямо,
+       в полный размер и с подписью. Состав и порядок — по макету (6 точек на мобильном):
+       лотерейный билет, Win Lite, карта Habibi Pay ($50 WinZu; файл casino-50-camera.png —
+       это карта), кубики, пачка $33, VPN. Перенос строки в data-title — как в подписи макета. -->
   <section class="w2p-gifts" aria-label="Подарки за токены">
     <div class="w2p-gifts-pin">
-      <div class="w2p-glowfield" aria-hidden="true">
-        <div class="w2p-glow" style="right:-18%;top:18%;width:56%;height:62%"></div>
-        <div class="w2p-glow" style="left:-22%;bottom:0%;width:44%;height:48%"></div>
+      <div class="w2p-glowfield w2p-gifts-glow" aria-hidden="true">
+        <div class="w2p-glow"></div>
       </div>
       <h2 class="w2p-gifts-title">
-        <span class="w2p-display w2p-display--section w2p-rise">обменивай токены</span>
+        <span class="w2p-display w2p-display--section w2p-rise">WinTime обменивается</span>
         <span class="w2p-display w2p-display--section w2p-display--dim w2p-rise" data-reveal-delay="110">на подарки</span>
       </h2>
       <div class="w2p-orbit">
-        <div class="w2p-orbit-item" data-title="Безлимитный VPN" style="background-image:url(assets/gifts/vpn.png)" role="img" aria-label="Безлимитный VPN"></div>
-        <div class="w2p-orbit-item" data-title="Win Lite" style="background-image:url(assets/gifts/win-lite.png)" role="img" aria-label="Win Lite"></div>
-        <div class="w2p-orbit-item" data-title="Контент завод" style="background-image:url(assets/gifts/content-factory.png)" role="img" aria-label="Контент завод"></div>
-        <div class="w2p-orbit-item" data-title="$50 на баланс WinZu Casino" style="background-image:url(assets/gifts/casino-50-camera.png)" role="img" aria-label="$50 на баланс WinZu Casino"></div>
-        <div class="w2p-orbit-item" data-title="NFT Common" style="background-image:url(assets/gifts/nft-common.png)" role="img" aria-label="NFT Common"></div>
-        <div class="w2p-orbit-item" data-title="$33 на баланс Win2Partners" style="background-image:url(assets/gifts/w2p-33.png)" role="img" aria-label="$33 на баланс Win2Partners"></div>
-        <div class="w2p-orbit-item" data-title="$50 на баланс WinZu Casino" style="background-image:url(assets/gifts/casino-50-dice.png)" role="img" aria-label="$50 на баланс WinZu Casino"></div>
-        <div class="w2p-orbit-item" data-title="NFT Uncommon" style="background-image:url(assets/gifts/nft-uncommon.png)" role="img" aria-label="NFT Uncommon"></div>
-        <div class="w2p-orbit-item" data-title="$77 на баланс Win2Partners" style="background-image:url(assets/gifts/w2p-77.png)" role="img" aria-label="$77 на баланс Win2Partners"></div>
-        <div class="w2p-orbit-item" data-title="$50 на баланс WinZu Casino" style="background-image:url(assets/gifts/casino-50-card.png)" role="img" aria-label="$50 на баланс WinZu Casino"></div>
-        <div class="w2p-orbit-item" data-title="AirPods 3" style="background-image:url(assets/gifts/airpods-3.png)" role="img" aria-label="AirPods 3"></div>
-        <div class="w2p-orbit-item" data-title="iPhone 17" style="background-image:url(assets/gifts/iphone-17.png)" role="img" aria-label="iPhone 17"></div>
+        <div class="w2p-orbit-item" data-title="Лотерейный билет" style="background-image:url(assets/gifts/lottery.webp)" role="img" aria-label="Лотерейный билет"></div>
+        <div class="w2p-orbit-item" data-title="Win Lite" style="background-image:url(assets/gifts/win-lite.webp)" role="img" aria-label="Win Lite"></div>
+        <div class="w2p-orbit-item" data-title="Банковская карта" style="background-image:url(assets/gifts/casino-50-camera.webp)" role="img" aria-label="Банковская карта"></div>
+        <div class="w2p-orbit-item" data-title="$50 на баланс
+WinZu Casino" style="background-image:url(assets/gifts/casino-50-dice.webp)" role="img" aria-label="$50 на баланс WinZu Casino"></div>
+        <div class="w2p-orbit-item" data-title="$33 на баланс
+Win2Partners" style="background-image:url(assets/gifts/w2p-33.webp)" role="img" aria-label="$33 на баланс Win2Partners"></div>
+        <div class="w2p-orbit-item" data-title="Безлимитный VPN" style="background-image:url(assets/gifts/vpn.webp)" role="img" aria-label="Безлимитный VPN"></div>
       </div>
-      <div class="w2p-orbit-caption">Безлимитный VPN</div>
+      <div class="w2p-orbit-caption">Лотерейный билет</div>
+      <div class="w2p-orbit-dots" aria-label="Подарки"></div>
     </div>
   </section>
 
@@ -181,7 +280,7 @@
         <a class="w2p-lockup" href="index.html" aria-label="Win2Partners — на главную">
           <img src="assets/logo-win2partners.svg" alt="Win2Partners" width="140" height="25">
         </a>
-        <span class="w2p-footer-tagline">Партнерская цифровая экосистема</span>
+        <span class="w2p-footer-tagline">Партнёрская цифровая экосистема</span>
       </div>
       <span class="w2p-footer-legal">© 2026 Win2Partners</span>
     </div>
@@ -192,8 +291,8 @@
         <li><a href="wintime.html">Wintime</a></li>
         <li><a href="lite.html">Lite License</a></li>
         <li><a href="pro.html">Pro License</a></li>
-        <li><a href="#" aria-disabled="true">USDT Staking</a></li>
-        <li><a href="#" aria-disabled="true">WinZu</a></li>
+        <li><a href="staking.html">USDT Staking</a></li>
+        <li><a href="winzu.html">WinZu</a></li>
         </ul>
       </div>
     </div>
@@ -201,13 +300,10 @@
       <div>
         <span class="w2p-footer-h">Продукты</span>
         <ul>
-        <li><a href="#" aria-disabled="true">Академия Win2Pro</a></li>
-        <li><a href="#" aria-disabled="true">Habibi Pay</a></li>
-        <li><a href="#" aria-disabled="true">Ai-panda.pro</a></li>
-        <li><a href="#" aria-disabled="true">Pando</a></li>
-        <li><a href="#" aria-disabled="true">Win-2.pro</a></li>
-        <li><a href="#" aria-disabled="true">Winzu.casino</a></li>
-        <li><a href="#" aria-disabled="true">Pandex.pro</a></li>
+        <li><a href="habibi.html">Habibi Pay</a></li>
+        <li><a href="ai-panda.html">Ai-panda.pro</a></li>
+        <li><a href="pando.html">Pando</a></li>
+        <li><a href="win2pro.html">Win-2.pro</a></li>
         </ul>
       </div>
     </div>
@@ -215,14 +311,15 @@
       <span class="w2p-footer-h">мы в соцсетях</span>
       <a href="https://t.me/win2partners" target="_blank" rel="noreferrer noopener" aria-label="Telegram Win2Partners">
         <svg width="33.333" height="33.333" viewBox="0 0 33.333 33.333" fill="none" aria-hidden="true">
-          <path d="M 16.667 0 C 7.467 0 0 7.467 0 16.667 C 0 25.867 7.467 33.333 16.667 33.333 C 25.867 33.333 33.333 25.867 33.333 16.667 C 33.333 7.467 25.867 0 16.667 0 Z M 24.4 11.333 C 24.15 13.967 23.067 20.367 22.517 23.317 C 22.283 24.567 21.817 24.983 21.383 25.033 C 20.417 25.117 19.683 24.4 18.75 23.783 C 17.283 22.817 16.45 22.217 15.033 21.283 C 13.383 20.2 14.45 19.6 15.4 18.633 C 15.65 18.383 19.917 14.5 20 14.15 C 20.012 14.097 20.01 14.042 19.996 13.99 C 19.981 13.937 19.954 13.889 19.917 13.85 C 19.817 13.767 19.683 13.8 19.567 13.817 C 19.417 13.85 17.083 15.4 12.533 18.467 C 11.867 18.917 11.267 19.15 10.733 19.133 C 10.133 19.117 9 18.8 8.15 18.517 C 7.1 18.183 6.283 18 6.35 17.417 C 6.383 17.117 6.8 16.817 7.583 16.5 C 12.45 14.383 15.683 12.983 17.3 12.317 C 21.933 10.383 22.883 10.05 23.517 10.05 C 23.65 10.05 23.967 10.083 24.167 10.25 C 24.436 10.466 24.409 10.875 24.405 11.22 C 24.404 11.259 24.403 11.297 24.4 11.333 Z" fill="var(--text-primary)" fill-rule="evenodd"/>
+          <path d="M 16.667 0 C 7.467 0 0 7.467 0 16.667 C 0 25.867 7.467 33.333 16.667 33.333 C 25.867 33.333 33.333 25.867 33.333 16.667 C 33.333 7.467 25.867 0 16.667 0 Z" fill="#fff" fill-opacity=".05"/>
+          <path d="M 24.4 11.333 C 24.15 13.967 23.067 20.367 22.517 23.317 C 22.283 24.567 21.817 24.983 21.383 25.033 C 20.417 25.117 19.683 24.4 18.75 23.783 C 17.283 22.817 16.45 22.217 15.033 21.283 C 13.383 20.2 14.45 19.6 15.4 18.633 C 15.65 18.383 19.917 14.5 20 14.15 C 20.012 14.097 20.01 14.042 19.996 13.99 C 19.981 13.937 19.954 13.889 19.917 13.85 C 19.817 13.767 19.683 13.8 19.567 13.817 C 19.417 13.85 17.083 15.4 12.533 18.467 C 11.867 18.917 11.267 19.15 10.733 19.133 C 10.133 19.117 9 18.8 8.15 18.517 C 7.1 18.183 6.283 18 6.35 17.417 C 6.383 17.117 6.8 16.817 7.583 16.5 C 12.45 14.383 15.683 12.983 17.3 12.317 C 21.933 10.383 22.883 10.05 23.517 10.05 C 23.65 10.05 23.967 10.083 24.167 10.25 C 24.436 10.466 24.409 10.875 24.405 11.22 C 24.404 11.259 24.403 11.297 24.4 11.333 Z" fill="var(--text-primary)"/>
         </svg>
       </a>
     </div>
   </div>
 </footer>
-<script src="js/i18n.js"></script>
-<script src="js/common.js"></script>
-<script src="js/wintime.js"></script>
+<script src="js/i18n.js?v=20261110d"></script>
+<script src="js/common.js?v=20261110"></script>
+<script src="js/wintime.js?v=20261110z"></script>
 </body>
 </html>

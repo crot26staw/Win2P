@@ -1,0 +1,114 @@
+/* Страница Habibi Pay (Figma: секция «Habibi Pay», фреймы 1440 / 768 / 375).
+   Подключается поверх css/winzu.css (корень .wz с зумом сетки 1440, hero-копия, заголовки,
+   карточки), css/pando.css (hero со сноской .pd-hero, список с делениями .pd-why/.pd-steps)
+   и css/win2pro.css (закреплённая лента .cf-tools). Здесь — только своё.
+   Порядок: база = планшет · ≤767 мобильный · ≥1200 десктопная сетка. */
+
+/* Фон карточек списка (pando.css объявляет его только на корне .pd) */
+.hb{--pd-card:var(--wz-card)}
+
+/* ---------- 1. hero ---------- */
+/* Арт — кадр целиком (2223×1446), а не вырезка, поэтому он фон блока. Положение снято
+   с imageTransform макета: на планшете и телефоне видна правая часть кадра. */
+.hb-hero{background:var(--surface-page) url(../assets/habibi/hero.webp) 70.6% 100%/auto 114.8% no-repeat}
+.hb-hero .hb-hero-sub{max-width:330px}
+
+/* ---------- 2. ключевые характеристики ---------- */
+.hb-feat-title{position:relative;z-index:1}
+/* На планшете и телефоне под текстом маленькая звёздочка 20 px (отступ 20), как в макете */
+.hb-cards .wz-card{--icon:20px;grid-template-rows:auto 1fr auto 20px var(--icon)}
+.hb-cards .wz-card-text{max-width:265px}
+.hb-glow-feat{left:-60px;top:179px;width:646px;height:621px}
+
+/* ---------- 3. одна карта для разных платежей ---------- */
+.hb-why .pd-why-art{width:min(332px,100%)}
+/* Карта: наклон и масштаб задаёт js/habibi.js через --hb-p (0 — лежит, 1 — в фас).
+   Перспектива 850 px повторяет камеру оригинала (fov 45°, дистанция 10 при ширине карты 6). */
+.hb-card{position:relative;--hb-p:1}
+.hb-card img{position:relative;z-index:1;display:block;width:100%;height:auto;border-radius:var(--radius-card);
+  transform-origin:50% 60%;will-change:transform;
+  transform:perspective(850px) translateY(calc((1 - var(--hb-p)) * 6%)) rotateX(calc((1 - var(--hb-p)) * 63deg))
+    scale(calc(0.714 + 0.286 * var(--hb-p)))}
+/* мягкая тень на «столе»: шире и плотнее, пока карта лежит */
+.hb-card::after{content:"";position:absolute;left:8%;right:8%;bottom:-6%;height:22%;z-index:0;
+  background:radial-gradient(closest-side,rgba(0,0,0,.75),rgba(0,0,0,0));
+  opacity:calc(0.35 + 0.65 * (1 - var(--hb-p)));transform:scaleX(calc(1.05 - 0.2 * var(--hb-p)))}
+/* четвёртый пункт зажигает все четыре деления */
+.pd-step-num i:nth-of-type(4){transition-delay:420ms}
+.pd-step.is-in[data-lit="4"] i::after{opacity:1}
+.hb-icons{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:5px}
+.hb-icons img{display:block;width:30px;height:30px}
+.hb-glow-why-a{left:-480px;top:546px;width:661px;height:784px}
+.hb-glow-why-b{display:none}
+
+/* ---------- 4. карта и кошелёк в одном кабинете (лента из win2pro.css) ---------- */
+.hb-tools{padding-bottom:var(--w2p-block)}
+.hb-tools .cf-tools-title{position:relative;z-index:1;max-width:calc(704px + 2 * var(--wz-g))}
+.hb-tools-lead{position:relative;z-index:1;max-width:calc(618px + 2 * var(--wz-g));margin:12px auto 0;
+  padding-inline:var(--wz-g);text-align:center}
+.hb-glow-tools{left:-59px;top:179px;width:646px;height:620px}
+
+/* ================= планшет ================= */
+@media (min-width:768px) and (max-width:1199px){
+  .hb-hero .hb-hero-note{max-width:390px}
+  .hb-why .pd-lead{max-width:376px}
+}
+
+/* ================= мобильный ================= */
+@media (max-width:767px){
+  .hb-hero{height:800px;background-position:69% 0;background-size:auto 100%}
+
+  /* В мобильном макете карта лежит целиком под списком — показывать её незачем */
+  .hb-why .pd-why-art{display:none}
+  .hb-why .pd-steps{grid-row:2;margin-top:0}
+  .hb-why .pd-why-head{margin-bottom:40px}
+  .hb-cards .wz-card-head h3{font-size:22px}
+  .hb-glow-why-a{top:516px}
+  /* «в одном кабинете» в мобильном макете белое, без градиента */
+  .hb-tools .wz-grad{background:none;color:var(--text-primary)}
+
+  .hb-tools-lead{max-width:calc(321px + 2 * var(--wz-g))}
+  .hb-glow-tools{left:40%;top:-48px;width:701px;height:739px}
+  .hb-glow-feat{left:-260px;top:352px;width:701px;height:739px}
+}
+
+/* ================= десктоп: сетка 1440 ================= */
+@media (min-width:1200px){
+  .hb-hero{background-position:0 100%;background-size:1440px auto}
+  .hb-hero .hb-hero-sub{width:620px;max-width:none}
+  .hb-hero .wz-hero-title{width:auto;white-space:nowrap}
+  .hb-hero .hb-hero-note{max-width:431px}
+
+  .hb-feat-title{max-width:900px}
+  /* У этих карточек нет иконки: текст всегда прижат к низу. Ховер (оранжевая заливка,
+     светлая линия под заголовком) убран по правке клиента 18.11 — карточки статичные. */
+  .hb-cards .wz-card,
+  .hb-cards .wz-card:hover{grid-template-rows:auto 1fr auto}
+  .hb-cards .wz-card-icon{display:none}
+  .hb-cards .wz-card::before,.hb-cards .wz-card:hover::before{opacity:0}
+  .hb-cards .wz-card:hover .wz-card-head{border-color:rgb(45,45,45)}
+  /* В макете слой свечения у характеристик пустой, видно одно пятно слева (661×784 от y 1152)
+     между блоками. Его половины — здесь и в .hb-glow-why-a — сходятся на стыке секций
+     (блок характеристик 718 px), потому что «Одна карта…» обрезает своё по верхнему краю. */
+  .hb-glow-feat{left:-410px;top:352px;width:661px;height:784px}
+
+  /* Колонка заголовка тянется на высоту списка, карта стоит у её нижнего края */
+  .hb-why .pd-why-side{align-self:stretch;justify-content:space-between;gap:40px}
+  .hb-why .pd-why-art{width:509px}
+  .hb-why .pd-lead{max-width:530px}
+  .hb-why .pd-step-body p{max-width:330px}
+  .hb-why .pd-step:nth-child(odd) .pd-step-body p{max-width:250px}
+  .hb-icons img{width:45px;height:45px}
+  .hb-glow-why-a{left:-410px;top:-366px}
+  .hb-glow-why-b{display:block;left:1203px;top:493px;width:661px;height:784px}
+
+  /* В макете от полоски прогресса до футера 144 px: отступ внутри закреплённого блока,
+     иначе он пропадает — у секции фиксированная высота под прокрутку ленты */
+  .hb-tools{padding-bottom:0}
+  .hb-tools .cf-tools-pin{padding-bottom:144px}
+  .hb-glow-tools{display:none}
+
+  /* Лента: в кадре две карточки целиком, третья — 0.6, дальше — 0.5 (как в макете) */
+  .hb-tools .cf-tool:has(+ .is-next){opacity:.6}
+  .hb-tools .cf-tool.is-next{opacity:.5}
+}

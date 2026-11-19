@@ -1,0 +1,210 @@
+/* Страница Pando (Figma: секция «Pando», фреймы 1440 / 768 / 375).
+   Подключается поверх css/winzu.css: оттуда берутся корень .wz с зумом сетки 1440, hero-копия,
+   заголовки, градиентное слово и свечение. Здесь — только своё.
+   Порядок: база = планшет · ≤767 мобильный · ≥1200 десктопная сетка. */
+
+.pd{--pd-card:linear-gradient(76.677deg,rgb(20,20,21) 28.68%,rgb(43,43,44) 103.17%)}
+.pd-lead{margin:0;font-size:18px;line-height:1.3;color:rgba(249,249,249,.8)}
+
+/* ---------- 1. hero ---------- */
+.pd-hero{background:var(--surface-page)}
+/* Копия растянута до низа hero: сноска прижимается к нижнему краю через margin-top:auto,
+   а на мобильном просто идёт в потоке под подзаголовком, как в макете. */
+.pd-hero .wz-hero-copy{bottom:40px}
+.pd-hero-note{margin:auto 0 0;max-width:436px;font-size:18px;line-height:1.3;
+  color:rgba(249,249,249,.85);text-shadow:0 1px 14px rgba(5,5,5,.7)}
+/* Арт — вырезка с прозрачным фоном, рамка слоя = рамка картинки (1536×1024). */
+.pd-hero-art{position:absolute;z-index:2;left:-3.65%;top:186px;width:163.7%;aspect-ratio:3/2;
+  background:url(../assets/pando/hero.webp) center/100% 100% no-repeat;pointer-events:none}
+.pd-glow-hero{left:30%;top:22%;width:112%;height:110vw}
+
+/* ---------- 2–3. VPN и видеозвонки ---------- */
+.pd-split{position:relative;z-index:1;height:636px;padding-left:16px;background:var(--surface-page);
+  display:grid;grid-template-columns:minmax(0,332px) minmax(0,1fr);column-gap:16px;overflow:hidden}
+.pd-split-art{position:relative;grid-column:2;grid-row:1;margin-top:62px;
+  background:center/cover no-repeat}
+.pd-split--vpn .pd-split-art{background-image:url(../assets/pando/vpn.webp)}
+.pd-split--video .pd-split-art{background-image:url(../assets/pando/video.webp);background-position:0 50%}
+/* Затемнение со стороны текста — градиентный слой из макета */
+.pd-split-art::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(90deg,#000 0%,rgba(0,0,0,0) 32%)}
+.pd-split-copy{grid-column:1;grid-row:1;align-self:center;padding-top:62px;
+  display:flex;flex-direction:column;align-items:center;gap:24px;text-align:center}
+.pd-split-title{font-size:32px;line-height:1.1;text-wrap:balance}
+.pd-split-text{margin:0;max-width:340px;font-size:14px;line-height:1.2;color:rgba(255,255,255,.7)}
+
+/* ---------- 4. возможности звонков ---------- */
+/* Закреплённый блок, как у подарков WinTime: прокрутка ведёт плитки по дуге (js/pando.js).
+   Ниже 1200 пин — на весь экран, контент по центру под фиксированной шапкой. */
+.pd-calls{position:relative;height:600vh;height:600svh;background:var(--surface-page)}
+.pd-calls-pin{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;
+  display:flex;flex-direction:column;justify-content:center;padding:78px 0 24px}
+.pd-calls-head{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;
+  gap:0;padding-inline:var(--wz-g);text-align:center}
+.pd-calls-title{max-width:704px}
+.pd-calls .pd-lead{max-width:564px}
+/* Дуга: плитки стоят от центра верхней плитки, сдвиг/наклон/масштаб считает js/pando.js.
+   Размер плитки задаёт --tile, геометрия дуги масштабируется вместе с ним. */
+.pd-ring{--tile:383px;position:relative;z-index:1;height:var(--tile);margin-top:20px;
+  touch-action:pan-y;user-select:none;-webkit-user-select:none}
+.pd-tile{position:absolute;left:50%;top:0;width:var(--tile);height:var(--tile);margin:0 0 0 calc(var(--tile) / -2);
+  transform-origin:50% 50%;cursor:pointer;will-change:transform,opacity}
+.pd-tile img{display:block;width:100%;height:100%;object-fit:contain;pointer-events:none;-webkit-user-drag:none}
+.pd-tile figcaption{position:absolute;left:-40px;right:-40px;bottom:0;text-align:center;
+  font-weight:700;font-size:18px;line-height:1.1;letter-spacing:-.01em;text-transform:uppercase;
+  color:var(--text-primary);opacity:0}
+.pd-tile.is-active{cursor:default}
+.pd-dots{position:relative;z-index:1;display:flex;justify-content:center;margin-top:20px}
+.pd-dots button{width:14px;height:24px;padding:0;border:0;background:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center}
+.pd-dots button::before{content:"";width:10px;height:10px;border-radius:50%;
+  background:rgba(249,249,249,.12);transition:background 300ms var(--ease-standard)}
+.pd-dots button[aria-selected="true"]::before{background:var(--w2p-orange)}
+.pd-dots button:focus-visible{outline:2px solid var(--w2p-orange);outline-offset:2px;border-radius:6px}
+.pd-glow-calls{left:-479px;bottom:20px;width:661px;height:620px}
+
+/* ---------- 5. Telegram без VPN ---------- */
+.pd-proxy{position:relative;height:800px;overflow:hidden;background:var(--surface-page)}
+.pd-proxy-head{position:relative;z-index:2;padding:72px var(--wz-g) 0;display:flex;flex-direction:column;
+  align-items:center;text-align:center}
+.pd-proxy .pd-lead{max-width:672px}
+/* Фон фото — чистый чёрный: «осветление» растворяет его в фоне страницы без рамки */
+.pd-proxy-art{position:absolute;z-index:1;left:50%;top:285px;width:119.3%;max-width:none;height:auto;
+  transform:translateX(-50%);mix-blend-mode:lighten}
+.pd-proxy-badge{position:relative;z-index:2;margin:24px auto 0;text-align:center;
+  font-weight:700;font-size:18px;line-height:1.1;letter-spacing:-.01em;text-transform:uppercase;
+  color:var(--text-primary)}
+.pd-proxy-badge img{display:none}
+
+/* ---------- 6. преимущества ---------- */
+.pd-why{position:relative;padding:var(--w2p-block) var(--wz-g) 80px;background:var(--surface-page);
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,343px);column-gap:24px;overflow:hidden}
+.pd-why-side{display:contents}
+.pd-why-head{grid-column:1/-1;position:relative;z-index:1;display:flex;flex-direction:column;gap:12px;
+  margin-bottom:36px}
+.pd-why-title{font-size:56px;line-height:1.1;max-width:704px}
+.pd-why .pd-lead{font-size:16px;line-height:1.25}
+/* бреве «Й» выше контентной области строки и не попадает в градиентный фон — тянем его полем */
+.pd-why .wz-grad{padding-top:.15em}
+.pd-why-art{grid-column:1;grid-row:2;align-self:center;justify-self:start;position:relative;z-index:1;
+  width:min(353px,100%);height:auto}
+.pd-steps{grid-column:2;grid-row:2;position:relative;z-index:1;list-style:none;margin:0;padding:5px;
+  border-radius:var(--radius-card);background:rgba(20,20,21,.2);display:flex;flex-direction:column;gap:5px}
+.pd-step{display:grid;grid-template-columns:48px minmax(0,1fr);gap:6px;min-height:184px}
+.pd-step-num,.pd-step-body{border-radius:var(--radius-card);background:var(--pd-card);box-shadow:var(--wz-hair)}
+.pd-step-num{display:flex;flex-direction:column;align-items:center;padding:21px 0 18px}
+.pd-step-num span{font-size:14px;line-height:1.1;letter-spacing:-.01em;color:var(--text-primary)}
+.pd-step-num i{display:block;width:28px;height:2px;margin-top:2px;
+  background:linear-gradient(90deg,rgb(249,249,249),rgb(36,36,36));
+  transition:opacity 420ms var(--ease-standard)}
+.pd-step-num i:first-of-type{margin-top:auto}
+.pd-step-num i:nth-of-type(2){transition-delay:140ms}
+.pd-step-num i:nth-of-type(3){transition-delay:280ms}
+/* Деления загораются, когда строка всплыла: пункт N зажигает N делений. Оранжевый
+   слой кладётся поверх серого псевдоэлементом, чтобы переход был плавным. */
+.pd-step-num i{position:relative}
+.pd-step-num i::after{content:"";position:absolute;inset:0;opacity:0;
+  background:linear-gradient(90deg,rgb(243,64,13),rgb(234,104,19));transition:inherit;transition-property:opacity}
+.pd-step.is-in[data-lit="1"] i:nth-of-type(-n+1)::after,
+.pd-step.is-in[data-lit="2"] i:nth-of-type(-n+2)::after,
+.pd-step.is-in[data-lit="3"] i:nth-of-type(-n+3)::after{opacity:1}
+.pd-step-body{padding:24px;display:flex;flex-direction:column;justify-content:space-between;gap:40px}
+.pd-dot{display:block;width:10px;height:10px;background:linear-gradient(135deg,rgb(234,104,19),rgb(243,64,13))}
+.pd-step-body>div{display:flex;flex-direction:column;gap:19px}
+.pd-step-body h3{margin:0;font-weight:700;font-size:18px;line-height:1.1;letter-spacing:-.01em;
+  text-transform:uppercase;color:var(--text-primary)}
+.pd-step-body p{margin:0;max-width:330px;font-size:14px;line-height:1.2;color:rgba(255,255,255,.7)}
+.pd-glow-why{left:-479px;bottom:-330px;width:661px;height:783px}
+
+/* ================= мобильный ================= */
+@media (max-width:767px){
+  .pd-lead{font-size:16px;line-height:1.25}
+
+  /* В макете картинка занимает лишь часть рамки слоя (imageTransform): 632×420 от x −87, y 380 */
+  .pd-hero{height:calc(380px + 112vw)}
+  .pd-hero .wz-hero-copy{top:78px;bottom:auto;left:20px;right:16px}
+  .pd-hero-note{margin-top:-20px;max-width:none;font-size:14px;line-height:1.3;color:var(--text-primary)}
+  .pd-hero-art{left:-23.2%;top:380px;width:168.5%}
+  .pd-glow-hero{left:-15%;top:205px;width:229.6%;height:224vw}
+
+  .pd-split{height:auto;padding:var(--w2p-block) 0 0;display:flex;flex-direction:column;gap:5px}
+  .pd-split-copy{order:-1;padding:0 27px;gap:12px}
+  .pd-split-title{font-size:30px;line-height:1.2}
+  .pd-split-text{max-width:321px;font-size:16px;line-height:1.25;color:rgba(249,249,249,.8)}
+  .pd-split-art{margin-top:0;aspect-ratio:375/417}
+  .pd-split-art::after{background:linear-gradient(180deg,#000 0%,rgba(0,0,0,0) 26%)}
+
+  .pd-calls-title{max-width:356px}
+  .pd-calls .pd-lead{max-width:321px;margin-top:12px}
+  .pd-ring{--tile:289px}
+  .pd-tile figcaption{font-size:13.6px}
+
+  .pd-proxy-head{padding-top:var(--w2p-block)}
+  .pd-proxy .wz-h2{font-size:30px;line-height:1.2}
+  .pd-proxy .pd-lead{max-width:321px;margin-top:12px}
+  .pd-proxy-art{width:915px;transform:translateX(calc(-50% + 20px))}
+  .pd-proxy-badge{position:absolute;left:33px;right:33px;bottom:19px;margin:0;padding:24px;
+    border-radius:var(--radius-card);background:var(--pd-card);box-shadow:var(--wz-hair);
+    -webkit-backdrop-filter:var(--blur-card);backdrop-filter:var(--blur-card);font-size:14px}
+
+  .pd-why{padding:var(--w2p-block) var(--wz-g) 100px;grid-template-columns:minmax(0,1fr)}
+  .pd-why-head{align-items:center;text-align:center;margin-bottom:40px}
+  /* в макете заголовок на всю ширину экрана, без полей — три строки, а не четыре */
+  .pd-why-title{margin-inline:calc(-1 * var(--wz-g));font-size:30px;line-height:1.2;text-wrap:balance}
+  .pd-why-art{grid-column:1;grid-row:2;justify-self:center;width:min(360px,100%)}
+  .pd-steps{grid-column:1;grid-row:3;margin-top:20px}
+  .pd-glow-why{bottom:-200px}
+}
+
+/* ================= десктоп: сетка 1440 ================= */
+@media (min-width:1200px){
+  /* hero на весь экран (vh делим на zoom корня .wz); арт и свечение привязаны к низу */
+  .pd-hero{height:max(700px,calc(100vh / var(--wz-zoom,1)))}
+  .pd-hero .wz-hero-copy{left:40px;right:auto;top:98px;bottom:40px}
+  .pd-hero .pd-hero-sub{width:620px;max-width:none}
+  .pd-hero-note{max-width:527px}
+  .pd-hero-art{left:auto;right:-15px;top:auto;bottom:-12px;width:auto;
+    height:min(609px,calc(100% - 191px));aspect-ratio:913/609}
+  .pd-glow-hero{left:562px;top:auto;bottom:-245px;width:861px;height:840px}
+
+  .pd-split{height:800px;padding:0;grid-template-columns:720px 720px;column-gap:0}
+  .pd-split-art{grid-column:1;margin:0}
+  .pd-split--vpn .pd-split-art::after{background:linear-gradient(270deg,#000 0%,rgba(0,0,0,0) 27%)}
+  .pd-split--video .pd-split-art::after{background:linear-gradient(270deg,rgba(0,0,0,.86) 0%,rgba(0,0,0,0) 23%)}
+  .pd-split-copy{grid-column:2;padding:0}
+  .pd-split-title{font-size:56px}
+
+  /* Закреплённый блок: 6 положений дуги, по одному на каждую плитку */
+  .pd-calls{height:2600px}
+  /* Под фиксированной шапкой (78 px) — поэтому отступ сверху больше, чем 60 в макете;
+     шаг дуги (330/97, 488/270) снят с макета и совпадает, дуга ниже макета на 10 px */
+  .pd-calls-pin{height:900px;display:block;padding:92px 0 0}
+  .pd-calls-title{max-width:828px}
+  .pd-ring{margin-top:40px}
+  .pd-dots{display:none}
+  .pd-glow-calls{left:1111px;top:170px;bottom:auto;width:532px;height:700px}
+
+  .pd-proxy-art{left:130px;top:192px;width:1181px;transform:none}
+  .pd-proxy-badge{position:absolute;left:739px;top:241px;width:247px;margin:0;padding:24px;
+    border-radius:var(--radius-card);background:var(--pd-card);box-shadow:var(--wz-hair);
+    -webkit-backdrop-filter:var(--blur-card);backdrop-filter:var(--blur-card)}
+  .pd-proxy-badge img{display:block;position:absolute;right:-4px;top:-7px;width:20px;height:20px}
+
+  .pd-why{padding:140px 100px 70px;grid-template-columns:612px 612px;column-gap:12px;
+    justify-content:center;align-items:start}
+  .pd-why-side{display:flex;flex-direction:column;gap:73px}
+  .pd-why-head{margin:0}
+  .pd-why-title{max-width:612px}
+  .pd-why .pd-lead{font-size:18px;line-height:1.3;max-width:505px}
+  /* в колонке-флексе align-self:center из базы центрировал бы арт — в макете он у левого края */
+  .pd-why-art{width:484px;align-self:flex-start}
+  .pd-steps{grid-column:2;grid-row:1}
+  .pd-step{min-height:186px}
+  .pd-step-body p{max-width:370px}
+  /* в десктопном макете у этого блока свечения нет */
+  .pd-glow-why{display:none}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .pd-step-num i,.pd-step-num i::after{transition:none}
+}

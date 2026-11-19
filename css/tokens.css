@@ -1,7 +1,7 @@
 /* Win2Partners — design tokens.
    Значения перенесены из Figma-хэндоффа (project/tokens/*.css) без изменений. */
 
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap');
+/* Manrope подключается <link>'ом в <head> страниц (раньше был @import — блокировал весь tokens.css). */
 
 @font-face{font-family:"Neutral Face";src:url('../fonts/NeutralFace.otf') format('opentype');font-weight:400;font-style:normal;font-display:swap}
 @font-face{font-family:"Neutral Face";src:url('../fonts/NeutralFace-Bold.otf') format('opentype');font-weight:700;font-style:normal;font-display:swap}

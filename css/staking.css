@@ -1,0 +1,280 @@
+/* Страница USDT Staking (Figma: секция «USDT Staking», фреймы Desktop 1440 / Tablet 768 / Mobile 375).
+   Как и лицензии, десктоп собран на фиксированной сетке 1440 и масштабируется целиком
+   через zoom (коэффициент считает js/staking.js). Ниже 1200 включается перетекающая
+   раскладка по планшетному и мобильному фреймам.
+   Порядок: база = планшет · ≤767 мобильный · ≥1200 десктопная сетка. */
+
+.stk{--stk-g:32px;--stk-green:rgb(41,210,82);
+  --stk-card:linear-gradient(76.677deg,rgb(20,20,21) 28.68%,rgb(43,43,44) 103.17%);
+  --stk-hair:inset 0 0 0 1px rgba(217,220,233,0.04);
+  --stk-badge:linear-gradient(-41.68deg,rgb(243,64,13) 39.99%,rgb(234,104,19) 95.15%);
+  position:relative;width:100%;background:var(--surface-page);color:var(--text-primary);
+  font-family:var(--font-text)}
+
+.stk-d{font-family:var(--font-display);font-weight:700;text-transform:uppercase;
+  color:var(--text-primary);margin:0}
+.stk-h2{font-size:56px;line-height:1.1;text-align:center;text-wrap:balance}
+.stk-lead{font-size:18px;line-height:1.3;color:rgba(249,249,249,.8);margin:0;text-align:center}
+.stk-head{position:relative;z-index:1;display:flex;flex-direction:column;gap:16px;
+  align-items:center;margin-inline:auto}
+.stk-sec{position:relative}
+.stk-glow{position:absolute;z-index:0;border-radius:1000px;opacity:var(--glow-opacity);
+  pointer-events:none;
+  background:radial-gradient(closest-side,var(--w2p-orange) 0%,rgba(243,64,13,.55) 42%,rgba(243,64,13,0) 100%)}
+
+/* ---------- 1. hero ---------- */
+.stk-hero{position:relative;padding-top:98px;overflow:hidden;display:flex;flex-direction:column}
+/* в разметке арт идёт первым (на десктопе он фон), в потоке он под текстом */
+.stk-hero-art{order:1}
+.stk-hero-copy{position:relative;z-index:2;padding:0 var(--stk-g);display:flex;
+  flex-direction:column;gap:32px;align-items:flex-start}
+.stk-crumb{display:inline-flex;align-items:center;gap:10px;height:32px;text-decoration:none}
+.stk-crumb>span:last-child{font-weight:500;font-size:16px;line-height:1.3;letter-spacing:-.01em;
+  color:rgba(249,249,249,.7);transition:color var(--duration-base) var(--ease-standard)}
+.stk-crumb:hover>span:last-child{color:var(--text-primary)}
+.stk-crumb .w2p-arrow{width:32px;height:32px}
+.stk-hero-text{display:flex;flex-direction:column;gap:8px}
+.stk-hero-title{font-size:72px;line-height:1.1}
+.stk-hero-sub{font-size:18px;line-height:1.3;color:rgba(249,249,249,.8);margin:0}
+/* Кадр картинки повторяет imageTransform макета: высота блока = высота арта,
+   по ширине арт шире блока и стоит по центру (планшет −32%, мобильный −54%). */
+.stk-hero-art{position:relative;margin-top:18px;aspect-ratio:768/711;
+  background:url(../assets/staking/hero.webp) 50% 0/auto 100% no-repeat}
+
+/* ---------- 2. замкнутая система (карусель) ---------- */
+/* планшет: фрейм 1024 — сверху 280, снизу 60 (Figma Tablet / System) */
+.stk-sys{position:relative;z-index:1;padding:280px 0 60px}
+.stk-sys-stage{display:flex;flex-direction:column;align-items:center}
+.stk-sys-ring{display:none}
+.stk-sys-head{width:min(508px,calc(100% - 2 * var(--stk-g)))}
+.stk-car{position:relative;width:100%;display:flex;flex-direction:column;margin-top:30px}
+.stk-car-nav{display:flex;gap:5px;justify-content:center;margin-bottom:78px}
+.stk-car-btn{width:36px;height:36px;padding:0;border:0;border-radius:2.4px;
+  background:rgba(47,47,49,.5);color:var(--text-primary);display:flex;align-items:center;
+  justify-content:center;transition:background var(--duration-base) var(--ease-standard),
+  opacity var(--duration-base) var(--ease-standard)}
+.stk-car-btn+.stk-car-btn{background:rgba(54,54,55,.5)}
+.stk-car-btn:hover:not(:disabled){background:rgba(80,80,82,.7)}
+.stk-car-btn:disabled{opacity:.35;cursor:default}
+.stk-track{list-style:none;margin:0;display:flex;gap:10px;overflow-x:auto;
+  scroll-snap-type:x mandatory;scroll-padding-inline:var(--stk-g);
+  padding:16px var(--stk-g) 0;scrollbar-width:none;overscroll-behavior-x:contain}
+.stk-track::-webkit-scrollbar{display:none}
+.stk-step{position:relative;flex:0 0 calc((100% - 10px) / 2);scroll-snap-align:start;display:flex}
+.stk-card{flex:1;min-height:239px;border-radius:var(--radius-card);background:var(--stk-card);
+  -webkit-backdrop-filter:var(--blur-card);backdrop-filter:var(--blur-card);box-shadow:var(--stk-hair);
+  padding:58px 24px 24px;display:flex;flex-direction:column;gap:12px}
+.stk-card h3{font-weight:700;font-size:18px;line-height:1.1;letter-spacing:-.01em;
+  text-transform:uppercase;margin:0;color:var(--text-primary)}
+.stk-card p{font-size:14px;line-height:1.2;color:rgba(255,255,255,.7);margin:0}
+.stk-badge{position:absolute;left:25px;top:-16px;z-index:2;width:29px;height:29px;
+  border-radius:100px;background:var(--stk-badge);display:flex;align-items:center;
+  justify-content:center;font-weight:700;font-size:18px;line-height:1;letter-spacing:-.01em;
+  color:var(--text-primary);transition:background 320ms var(--ease-standard),
+  box-shadow 320ms var(--ease-standard)}
+.stk-tags{display:flex;flex-wrap:wrap;gap:6px 4px}
+.stk-tag{padding:2px 12px 4px;border-radius:100px;background:rgba(43,210,83,.23);
+  color:rgb(43,210,83);font-size:14px;line-height:1.36;letter-spacing:.01em;white-space:nowrap}
+.stk-progress{width:min(704px,calc(100% - 2 * var(--stk-g)));height:4px;margin-top:95px;
+  border-radius:100px;background:rgba(255,255,255,.07);overflow:hidden}
+.stk-progress i{display:block;width:calc(100% / 7);height:100%;border-radius:100px;
+  background:var(--w2p-orange);transition:width 320ms var(--ease-standard)}
+
+/* ---------- 3. калькулятор ---------- */
+/* Как в макете: высота блока постоянная (планшет 1024), контент по центру — при «Сложном
+   проценте» строка «за месяц» исчезает, а блок не прыгает. */
+.stk-inc{min-height:1024px;display:flex;flex-direction:column;justify-content:center;
+  padding:60px var(--stk-g)}
+.stk-inc-head{max-width:608px}
+.stk-br-m{display:none}
+.stk-calc{position:relative;z-index:1;width:100%;max-width:902px;margin:60px auto 0;
+  display:flex;flex-direction:column;gap:24px}
+.stk-calc-top{display:flex;justify-content:space-between;align-items:center;gap:24px}
+.stk-calc-h{font-weight:700;font-size:18px;line-height:1.1;letter-spacing:-.01em;
+  text-transform:uppercase;margin:0}
+.stk-switch{display:inline-flex;align-items:center;gap:12px;padding:0;border:0;background:none;
+  font-family:inherit;font-size:14px;line-height:1.2;color:var(--w2p-white);flex-shrink:0}
+.stk-switch-track{position:relative;display:block;width:52px;height:28px;border-radius:100px;
+  background:rgb(74,74,74);transition:background 240ms var(--ease-standard)}
+.stk-switch-track>i{position:absolute;left:4px;top:4px;width:20px;height:20px;border-radius:100px;
+  background:var(--text-primary);transition:transform 240ms var(--ease-standard),
+  background 240ms var(--ease-standard)}
+.stk-switch[aria-checked="true"] .stk-switch-track{background:rgba(41,210,82,.4)}
+.stk-switch[aria-checked="true"] .stk-switch-track>i{transform:translateX(24px);background:var(--stk-green)}
+.stk-tiers{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:20px 4px}
+.stk-tier{display:flex;flex-direction:column;gap:12px;padding:0;border:0;background:none;
+  font-family:inherit;color:inherit;min-width:0}
+.stk-tier-tab{height:40px;display:flex;align-items:center;justify-content:center;gap:4px;
+  padding:0 8px;background:rgb(74,74,74);font-weight:700;font-size:18px;line-height:1.1;
+  letter-spacing:-.01em;color:var(--text-primary);white-space:nowrap;
+  transition:background 220ms var(--ease-standard),color 220ms var(--ease-standard)}
+.stk-tier:first-child .stk-tier-tab{border-radius:6px 0 0 6px}
+.stk-tier:last-child .stk-tier-tab{border-radius:0 6px 6px 0}
+.stk-tier:hover:not(.is-fill) .stk-tier-tab{background:rgb(92,92,92)}
+.stk-tier.is-fill .stk-tier-tab{background:rgba(41,210,82,.4);color:var(--stk-green)}
+.stk-tier-rate{height:26px;display:flex;align-items:center;justify-content:center;
+  font-size:14px;line-height:1.2;color:rgba(255,255,255,.4);white-space:nowrap;
+  transition:color 220ms var(--ease-standard)}
+.stk-tier.is-fill .stk-tier-rate{color:var(--w2p-white)}
+.stk-tier-rate .y,.stk-calc.is-compound .stk-tier-rate .m{display:none}
+.stk-calc.is-compound .stk-tier-rate .y{display:inline}
+.stk-res{display:flex;flex-direction:column;gap:12px}
+.stk-res-row{display:flex;justify-content:space-between;align-items:center;gap:16px;
+  padding:21px 20px;border-radius:var(--radius-card);background:var(--stk-card);
+  -webkit-backdrop-filter:var(--blur-card);backdrop-filter:var(--blur-card);box-shadow:var(--stk-hair);
+  font-weight:700;font-size:18px;line-height:1.1;letter-spacing:-.01em;text-transform:uppercase}
+.stk-res-row b{font-weight:700;white-space:nowrap;font-variant-numeric:tabular-nums}
+.stk-res-row--year b{color:var(--stk-green)}
+.stk-calc.is-compound .stk-res-row--month{display:none}
+
+/* ---------- 4. ранги ---------- */
+.stk-ranks{padding:60px var(--stk-g) 120px}
+.stk-ranks-head{max-width:704px}
+.stk-ranks-head .stk-lead{max-width:622px}
+.stk-rank-grid{position:relative;z-index:1;max-width:902px;margin:40px auto 0;display:grid;
+  grid-template-columns:minmax(0,1fr);gap:12px}
+.stk-rank-col{display:flex;flex-direction:column;gap:12px}
+.stk-rank{border-radius:var(--radius-card);background:var(--stk-card);
+  -webkit-backdrop-filter:var(--blur-card);backdrop-filter:var(--blur-card);box-shadow:var(--stk-hair);
+  transition:box-shadow var(--duration-base) var(--ease-standard),
+  opacity 680ms var(--reveal-ease),transform 680ms var(--reveal-ease)}
+.stk-rank:hover{box-shadow:var(--shadow-card-border-hover)}
+.stk-rank-btn{width:100%;display:flex;justify-content:space-between;align-items:center;gap:16px;
+  padding:21px 20px;border:0;background:none;font-family:inherit;color:inherit;text-align:left;
+  border-radius:var(--radius-card)}
+.stk-rank-id{display:flex;align-items:center;gap:40px;min-width:0}
+.stk-rank-tag{width:74px;padding:2px 0;border-radius:100px;background:rgba(217,220,233,.3);
+  font-weight:600;font-size:16px;line-height:1.37;letter-spacing:.01em;text-align:center;white-space:nowrap}
+.stk-rank-pct{font-family:var(--font-display);font-weight:700;font-size:32px;line-height:1;
+  letter-spacing:-.01em}
+.stk-rank-ico{position:relative;width:14px;height:14px;flex-shrink:0}
+.stk-rank-ico::before,.stk-rank-ico::after{content:"";position:absolute;left:0;top:50%;width:14px;
+  height:2.5px;margin-top:-1.25px;border-radius:2px;background:rgb(248,241,239);
+  transition:transform 280ms var(--ease-standard)}
+.stk-rank-ico::after{transform:rotate(90deg)}
+.stk-rank.is-open .stk-rank-ico::after{transform:rotate(0deg)}
+.stk-rank-body{display:grid;grid-template-rows:0fr;transition:grid-template-rows 320ms var(--ease-standard)}
+.stk-rank.is-open .stk-rank-body{grid-template-rows:1fr}
+.stk-rank-body>div{overflow:hidden;min-height:0}
+.stk-rank-dl{margin:0;padding:0 20px 18px 134px;display:flex;flex-direction:column;gap:9px}
+.stk-rank-dl>div{display:flex;gap:20px;font-size:14px;line-height:1.2}
+.stk-rank-dl dt{width:138px;flex-shrink:0;color:rgba(255,255,255,.4)}
+.stk-rank-dl dd{margin:0;font-weight:600;color:var(--text-primary);white-space:nowrap}
+.stk-rank-dl dd.is-empty{font-weight:400;color:rgba(255,255,255,.4)}
+
+/* ---------- свечения (планшет) ----------
+   Ниже 1200 закрепления нет, поэтому .stk можно обрезать по ширине: иначе свечения
+   раздвигают документ вправо. */
+@media (max-width:1199.98px){.stk{overflow-x:clip}}
+.stk-glow--inc{left:-62%;top:-30%;width:90%;aspect-ratio:1}
+.stk-glow--ranks{right:-60%;top:20%;width:90%;aspect-ratio:1}
+
+/* ================= мобильный ================= */
+@media (max-width:767px){
+  .stk{--stk-g:16px}
+  .stk-h2{font-size:30px;line-height:1.2}
+  .stk-lead{font-size:14px;line-height:1.3}
+  .stk-head{gap:8px}
+
+  /* фрейм 800, арт 439 прижат к низу (imageTransform макета) */
+  .stk-hero{padding-top:102px;min-height:800px}
+  .stk-hero-copy{gap:24px}
+  .stk-crumb{height:24px}
+  .stk-crumb .w2p-arrow{width:24px;height:24px}
+  .stk-crumb>span:last-child{font-size:14px;letter-spacing:-.01em}
+  .stk-hero-title{font-size:36px;line-height:1.1}
+  .stk-hero-sub{font-size:16px;line-height:1.25}
+  .stk-hero-art{margin-top:auto;aspect-ratio:375/439}
+
+  .stk-sys{padding:200px 0 50px}
+  .stk-sys-head{width:calc(100% - 2 * var(--stk-g))}
+  .stk-track{padding:10px 26px 0;scroll-padding-inline:26px}
+  .stk-step{flex-basis:100%}
+  .stk-card{min-height:220px;padding:39px 24px 24px}
+  .stk-badge{top:-10px}
+  /* стрелки живут в правом нижнем углу активной карточки, как в макете */
+  .stk-car-nav{position:absolute;right:50px;bottom:24px;z-index:3;margin:0}
+  .stk-progress{margin-top:152px}
+
+  .stk-br{display:none}
+  .stk-br-m{display:inline}
+  /* мобильный блок не фиксированной высоты: при «Сложном проценте» (−74 px) добавляем
+     по 37 px сверху и снизу, чтобы ранги ниже не прыгали */
+  .stk-inc{min-height:0;padding:100px var(--stk-g) 0}
+  .stk-inc.is-compound{padding-top:137px;padding-bottom:37px}
+  .stk-inc-head .stk-lead,.stk-ranks-head .stk-lead{max-width:317px}
+  .stk-calc{margin-top:40px;gap:28px}
+  .stk-calc-top{flex-direction:column;align-items:flex-start;gap:28px}
+  .stk-tiers{grid-template-columns:repeat(3,minmax(0,1fr));gap:10px 3px}
+  .stk-tier{gap:3px}
+  .stk-res{margin-top:12px}
+  .stk-tier-tab{height:35px;font-size:14px;line-height:1.1;padding:0 4px}
+  .stk-tier:nth-child(n) .stk-tier-tab{border-radius:0}
+  .stk-tier:nth-child(3n+1) .stk-tier-tab{border-radius:6px 0 0 6px}
+  .stk-tier:nth-child(3n) .stk-tier-tab{border-radius:0 6px 6px 0}
+  .stk-res-row{padding:21px}
+
+  .stk-ranks{padding:100px var(--stk-g)}
+  .stk-rank-grid{margin-top:40px}
+  .stk-rank-id{gap:24px}
+  .stk-rank-dl{padding-left:20px}
+  .stk-rank-dl dt{width:139px}
+
+  .stk-glow{display:none}
+}
+
+/* ================= десктоп: сетка 1440 ================= */
+@media (min-width:1200px){
+  .stk{--stk-g:40px;width:1440px;margin-inline:auto;zoom:var(--stk-zoom,1)}
+  .stk-head{gap:12px}
+
+  /* hero 1440×800: арт 2041 px шириной, сдвинут на −268 (imageTransform макета) */
+  .stk-hero{height:800px;padding:0}
+  .stk-hero-art{position:absolute;inset:0;margin:0;aspect-ratio:auto;
+    background-size:2041px auto;background-position:-268px 0}
+  .stk-hero-copy{position:absolute;left:40px;top:98px;padding:0;gap:40px}
+  .stk-hero-title{width:620px;font-size:128px;line-height:1}
+  .stk-hero-sub{font-size:24px;line-height:1.3}
+
+  /* Система: закреплённая сцена 1440×740 (фрейм 891 без пустых полей сверху и снизу),
+     пока секция прокручивается, дуга проходит шаги 2→7. */
+  .stk-sys{height:2400px;padding:0}
+  .stk-sys-pin{position:sticky;top:0;padding-top:90px}
+  .stk-sys-stage{display:block;position:relative;width:1440px;height:740px;zoom:var(--stk-fit,1)}
+  .stk-sys-ring{display:block;position:absolute;left:145px;top:98px;width:1150px;height:537px;overflow:visible}
+  .stk-sys-head{position:absolute;left:429px;top:286px;width:582px}
+  .stk-sys-head .stk-lead{max-width:558px}
+  .stk-car{position:static;display:block;margin:0}
+  .stk-car-nav,.stk-progress{display:none}
+  .stk-track{display:block;padding:0;overflow:visible}
+  .stk-step{position:absolute;left:var(--x);top:var(--y);width:270px;display:block}
+  .stk-step--wide{width:374px}
+  .stk-step.is-clone{display:none}
+  .stk-card{min-height:126px;padding:24px}
+  .stk-step--wide .stk-card{min-height:158px}
+  .stk-badge{left:-10px;top:-10px;background:var(--surface-page);
+    box-shadow:inset 0 0 0 1px var(--w2p-orange)}
+  .stk-step.is-on .stk-badge{background:var(--stk-badge);box-shadow:none}
+  /* шаг 7: когда кольцо замкнулось, карточка «Прибыль» заливается оранжевым */
+  .stk-step--profit .stk-card{position:relative;isolation:isolate}
+  .stk-step--profit .stk-card::before{content:"";position:absolute;inset:0;z-index:-1;border-radius:inherit;
+    background:linear-gradient(-62deg,rgb(243,64,13) 40%,rgb(234,104,19) 100%);opacity:0;
+    transition:opacity 320ms var(--ease-standard)}
+  .stk-step--profit.is-on .stk-card::before{opacity:1}
+  .stk-step--profit.is-on .stk-card p{color:rgba(255,255,255,.8)}
+
+  /* Доход: фрейм 1440×800, контент 902 по центру */
+  .stk-inc{height:800px;min-height:0;padding:0}
+  .stk-glow--inc{left:-640px;top:-420px;width:1000px;height:980px;aspect-ratio:auto}
+
+  /* Ранги: две колонки по 431 с зазором 40 */
+  .stk-ranks{padding:70px 0 140px}
+  .stk-rank-grid{grid-template-columns:repeat(2,minmax(0,1fr));column-gap:40px;margin-top:60px;
+    align-items:start}
+  .stk-glow--ranks{left:1008px;right:auto;top:-51px;width:1335px;height:1154px;aspect-ratio:auto}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .stk-rank-body,.stk-rank-ico::before,.stk-rank-ico::after,.stk-switch-track>i,
+  .stk-progress i,.stk-badge,.stk-step--profit .stk-card::before{transition:none}
+}

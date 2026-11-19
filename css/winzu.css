@@ -1,0 +1,184 @@
+/* Страница WinZu (Figma: секция «WinZU», фреймы Desktop 1440 / Web 768 / Mobile 375).
+   Та же схема, что у лицензий и стейкинга: десктоп на фиксированной сетке 1440 со
+   сквозным zoom (коэффициент считает js/winzu.js), ниже 1200 — перетекающая раскладка.
+   Порядок: база = планшет · ≤767 мобильный · ≥1200 десктопная сетка. */
+
+.wz{--wz-g:32px;
+  --wz-card:linear-gradient(76.677deg,rgb(20,20,21) 28.68%,rgb(43,43,44) 103.17%);
+  --wz-hair:inset 0 0 0 1px rgba(217,220,233,0.04);
+  position:relative;width:100%;background:var(--surface-page);color:var(--text-primary);
+  font-family:var(--font-text);overflow-x:clip}
+.wz-d{font-family:var(--font-display);font-weight:700;text-transform:uppercase;
+  color:var(--text-primary);margin:0}
+.wz-h2{font-size:56px;line-height:1.1;text-align:center;margin-inline:auto;text-wrap:balance}
+/* «работы» в макете залито градиентом от тёмно-серого (низ справа) к белому */
+.wz-grad{background:linear-gradient(315deg,rgb(37,37,37) 0%,rgb(249,249,249) 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+.wz-sec{position:relative}
+.wz-glow{position:absolute;z-index:0;border-radius:1000px;opacity:var(--glow-opacity);pointer-events:none;
+  background:radial-gradient(closest-side,var(--w2p-orange) 0%,rgba(243,64,13,.55) 42%,rgba(243,64,13,0) 100%)}
+
+/* ---------- 1. hero ---------- */
+/* Высота считается от ширины: арт растёт вместе с экраном, а подпись «15 000+ игр»
+   стоит у нижнего края, как в макете (768 → 1024). */
+.wz-hero{position:relative;height:calc(141px + 115vw);overflow:hidden;background:rgb(5,5,5)}
+.wz-hero-squares{position:absolute;inset:0;z-index:0;display:none}
+.wz-sq{position:absolute;left:var(--x);top:var(--y);width:var(--w);height:var(--h);
+  background:rgba(255,255,255,.07)}
+.wz-glow--hl{left:-670px;top:1px;width:1027px;height:998px}
+.wz-glow--hr{display:none}
+.wz-hero-copy{position:absolute;z-index:3;left:var(--wz-g);right:var(--wz-g);top:98px;
+  display:flex;flex-direction:column;gap:32px;align-items:flex-start}
+.wz-crumb{display:inline-flex;align-items:center;gap:10px;height:32px;text-decoration:none}
+.wz-crumb>span:last-child{font-weight:500;font-size:16px;line-height:1.3;letter-spacing:-.01em;
+  color:rgba(249,249,249,.7);transition:color var(--duration-base) var(--ease-standard)}
+.wz-crumb:hover>span:last-child{color:var(--text-primary)}
+.wz-crumb .w2p-arrow{width:32px;height:32px}
+.wz-hero-text{display:flex;flex-direction:column;gap:8px}
+.wz-hero-title{font-size:72px;line-height:1.1}
+.wz-hero-sub{max-width:385px;font-size:18px;line-height:1.3;color:rgba(249,249,249,.8);margin:0}
+.wz-br-d{display:none}
+/* Арт — вырезка с прозрачным фоном. Блок равен рамке слоя в макете, а сама картинка
+   внутри него повторяет imageTransform: 78.74% × 96.64%, прижата к 56.4% / низу. */
+.wz-hero-art{position:absolute;z-index:2;left:-9.9%;top:119px;width:167.6%;aspect-ratio:1287/883;
+  background:url(../assets/winzu/hero.webp) 56.4% 100%/78.74% 96.64% no-repeat;pointer-events:none}
+.wz-hero-stat{position:absolute;z-index:4;left:40px;bottom:40px;display:flex;flex-direction:column;gap:2px}
+.wz-hero-stat b{font-size:32px;line-height:1.15;letter-spacing:-.01em;color:var(--w2p-white)}
+.wz-hero-stat span{font-size:18px;line-height:1.3;color:var(--text-primary)}
+
+/* ---------- 2. основа стабильной работы ---------- */
+.wz-feat{padding:var(--w2p-block) var(--wz-g) 0}
+.wz-feat-title{max-width:510px;position:relative;z-index:1}
+.wz-cards{position:relative;z-index:1;width:min(574px,100%);margin:40px auto 0;
+  display:flex;flex-direction:column;gap:6px}
+/* Пять рядов: заголовок · гибкий отступ · текст · гибкий отступ · иконка.
+   Наведение меняет только размеры рядов, поэтому текст и иконка едут плавно. */
+.wz-card{--icon:var(--ih-m);position:relative;overflow:hidden;min-height:337px;padding:40px;
+  border-radius:var(--radius-card);background:var(--wz-card);box-shadow:var(--wz-hair);
+  -webkit-backdrop-filter:var(--blur-card);backdrop-filter:var(--blur-card);
+  display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:auto 1fr auto 16px var(--icon);
+  transition:grid-template-rows 480ms var(--ease-standard),
+    opacity 680ms var(--reveal-ease),transform 680ms var(--reveal-ease)}
+.wz-card::before{content:"";position:absolute;inset:0;z-index:0;opacity:0;
+  background:linear-gradient(135deg,rgb(234,104,19) 0%,rgb(243,64,13) 62%);
+  transition:opacity 380ms var(--ease-standard)}
+.wz-card>*{position:relative;z-index:1}
+.wz-card-head{grid-row:1;padding-bottom:16px;border-bottom:1px solid rgb(45,45,45);
+  transition:border-color 380ms var(--ease-standard)}
+.wz-card-head h3{font-size:32px;line-height:1;letter-spacing:-.01em}
+.wz-card-text{grid-row:3;max-width:322px;margin:0;font-size:14px;line-height:1.2;
+  color:rgba(255,255,255,.7);transition:color 380ms var(--ease-standard)}
+.wz-card-icon{grid-row:5;min-height:0;overflow:hidden;display:flex;align-items:flex-end;
+  transition:opacity 380ms var(--ease-standard)}
+.wz-star{display:block;width:var(--icon);height:var(--icon);flex-shrink:0;color:var(--w2p-white)}
+.wz-pay{gap:10px}
+.wz-pay img{display:block;height:var(--icon);width:auto;flex-shrink:0}
+
+/* ---------- 3. юридическая основа ---------- */
+.wz-legal{padding:var(--w2p-block) var(--wz-g) var(--w2p-block)}
+.wz-legal .wz-h2{max-width:510px;position:relative;z-index:1}
+.wz-glow--legal{right:-55%;top:28%;width:90%;aspect-ratio:1}
+.wz-legal-card{position:relative;z-index:1;width:min(574px,100%);margin:40px auto 0;padding:32px;
+  border-radius:var(--radius-card);background:var(--wz-card);box-shadow:var(--wz-hair);
+  -webkit-backdrop-filter:var(--blur-card);backdrop-filter:var(--blur-card);
+  display:flex;flex-direction:column;gap:49px;padding-bottom:29px}
+.wz-legal-card h3{max-width:458px;font-size:24px;line-height:1;letter-spacing:-.01em}
+.wz-legal-grid{margin:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px 16px}
+.wz-legal-wide{grid-column:1/-1}
+.wz-legal-grid dt{font-size:14px;line-height:1.2;color:var(--w2p-white)}
+.wz-legal-grid dd{margin:5px 0 0;font-size:14px;line-height:1.2;color:rgba(255,255,255,.4)}
+
+/* ================= мобильный ================= */
+@media (max-width:767px){
+  .wz{--wz-g:16px}
+  .wz-h2{font-size:30px;line-height:1.2}
+
+  .wz-hero{height:calc(315px + 129.3vw)}
+  /* левая группа плашек десктопа, ужатая до 425 px ширины, как в макете */
+  .wz-hero-squares{display:block;transform:translateY(142.75px) scale(.6875);transform-origin:0 0}
+  .wz-sq--d{display:none}
+  .wz-glow--hl{left:-673px;top:-88px}
+  .wz-hero-copy{top:90px;gap:40px}
+  .wz-crumb{height:24px}
+  .wz-crumb .w2p-arrow{width:24px;height:24px}
+  .wz-crumb>span:last-child{font-size:14px}
+  .wz-hero-title{font-size:36px;line-height:1.1}
+  .wz-hero-sub{font-size:16px;line-height:1.25;max-width:343px}
+  .wz-hero-art{left:-12%;top:216px;width:172.8%;aspect-ratio:648/485}
+  .wz-hero-stat{left:16px;bottom:50px}
+
+  .wz-cards{gap:12px}
+  .wz-card{min-height:345px;grid-template-rows:auto 1fr auto 16px var(--icon)}
+  .wz-card-head h3{font-size:24px}
+  .wz-legal-card{padding:40px 40px 37px;gap:32px}
+  .wz-legal-card h3{font-size:22px;letter-spacing:-.01em}
+  /* группы через 24, пары внутри группы через 16 (в макете — по обрезанным строкам) */
+  .wz-legal-grid{grid-template-columns:minmax(0,1fr);gap:9px}
+  .wz-legal-grid>:nth-child(2),.wz-legal-grid>:nth-child(4){margin-top:8px}
+}
+
+/* ================= десктоп: сетка 1440 ================= */
+@media (min-width:1200px){
+  .wz{--wz-g:40px;width:1440px;margin-inline:auto;zoom:var(--wz-zoom,1);overflow-x:visible}
+
+  .wz-hero{height:800px}
+  .wz-hero-squares{display:block}
+  .wz-glow--hl{left:-673px;top:-88px}
+  .wz-glow--hr{display:block;left:972px;top:-25px;width:1027px;height:998px}
+  .wz-hero-copy{left:40px;right:auto;top:98px;gap:40px}
+  .wz-hero-title{width:620px;font-size:128px;line-height:1}
+  .wz-hero-sub{max-width:none;width:470px;font-size:24px;line-height:1.3}
+  .wz-br-d{display:inline}
+  .wz-hero-art{left:405px;top:58px;width:1107px;height:758px;aspect-ratio:auto}
+  .wz-hero-stat{left:40px;top:704px;bottom:auto}
+
+  .wz-feat{padding:70px 0}
+  .wz-feat-title{max-width:750px}
+  .wz-glow--feat{left:1170px;top:-63px;width:936px;height:910px}
+  .wz-cards{width:auto;flex-direction:row;justify-content:center;gap:12px}
+  .wz-card{--icon:var(--ih);width:404px;height:345px;min-height:0;
+    grid-template-rows:auto 1fr auto 0fr 0px}
+  .wz-card-icon{opacity:0}
+
+  .wz-legal{padding:70px 0 140px}
+  .wz-legal .wz-h2{max-width:none}
+  .wz-glow--legal{left:-657px;right:auto;top:-515px;width:1027px;height:998px;aspect-ratio:auto}
+  .wz-legal-card{width:773px}
+  .wz-legal-grid{grid-template-columns:repeat(2,345px)}
+}
+
+/* Наведение есть только у мыши: на тачскринах планшета и телефона карточки
+   и так показывают иконки. */
+@media (min-width:1200px) and (hover:hover){
+  .wz-card:hover{grid-template-rows:auto 1fr auto 1fr var(--icon)}
+  .wz-card:hover::before{opacity:1}
+  .wz-card:hover .wz-card-head{border-color:rgba(249,249,249,.4)}
+  .wz-card:hover .wz-card-text{color:rgba(255,255,255,.7)}
+  .wz-card:hover .wz-card-icon{opacity:1;transition-delay:120ms}
+}
+
+/* ---------- только WinZu (main.wz.wzu) и Win-2.pro (.cf): у habibi/pando/ai-panda свои макеты ---------- */
+@media (max-width:1199px){
+  /* 768: между карточками и «Юридической основой» 200 = 100 + 100 */
+  .wzu .wz-feat{padding-bottom:var(--w2p-block)}
+  .wzu .wz-glow--feat{left:-205px;top:88px;width:936px;height:910px}
+  /* в макете между шапкой карточки и текстом не меньше 140; у WinZu текст во всю ширину (492) */
+  :is(.wzu,.cf) .wz-card{grid-template-rows:auto minmax(140px,1fr) auto 16px var(--icon)}
+  .wzu .wz-card-text{max-width:none}
+  .wz-glow--legal{left:425px;right:auto;top:88px;width:936px;height:910px;aspect-ratio:auto}
+}
+@media (max-width:767px){
+  .wzu .wz-feat{padding-bottom:50px}
+  .wzu .wz-glow--feat{left:-406px;top:208px;width:991px;height:1029px}
+  :is(.wzu,.cf) .wz-card{grid-template-rows:auto 1fr auto 16px var(--icon)}
+  :is(.wzu,.cf) .wz-card-head h3{font-size:22px}
+  .wz-glow--legal{left:4px;top:-32px;width:991px;height:1029px}
+}
+/* hover «Гибких платежей»: в макете текст уже — 249 */
+@media (min-width:1200px) and (hover:hover){
+  .wzu .wz-card:hover:has(.wz-pay) .wz-card-text{max-width:249px}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .wz-card,.wz-card::before,.wz-card-icon,.wz-card-text,.wz-card-head{transition:none}
+}

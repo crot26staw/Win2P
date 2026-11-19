@@ -5,7 +5,7 @@
    Брейкпоинты: ≥1440 масштабирование · 1200–1440 гибкий десктоп · 768–1200 планшет · ≥375 мобильный. */
 
 :root{
-  --site-gutter:clamp(16px,2.78vw,40px);
+  --site-gutter:40px; /* figma: 40 desktop · 32 tablet · 16 mobile (см. медиа ниже) */
   --site-col:min(560px,100%);
   --site-col-wide:min(1360px,100%);
   --site-col-text:min(704px,100%);
@@ -24,6 +24,8 @@
   /* Единый вертикальный ритм между блоками: 100 на мобильном, 140–150 выше. */
   --w2p-block:clamp(100px,10.4vw,150px);
 }
+@media (max-width:1200px){:root{--site-gutter:32px}}
+@media (max-width:767px){:root{--site-gutter:16px}}
 
 .w2p-page{width:100%;display:flex;flex-direction:column;align-items:stretch}
 .w2p-section{position:relative;overflow:clip;overflow-clip-margin:520px;
@@ -32,6 +34,8 @@
 /* Каталог идёт сразу за hero — 100px верхнего паддинга из макета читаются как
    мёртвый зазор после того, как диск hero в него ужался, поэтому он подтянут. */
 .w2p-section--first{padding-top:clamp(20px,2.4vw,48px)}
+/* Низ каталога — 100 при 1440, как в макете (общий --section-pad давал 150). */
+.w2p-section--first{padding-bottom:clamp(100px,6.94vw,139px)}
 .w2p-col{width:var(--site-col);display:flex;flex-direction:column;gap:16px}
 .w2p-col--center{align-items:center;gap:12px}
 .w2p-eyebrow{font-weight:700;font-size:14px;line-height:1;letter-spacing:var(--ls-label);
@@ -95,22 +99,29 @@
 }
 
 /* ---- hero Wintime (покадровая прокрутка) ---- */
-.w2p-crumb{display:inline-flex;align-items:center;gap:12px;margin-bottom:clamp(14px,1.9vw,30px);
-  background:none;border:0;padding:0;font-family:var(--font-text);font-weight:400;
-  font-size:var(--fs-body-lg);line-height:1;color:var(--text-primary);text-decoration:none;
+/* «Все продукты» по макету: Manrope 500 16 при 70% белого, кружок 32 white/0.05
+   с серой стрелкой (база .w2p-arrow), зазор 10; до заголовка 40 (32 + gap 8). */
+.w2p-crumb{display:inline-flex;align-items:center;gap:10px;margin-bottom:clamp(24px,2.2vw,44px);
+  background:none;border:0;padding:0;font-family:var(--font-text);font-weight:500;
+  font-size:16px;line-height:1.3;letter-spacing:var(--ls-label);color:rgba(249,249,249,.7);
+  text-decoration:none;align-self:flex-start;
   transition:opacity var(--duration-base) var(--ease-standard)}
-.w2p-crumb:hover{opacity:.7;color:var(--text-primary)}
-.w2p-crumb .w2p-arrow{width:clamp(30px,2.2vw,44px);height:clamp(30px,2.2vw,44px);
-  color:var(--text-primary);background-color:rgba(255,255,255,.153)}
+.w2p-crumb:hover{opacity:.7;color:rgba(249,249,249,.7)}
+.w2p-crumb .w2p-arrow{width:32px;height:32px}
+.w2p-crumb .w2p-arrow svg{width:16%;height:31%}
 .w2p-vhero{position:relative;width:100%;z-index:0;height:300vh}
 .w2p-vhero-pin{position:sticky;top:0;height:100vh;overflow:hidden;background-color:var(--surface-page)}
 .w2p-vhero-canvas{position:absolute;inset:0;width:100%;height:100%;display:block;will-change:opacity}
-.w2p-vhero-copy{position:absolute;left:var(--site-gutter);right:var(--site-gutter);top:14.7vh;
+/* Портретные планшет/мобильный рисуют статичный рендер из макета (js/wintime.js) — постер-кадр ролика не нужен */
+@media (max-width:1200px) and (orientation:portrait){.w2p-vhero-pin{background-image:none!important}}
+/* Верх «Все продукты» — 98 от верха экрана, как в макете (было 14.7vh ≈ 132 при 900). */
+.w2p-vhero-copy{position:absolute;left:var(--site-gutter);right:var(--site-gutter);top:max(98px,10.9vh);
   display:flex;flex-direction:column;gap:8px;will-change:transform,opacity}
-.w2p-vhero-note{position:absolute;left:var(--site-gutter);bottom:5vh;width:min(345px,60%)}
+/* Ширина в em: 318 при кегле 18, как в макете, — тот же перенос на любом кегле. */
+.w2p-vhero-note{position:absolute;left:var(--site-gutter);bottom:5vh;width:min(17.7em,60%)}
 /* Блок модели начисления поднимается поверх последнего отрезка пина, чтобы оказаться
    на экране за пару секунд до конца ролика. */
-.w2p-section--overhero{margin-top:-78vh;z-index:2}
+.w2p-section--overhero{margin-top:-50vh;z-index:2}
 /* Своей плашки нет — сквозь просвечивает цвет страницы, читается только свечение. */
 .w2p-section--bare{background-color:transparent}
 
@@ -121,11 +132,14 @@
 .w2p-asterisk{position:absolute;left:68.8%;top:39%}
 
 /* ---- подарки: круговая карусель по скроллу ---- */
-.w2p-gifts{position:relative;width:100%}
+/* --gt-top — верх заголовка, --gt-bottom — его низ (меряет js/wintime.js, здесь запасной
+   расчёт на две строки). Плитка стоит вплотную под заголовком, как в макете. */
+.w2p-gifts{position:relative;width:100%;--gt-top:calc(clamp(78px,5.4vw,108px) + 5vh);
+  --orbit-top:calc(var(--gt-bottom,calc(var(--gt-top) + 2.2 * var(--fs-section))) + var(--orbit-tile) / 2)}
 .w2p-gifts-pin{position:sticky;top:0;height:100vh;overflow:hidden;background-color:var(--surface-page)}
 /* Отступ от фиксированной шапки: пин начинается у верха вьюпорта, поэтому заголовку
    нужна высота хрома плюс воздух, иначе лого ложится на заголовок. */
-.w2p-gifts-title{position:absolute;left:50%;top:calc(clamp(78px,5.4vw,108px) + 5vh);
+.w2p-gifts-title{position:absolute;left:50%;top:var(--gt-top);
   transform:translateX(-50%);width:min(800px,88%);display:flex;flex-direction:column;
   align-items:center;z-index:2}
 .w2p-gifts-title .w2p-display{text-align:center;width:100%}
@@ -136,11 +150,21 @@
 .w2p-orbit-item{position:absolute;left:0;top:0;width:var(--orbit-tile);aspect-ratio:1;
   background-size:contain;background-position:center;background-repeat:no-repeat;
   will-change:transform,opacity}
+/* Пагинация карусели: только на планшете и мобильном, под подписью. */
+.w2p-orbit-dots{position:absolute;left:50%;transform:translateX(-50%);z-index:2;
+  top:calc(var(--orbit-top) + var(--orbit-tile) / 2 + 20px);
+  display:none;gap:4px}
+.w2p-orbit-dot{width:10px;height:10px;padding:0;border:0;border-radius:50%;cursor:pointer;
+  background:rgba(255,255,255,.15);transition:background-color 200ms linear}
+.w2p-orbit-dot.is-active{background:var(--accent-primary)}
+@media (max-width:1200px){.w2p-orbit-dots{display:flex}}
+/* Подпись — часть карточки подарка в макете: низ подписи совпадает с низом плитки.
+   Переносы строк берутся из data-title (pre-line), блок по ширине текста, строки влево. */
 .w2p-orbit-caption{position:absolute;left:50%;
-  top:calc(var(--orbit-top) + var(--orbit-tile) / 2 + 24px);width:min(340px,70vw);
-  text-align:center;transform:translateX(-50%);z-index:2;font-weight:700;
-  font-size:clamp(13px,1.25vw,22px);line-height:1;letter-spacing:var(--ls-label);
-  text-transform:uppercase;color:var(--text-primary);white-space:nowrap;
+  top:calc(var(--orbit-top) + var(--orbit-tile) / 2);width:max-content;max-width:min(340px,80vw);
+  text-align:left;transform:translate(-50%,-100%);z-index:2;font-weight:700;
+  font-size:clamp(13px,1.25vw,22px);line-height:1.1;letter-spacing:var(--ls-label);
+  text-transform:uppercase;color:var(--text-primary);white-space:pre-line;
   transition:opacity 200ms linear}
 
 /* ---- закрывающее утверждение ---- */
@@ -162,10 +186,10 @@
 @media (max-width:1200px){
   :root{--fs-marquee:clamp(52px,12.5vw,150px);--fs-section:clamp(28px,4.6vw,56px);
     --hero-h:clamp(420px,62vw,760px)}
-  .w2p-tariffs{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .w2p-asterisk{display:none}
-  :root{--orbit-tile:min(clamp(170px,30vw,300px),42vh)}
-  .w2p-section--overhero{margin-top:-70vh}
+  /* Планшет, как в макете: FREE/LITE/PRO в ряд, во втором ряду LITE+PRO и бонус на две колонки. */
+  .w2p-tariffs{grid-template-columns:repeat(3,minmax(0,1fr))}
+  /* Планшет: плитка 383 при 768, как в макете (половина ширины), с потолком по высоте. */
+  :root{--orbit-tile:min(383px,50vw,40vh)}
 }
 
 @media (max-width:767px){
@@ -176,17 +200,15 @@
   .w2p-hero-plate{left:26.3%;top:20.83%;width:47.4%;height:83.33%}
   .w2p-marquee-rows{top:calc(22vw + 76px)}
   .w2p-tariffs{grid-template-columns:minmax(0,1fr)}
+  .w2p-asterisk{display:none}
   /* Сноска у hero остаётся на мобильном, прижата к левому нижнему углу блока. */
   .w2p-vhero-note{left:var(--site-gutter);right:auto;top:auto;bottom:4vh;width:84%}
   .w2p-section--overhero{margin-top:-60vh}
 
   /* Подарки, мобильный: заголовок под шапкой, одна плитка по центру, подпись под ней. */
-  .w2p-gifts-title{top:calc(clamp(78px,5.4vw,108px) + 8vh);width:88%}
-  /* Только на мобильном первая строка переносится на две. */
-  .w2p-gifts-title .w2p-display:first-child{white-space:normal}
-  :root{--orbit-tile:52vw;
-    --orbit-top:calc(clamp(78px,5.4vw,108px) + 8vh + 3.3 * var(--fs-section)
-      + 28px + var(--orbit-tile) / 2)}
+  /* Макет 375: заголовок с 170 из 800, плитка 289 (77vw) вплотную под ним. */
+  .w2p-gifts{--gt-top:calc(78px + 11vh);--orbit-tile:min(77vw,42vh)}
+  .w2p-gifts-title{width:min(356px,95%)}
 
   /* Утверждение, мобильный: заголовок стопкой сверху, плашка на всю ширину под ним. */
   .w2p-statement{height:168vw;min-height:0;margin-top:-14vh;margin-bottom:12vh}
@@ -204,3 +226,205 @@
   /* шеврон — сосед .w2p-pc-inner, поэтому на мобильном он прижат в строку с текстом */
   .w2p-pc-arrow{position:absolute;right:16px;bottom:26px;top:auto}
 }
+
+/* ---- Wintime: правки по макету от 03.11 ---- */
+
+/* Роль токена: карта социального слоя слева, две карточки механик справа.
+   Сетка 754 + 285 при 16 зазора, как в макете. */
+.w2p-role-title{display:flex;flex-direction:column;align-items:center}
+.w2p-role-title>span{display:block}
+.w2p-role-grid{width:min(1055px,100%);display:grid;grid-template-columns:754fr 285fr;gap:16px}
+.w2p-role-map{position:relative;aspect-ratio:754/504;border-radius:var(--radius-card);overflow:hidden;
+  box-shadow:var(--shadow-card-border);display:flex;flex-direction:column;justify-content:space-between;
+  padding:24px;background:var(--w2p-ink-850)}
+.w2p-role-art{position:absolute;inset:0;z-index:0}
+.w2p-role-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.w2p-role-pin{position:absolute;display:block;height:auto}
+.w2p-role-av{width:7.958%}
+.w2p-role-coins{width:9.416%}
+.w2p-role-map-title,.w2p-role-facts{position:relative;z-index:1}
+.w2p-role-map-title{font-family:var(--font-display);font-weight:700;font-size:32px;line-height:1;
+  letter-spacing:var(--ls-label);text-transform:uppercase;color:var(--text-primary);margin:0}
+.w2p-role-facts{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:250fr 246fr 209fr;
+  gap:0;font-size:14px;line-height:1.2;color:var(--w2p-white)}
+.w2p-role-facts li{padding-right:16px}
+.w2p-role-side{display:grid;grid-template-rows:1fr 1fr;gap:12px}
+.w2p-role-card{border-radius:var(--radius-card);background:var(--surface-card-tall);
+  box-shadow:var(--shadow-card-border);padding:24px;display:flex;flex-direction:column;
+  justify-content:space-between;gap:24px}
+.w2p-role-card-title{font-weight:700;font-size:18px;line-height:1.1;letter-spacing:var(--ls-label);
+  text-transform:uppercase;color:var(--text-primary);margin:0;white-space:nowrap}
+.w2p-role-card-body{display:flex;flex-direction:column;gap:14px}
+.w2p-role-intro{font-weight:600;font-size:14px;line-height:1.2;color:var(--w2p-white);margin:0}
+.w2p-role-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px}
+.w2p-role-list li{display:flex;gap:10px;align-items:flex-start;font-size:14px;line-height:1.2;
+  color:var(--text-muted)}
+.w2p-role-star{flex-shrink:0;color:var(--accent-primary);margin-top:2px}
+/* Десктоп: высоту ряда задаёт карта (754×504), правая колонка в неё вписывается —
+   две карточки по 246 при зазоре 12, как в макете, без выпирания вниз. */
+@media (min-width:1201px){
+  .w2p-role-side{height:0;min-height:100%}
+  .w2p-role-card{gap:16px;min-height:0}
+}
+
+/* Модель начисления: карточки без кнопок, внутренний отступ 40 как в макете;
+   звёздочка теперь привязана к карточке PRO, а не к проценту секции. */
+.w2p-model .w2p-tc{padding:40px}
+.w2p-tc-wrap{position:relative}
+.w2p-tc-wrap .w2p-asterisk{position:absolute;left:auto;right:35px;top:-19px;z-index:2}
+.w2p-invite-wrap{grid-column:1/-1}
+.w2p-invite{min-height:251px;justify-content:space-between;gap:40px}
+.w2p-invite-tag{align-self:flex-start;padding:2px 12px 4px;border-radius:var(--radius-pill);
+  background:linear-gradient(-11.5deg,rgb(243,64,13) 1.2%,rgb(234,104,19) 94.9%);
+  font-weight:600;font-size:16px;line-height:1.35;letter-spacing:var(--ls-tight);color:var(--w2p-white)}
+.w2p-invite-row{align-self:stretch;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:32px;align-items:end}
+.w2p-invite-first,.w2p-invite-copy{display:flex;flex-direction:column}
+.w2p-invite-first{gap:12px}
+.w2p-invite-copy{gap:8px}
+.w2p-invite-step{display:flex;gap:12px;align-items:flex-end}
+.w2p-invite-bar{width:24px;flex-shrink:0;border-radius:var(--radius-token);
+  background:linear-gradient(180deg,rgb(234,104,19),rgb(243,64,13))}
+.w2p-invite-val{display:flex;align-items:center;gap:6px;white-space:nowrap}
+.w2p-invite-val b{font-weight:700;font-size:18px;line-height:1;letter-spacing:var(--ls-label);
+  color:var(--text-primary)}
+.w2p-invite-val span{font-weight:600;font-size:14px;line-height:1.2;color:var(--text-primary)}
+.w2p-invite-val--lg{gap:8px}
+.w2p-invite-val--lg b{font-family:var(--font-display);font-size:32px}
+.w2p-token--lg{width:22px;height:22px}
+.w2p-invite-note{font-size:14px;line-height:1.2;color:var(--text-muted)}
+
+/* Подарки: «WinTime обменивается» длиннее старой строки (802 против 800 в макете). */
+.w2p-gifts-title{width:min(880px,92%)}
+
+/* Утверждение: в макете колонка 1064 при кегле 56 — ровно три строки.
+   Ширина в em, чтобы перенос оставался тем же при любом кегле. */
+.w2p-statement-copy .w2p-display:first-child{max-width:19.2em}
+/* Верх текста 115 из 800, как в макете: при трёх строках низ «в возможности»
+   заходит под уши копилки (плашка поверх текста), а не висит над ней. */
+@media (min-width:768px){.w2p-statement-copy{top:14.375%}}
+
+@media (max-width:1200px){
+  .w2p-role-grid{grid-template-columns:minmax(0,1fr);max-width:754px}
+  .w2p-role-side{grid-template-rows:none;grid-template-columns:repeat(2,minmax(0,1fr))}
+  .w2p-invite-row{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:28px}
+}
+@media (max-width:767px){
+  /* Макет 375: карточка 343×623, карта на всю её высоту (кадрирована на Европу,
+     Африку и Азию), заголовок 22 сверху, подписи столбиком поверх карты внизу.
+     Арт держит пропорцию 754×504, поэтому аватары остаются на своих местах карты. */
+  .w2p-role-map{aspect-ratio:343/623;padding:24px}
+  .w2p-role-art{inset:0 auto 0 -127.7%;width:auto;aspect-ratio:754/504}
+  .w2p-role-av{width:6.44%}
+  .w2p-role-coins{width:7.6%}
+  .w2p-role-map-title{font-size:22px}
+  .w2p-role-facts{grid-template-columns:minmax(0,1fr);gap:24px;max-width:250px}
+  .w2p-role-facts li{padding-right:0}
+  .w2p-role-side{grid-template-columns:minmax(0,1fr)}
+  .w2p-model .w2p-tc{padding:24px}
+  .w2p-invite{padding:24px}
+  .w2p-invite-row{grid-template-columns:minmax(0,1fr);row-gap:20px}
+}
+
+/* ---- правки по сверке с макетом 10.11 ----
+   Кегли заголовков переопределены на main.w2p-page, а не на :root: site.css подключён
+   на всех страницах, а переменные :root читают и другие. */
+
+/* Тарифы: названия — Neutral Face, как в макете; строки с шагом 26
+   (в макете у строк кегль 14 при боксе 10 и зазоре 16 — 16.8 + 9.2). */
+main.w2p-page .w2p-tc-name{font-family:var(--font-display);letter-spacing:var(--ls-label)}
+main.w2p-page .w2p-tc-rows{gap:9.2px}
+
+/* Подарки: одно свечение справа (в макете — одно пятно у правого края). */
+.w2p-gifts-glow .w2p-glow{right:-14%;top:30%;width:37%;height:62%}
+
+@media (max-width:1200px){
+  /* Планшет: заголовки секций 56 и подзаголовки 18, как в макете Tablet. */
+  main.w2p-page{--fs-section:56px;--fs-body-lg:18px}
+  .w2p-vhero .w2p-display--hero{font-size:72px;line-height:1.1}
+  .w2p-vhero .w2p-lead{font-size:18px}
+  .w2p-vhero-copy{top:98px}
+  .w2p-crumb{margin-bottom:24px}
+  /* Звёздочка PRO на планшете есть: 19 от правого края карточки, −20 сверху. */
+  .w2p-tc-wrap .w2p-asterisk{right:19px;top:-20px}
+  main.w2p-page .w2p-model .w2p-tc{padding:32px}
+  main.w2p-page .w2p-tc-title{height:auto}
+  main.w2p-page .w2p-tc-name{white-space:normal}
+  .w2p-invite-wrap{grid-column:span 2}
+  .w2p-invite{justify-content:flex-start;gap:32px}
+  .w2p-invite-row{column-gap:24px}
+  /* «Модель начисления» в макете Tablet — в две строки (колонка 510). */
+  .w2p-model .w2p-display--section{max-width:510px}
+  /* Роль токена: в макете Tablet слева «Доступ к продуктам», справа «Механики». */
+  .w2p-role-side>.w2p-role-card:first-child{order:1}
+  /* Подарки: заголовок в три строки, свечение слева внизу, как в макете Tablet. */
+  .w2p-gifts-title .w2p-display:first-child{white-space:normal}
+  .w2p-gifts-glow .w2p-glow{right:auto;left:-40%;top:62%;width:60%;height:70%}
+  /* Утверждение, планшет: секция 800 из 768, текст с 72, кадр 916×515 с −74,285. */
+  .w2p-statement{height:104.2vw}
+  .w2p-statement-copy{top:9%}
+  .w2p-statement-plate{left:-9.6%;top:35.6%;width:119.3%;height:64.4%}
+}
+
+@media (max-width:767px){
+  main.w2p-page{--fs-section:30px;--fs-body-lg:15px}
+  /* Hero, макет 375: «Все продукты» 14 с кружком 24 на 90, WINTIME 36, сноска 14 на всю ширину. */
+  .w2p-vhero .w2p-display--hero{font-size:36px;line-height:1.1}
+  .w2p-vhero .w2p-lead{font-size:16px}
+  .w2p-vhero-copy{top:90px}
+  .w2p-crumb{font-size:14px;margin-bottom:32px}
+  .w2p-crumb .w2p-arrow{width:24px;height:24px}
+  .w2p-vhero-note{right:var(--site-gutter);width:auto;bottom:50px;font-size:14px;line-height:1.3}
+  main.w2p-page .w2p-model .w2p-tc{padding:24px}
+  main.w2p-page .w2p-tc-name{font-size:22px}
+  main.w2p-page .w2p-tc-title{height:auto}
+  main.w2p-page .w2p-tc{gap:24px}
+  .w2p-invite-val--lg b{font-size:22px}
+  .w2p-invite-wrap{grid-column:auto}
+  .w2p-role-side>.w2p-role-card:first-child{order:0}
+  /* Механики/доступ: карточки 246 высотой, заголовок сверху, список снизу, в одну строку. */
+  .w2p-role-card{min-height:246px}
+  .w2p-role-card-title{max-width:none}
+  /* Подарки на мобильном — чистый фон, без свечений. */
+  .w2p-gifts-glow{display:none}
+  /* Утверждение, макет 375: текст 30 в 5 строк, кадр 712×401 шире экрана (−168 слева).
+     Высота ужата до 675 (в макете 800 с пустым низом), доли пересчитаны от неё. */
+  .w2p-statement{height:180vw}
+  .w2p-statement-copy{top:22.8%;width:95%}
+  .w2p-statement-plate{left:-44.8%;top:39.3%;width:189.9%;height:59.4%}
+}
+
+/* Wintime, портретные планшет/мобильный: hero — обычный блок на всю высоту экрана
+   без пина; «Роль токена» идёт следом, без наезда. svh — чтобы высота не прыгала
+   при появлении/скрытии адресной строки мобильного браузера. */
+@media (max-width:1200px) and (orientation:portrait){
+  .w2p-vhero{height:100vh;height:100svh}
+  .w2p-vhero-pin{position:relative;height:100%}
+  .w2p-section--overhero{margin-top:0}
+}
+@media (min-width:768px) and (max-width:1200px) and (orientation:portrait){.w2p-vhero-note{bottom:48px}}
+
+/* «Модель начисления», планшет/мобильный: оранжевое пятно в начале блока, срезанное
+   его верхним краем (figma Tablet: 490×489 x71 y−290, blur 200, op .52;
+   Mobile: 299×298 x−1 y−182, blur 145). На десктопе в макете свечения нет. */
+.w2p-model-glow{display:none}
+@media (max-width:1200px){
+  .w2p-model-glow{display:block;position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0}
+  .w2p-model-glow::before{content:"";position:absolute;left:9.24vw;top:-37.76vw;width:63.8vw;height:63.67vw;
+    background:var(--accent-primary);opacity:.52;filter:blur(100px)}
+}
+@media (max-width:767px){
+  .w2p-model-glow::before{left:-.27vw;top:-48.5vw;width:79.7vw;height:79.5vw;filter:blur(72px)}
+}
+/* «Роль токена»: левое пятно есть только в десктопном макете; на 768/375 его нет. */
+@media (max-width:1200px){.w2p-role-glow{display:none}}
+
+/* ---- Главная на больших экранах (правка клиента 18.11) ----
+   Заголовок и подзаголовок каталога растут с шириной экрана (clamp по vw),
+   а колонка карточек фиксированная 560 — на 1920+ она выглядела мелкой.
+   Подписи и колонки увеличиваются ступенями вместе с экраном (≈ ширина / 1440, с потолком). */
+.w2p-pc-desc{color:rgba(255,255,255,.6)}
+@media (min-width:1600px){.w2p-section--first>section.w2p-col{zoom:1.12}}
+@media (min-width:1800px){.w2p-section--first>section.w2p-col{zoom:1.25}}
+@media (min-width:2100px){.w2p-section--first>section.w2p-col{zoom:1.4}}
+@media (min-width:2500px){.w2p-section--first>section.w2p-col{zoom:1.6}}

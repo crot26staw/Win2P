@@ -10,6 +10,11 @@
      не спотыкается о декодирование. Пин высотой 300vh; позиция внутри него
      отображается в индекс кадра, значение каждый кадр подтягивается к цели. */
   var FRAME_COUNT = 72;
+  // Блок «Роль токена» появляется снизу на 75% пина (margin-top −50vh у
+  // .w2p-section--overhero при пине 300vh: 1 − 50/200). К кадру 55 (мишка отвернулся
+  // влево) блок уже поднялся и заголовок виден внизу экрана — это P_SEEN. После этого
+  // ролик гаснет, пока блок поднимается дальше.
+  var BLOCK_IN = 0.75, FRAME_SEEN = 55, P_SEEN = 0.88, FADE_FROM = 0.88, FADE_LEN = 0.12;
 
   /* На мобильном блок «Модель начисления» наезжает на пин с 70% прокрутки, а ролик
      по исходной раскладке доигрывал до 100% — кадры продолжали меняться уже под
@@ -35,21 +40,53 @@
       draw(Math.round(current));
     }
 
-    var frames = [];
-    for (var i = 0; i < FRAME_COUNT; i++) {
-      var img = new Image();
-      img.decoding = "sync";
-      img.src = "assets/wintime-frames/f" + String(i).padStart(3, "0") + ".jpg";
-      // Первый кадр показываем, как только декодируется ОН: ожидание всех 72 оставляло
-      // hero пустым до первого скролла. Остальные догружаются позади скраба.
-      if (i === 0) {
-        img.onload = function () { canvas.style.opacity = "1"; draw(0); };
-        img.onerror = function () { canvas.style.opacity = "1"; };
-      }
-      frames.push(img);
+    /* Первый кадр (или статичную картинку) показываем, как только декодируется ОН.
+       Постер f000.jpg на пине нужен только до этого момента: если его оставить, то,
+       когда ролик гаснет в конце, медведь проступает из постера за блоком «Роль токена». */
+    function shown() {
+      canvas.style.opacity = "1"; lastDrawn = -1; draw(Math.round(current));
+      canvas.parentNode.style.backgroundImage = "none";
     }
 
+    var frames = [];
+    function loadFrames() {
+      if (frames.length) return;
+      for (var i = 0; i < FRAME_COUNT; i++) {
+        var img = new Image();
+        img.decoding = "sync";
+        img.src = "assets/wintime-frames/f" + String(i).padStart(3, "0") + ".jpg";
+        if (i === 0) { img.onload = shown; img.onerror = function () { canvas.style.opacity = "1"; }; }
+        frames.push(img);
+      }
+    }
+
+    /* Портретный планшет и мобильный: в кадрах ролика голова медведя срезана (крупный
+       план), а в макете на 768/375 стоит отдельный статичный рендер с медведем целиком —
+       рисуем его вместо ролика. Кадрирование снято с imageTransform макета: ширина
+       картинки = ширина экрана / k, сдвиг влево = dx·ширина, низ — по низу экрана
+       (768: k 0.5714, dx 0.162; 375: k 0.3166, dx 0.2677). Сверху остаётся тёмная полоса
+       под текст. Альбомная ориентация остаётся на ролике. */
+    var mqStill = window.matchMedia("(max-width: 1200px) and (orientation: portrait)");
+    var still = null;
+    function loadStill() {
+      if (still) return;
+      still = new Image();
+      still.decoding = "sync";
+      still.onload = shown;
+      still.src = "assets/wintime-hero.webp";
+    }
+    function loadSource() { if (mqStill.matches) loadStill(); else loadFrames(); }
+
     function draw(idx) {
+      if (mqStill.matches) {
+        if (!still || !still.naturalWidth) return;
+        var k = mqMobile.matches ? [0.3166, 0.2677] : [0.5714, 0.162];
+        var sw = canvas.width / k[0], sh = sw * still.naturalHeight / still.naturalWidth;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(still, -k[1] * sw, canvas.height - sh, sw, sh);
+        lastDrawn = idx;
+        return;
+      }
       var img = frames[idx];
       if (!img || !img.naturalWidth) return;
       var s = Math.max(canvas.width / img.naturalWidth, canvas.height / img.naturalHeight);
@@ -57,23 +94,43 @@
       ctx.drawImage(img, (canvas.width - w) / 2, (canvas.height - h) / 2, w, h);
       lastDrawn = idx;
     }
+    // Порог фона шапки (data-threshold) рассчитан на пин 300vh; без пина — обычный.
+    var shell = document.querySelector(".w2p-header-fix");
+    var threshold = shell && shell.getAttribute("data-threshold");
+    function syncHeader() {
+      if (!threshold) return;
+      if (mqStill.matches) shell.removeAttribute("data-threshold");
+      else shell.setAttribute("data-threshold", threshold);
+    }
+    loadSource(); syncHeader();
+    mqStill.addEventListener("change", function () {
+      loadSource(); syncHeader(); lastDrawn = -1; draw(Math.round(current));
+    });
 
     function apply() {
       // Циклы rAF крутятся постоянно; если блок далеко за экраном — пропускаем кадр.
+      // Портретные планшет/мобильный: hero — обычный блок без пина (css/site.css),
+      // статичная картинка, текст не уезжает; второй блок просто идёт следом.
+      if (mqStill.matches) {
+        if (lastDrawn < 0) draw(0);
+        canvas.style.opacity = 1;
+        if (copy) { copy.style.transform = ""; copy.style.opacity = ""; }
+        if (note) { note.style.transform = ""; note.style.opacity = ""; }
+        return;
+      }
       if (!isNear(wrap)) return;
       var span = wrap.offsetHeight - window.innerHeight;
       var p = Math.min(Math.max((window.scrollY - wrap.offsetTop) / Math.max(span, 1), 0), 1);
       var mobile = mqMobile.matches;
-      // Доля пина, за которую ролик успевает доиграть.
-      var runway = mobile ? 0.6 : 1;
+      // Доля пина, за которую ролик доигрывает: на десктопе и планшете подогнана
+      // так, чтобы кадр FRAME_SEEN стоял на экране при P_SEEN.
+      var runway = mobile ? 0.6 : P_SEEN * (FRAME_COUNT - 1) / FRAME_SEEN;
       target = Math.min(p / runway, 1) * (FRAME_COUNT - 1);
       current += (target - current) * 0.18;
       if (Math.abs(target - current) < 0.02) current = target;
       var idx = Math.round(current);
       if (idx !== lastDrawn) draw(idx);
-      // Блок модели начисления наезжает на пин примерно с 74%, поэтому к его приходу
-      // ролик уже погашен — секция появляется раньше, чем закончится клип.
-      canvas.style.opacity = (mobile || p < 0.7) ? 1 : Math.max(1 - (p - 0.7) / 0.22, 0);
+      canvas.style.opacity = (mobile || p < FADE_FROM) ? 1 : Math.max(1 - (p - FADE_FROM) / FADE_LEN, 0);
       if (copy) {
         copy.style.transform = "translate3d(0, " + (-p * 150) + "%, 0)";
         copy.style.opacity = Math.max(1 - p * 1.8, 0);
@@ -93,22 +150,71 @@
   }
 
   /* ---------- карусель подарков ----------
-     Плитки едут по периметру одной очень большой окружности, центр которой лежит
-     сильно ниже вьюпорта, поэтому дуга в видимой полосе пологая — именно это выносит
-     соседние плитки влево и вправо от главной карточки, а не наверх. Скролл вращает
-     кольцо; та плитка, что доходит до верха окружности, стоит прямо, в полный размер
-     и с подписью. Остальные уменьшаются, наклоняются по касательной и гаснут.
-     Угловой шаг 24°, как в макете. */
-  var STEP = 24 * Math.PI / 180;
+     Плитки едут по пологой дуге: главная стоит прямо, в полный размер и с подписью,
+     соседи слева и справа — уменьшенные, повёрнутые по касательной и полупрозрачные.
+     Раскладка соседей снята с макета (плитка 383, соседи 200×200 под 30° и 60°,
+     прозрачность 0.5; на мобильном 289 и соседи 114 под 60° у краёв экрана) и задана
+     в долях плитки, поэтому масштабируется вместе с ней. Кольцо замкнуто: перед первым
+     подарком видны последние, как в макете. */
+  // [|d| слотов от верха]: смещение x, y (доли плитки), поворот (°), масштаб, прозрачность
+  var ORBIT_KEYS = [
+    [0, 0, 0, 1, 1],
+    [0.862, 0.253, 30, 0.522, 0.5],
+    [1.274, 0.705, 60, 0.522, 0.5],
+    [1.62, 1.25, 90, 0.522, 0]
+  ];
+  var ORBIT_KEYS_MOBILE = [
+    [0, 0, 0, 1, 1],
+    [0.964, 0.343, 60, 0.394, 0.5],
+    [1.5, 0.9, 90, 0.394, 0]
+  ];
+
+  function orbitPose(keys, ad) {
+    var last = keys.length - 1;
+    if (ad >= last) return keys[last];
+    var k = Math.floor(ad), t = ad - k, a = keys[k], b = keys[k + 1], out = [];
+    for (var j = 0; j < 5; j++) out.push(a[j] + (b[j] - a[j]) * t);
+    return out;
+  }
 
   function initGiftOrbit() {
     var wrap = document.querySelector(".w2p-gifts");
     if (!wrap) return;
     var items = Array.prototype.slice.call(wrap.querySelectorAll(".w2p-orbit-item"));
     var caption = wrap.querySelector(".w2p-orbit-caption");
+    var title = wrap.querySelector(".w2p-gifts-title");
     var N = items.length;
     if (!N) return;
     var progress = 0, shown = -1;
+
+    // Плитка стоит сразу под заголовком (в макете без зазора), а число строк заголовка
+    // зависит от ширины — поэтому низ заголовка меряем, а не считаем в CSS.
+    function measure() {
+      if (title) wrap.style.setProperty("--gt-bottom", (title.offsetTop + title.offsetHeight) + "px");
+    }
+    measure();
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(measure);
+    window.addEventListener("resize", measure);
+
+    // Пагинация (планшет и мобильный): по точке на подарок, активная — та плитка,
+    // что сейчас на верху кольца. Клик прокручивает к её слоту.
+    var dotsWrap = wrap.querySelector(".w2p-orbit-dots");
+    var dots = [];
+    if (dotsWrap) {
+      items.forEach(function (it, i) {
+        var b = document.createElement("button");
+        b.type = "button";
+        b.className = "w2p-orbit-dot";
+        b.setAttribute("aria-label", it.dataset.title || String(i + 1));
+        b.addEventListener("click", function () {
+          var span = wrap.offsetHeight - window.innerHeight;
+          var top = wrap.getBoundingClientRect().top + window.scrollY;
+          window.scrollTo({ top: top + span * i / Math.max(N - 1, 1), behavior: "smooth" });
+        });
+        dotsWrap.appendChild(b);
+        dots.push(b);
+      });
+    }
 
     function apply() {
       // Циклы rAF крутятся постоянно; если блок далеко за экраном — пропускаем кадр.
@@ -125,25 +231,29 @@
       var targetProgress = slot + k * k * (3 - 2 * k);
       progress += (targetProgress - progress) * 0.13;
 
-      var vh = window.innerHeight, vw = window.innerWidth;
-      var R = Math.max(vh, vw * 0.52) * 1.06;
+      var keys = mqMobile.matches ? ORBIT_KEYS_MOBILE : ORBIT_KEYS;
+      var T = items[0].offsetWidth;
       var best = 0, bestD = 99;
       for (var i = 0; i < N; i++) {
         var d = i - progress;                       // слотов от верха кольца
-        var ad = Math.abs(d);
+        d = ((d + N / 2) % N + N) % N - N / 2;      // кольцо замкнуто
+        var ad = Math.abs(d), sg = d < 0 ? -1 : 1;
         if (ad < bestD) { bestD = ad; best = i; }
-        var angle = d * STEP;                       // 0 = верх окружности
-        var x = Math.sin(angle) * R;
-        var y = R - Math.cos(angle) * R;            // уход вниз от верхней точки дуги
-        var scale = 1 / (1 + 0.88 * ad);
-        var opacity = ad <= 1 ? 1 - 0.2 * ad : Math.max(0, 0.8 - (ad - 1) * 0.3);
+        var pose = orbitPose(keys, ad);
         var node = items[i];
-        node.style.transform = "translate3d(calc(-50% + " + x + "px), calc(-50% + " + y + "px), 0) rotate("
-          + (angle * 0.8) + "rad) scale(" + scale + ")";
-        node.style.opacity = String(opacity);
+        node.style.transform = "translate3d(calc(-50% + " + (sg * pose[0] * T) + "px), calc(-50% + "
+          + (pose[1] * T) + "px), 0) rotate(" + (sg * pose[2]) + "deg) scale(" + pose[3] + ")";
+        node.style.opacity = String(pose[4]);
         node.style.zIndex = String(100 - Math.round(ad * 10));
       }
-      if (best !== shown) { shown = best; caption.textContent = items[best].dataset.title || ""; }
+      if (best !== shown) {
+        shown = best;
+        caption.textContent = items[best].dataset.title || "";
+        dots.forEach(function (d, j) {
+          d.classList.toggle("is-active", j === best);
+          if (j === best) d.setAttribute("aria-current", "true"); else d.removeAttribute("aria-current");
+        });
+      }
       // Подпись принадлежит плитке на верху кольца: гаснет, пока кольцо в движении,
       // и проявляется уже на следующем подарке.
       caption.style.opacity = String(Math.max(0, 1 - bestD * 2.6));

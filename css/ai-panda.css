@@ -1,0 +1,119 @@
+/* Страница AI Panda (Figma: секция «AI Panda», фреймы 1440 / 768 / 375).
+   Подключается поверх css/winzu.css (корень .wz с зумом сетки 1440, hero-копия, заголовки,
+   карточки с наведением) и css/win2pro.css (закреплённая лента .cf-tools с прогрессом).
+   Здесь — только своё. Порядок: база = планшет · ≤767 мобильный · ≥1200 десктопная сетка. */
+
+.ap{--ap-chip:linear-gradient(76.677deg,rgb(20,20,21) 28.68%,rgb(43,43,44) 103.17%)}
+
+/* ---------- 1. hero ---------- */
+.ap-hero{background:var(--surface-page)}
+/* Копия растянута до низа hero: сноска и ряд моделей прижимаются к нижнему краю,
+   на мобильном сноска идёт в потоке под подзаголовком, а ряд моделей остаётся внизу. */
+.ap-hero .wz-hero-copy{bottom:40px}
+.ap-hero-note{margin:auto 0 0;max-width:436px;font-size:18px;line-height:1.3;
+  color:rgba(249,249,249,.85);text-shadow:0 1px 14px rgba(5,5,5,.7)}
+/* Арт — вырезка с прозрачным фоном 1254×1254; рамка слоя обрезает её по высоте (cover). */
+.ap-hero-art{position:absolute;z-index:2;left:10.5%;top:136px;width:127.3%;aspect-ratio:1;
+  background:url(../assets/ai-panda/hero.webp) center/cover no-repeat;pointer-events:none}
+.ap-glow-hero{left:41%;top:45%;width:112%;height:55%}
+
+.ap-models{display:flex;align-items:center;gap:5px 20px;margin-top:-12px}
+.ap-models-list{list-style:none;margin:0;padding:0;display:flex;gap:5px}
+.ap-models-list img{display:block;width:62px;height:62px}
+.ap-models span{font-size:14px;line-height:1.3;color:rgba(249,249,249,.8)}
+
+/* ---------- 2. от создания до анализа (лента из win2pro.css) ---------- */
+.ap-tools{padding-bottom:42px}
+/* от заголовка до карточек в макете 98 (телефон 88, десктоп 60), а не 40 из ленты Win-2.pro */
+.ap-tools .cf-tools-view{margin-top:98px}
+/* свечение — под заголовком, как в макете (слой 646×621 от y 179 размыт на 145) */
+.ap-glow-tools{left:-59px;top:0;width:646px;height:620px}
+
+/* ---------- 3–4. эксперты и ассистент ---------- */
+.ap-split{position:relative;z-index:1;height:636px;display:grid;
+  grid-template-columns:404px minmax(0,1fr);background:var(--surface-page)}
+.ap-split-art{background:center/cover no-repeat}
+.ap-split--experts .ap-split-art{background-image:url(../assets/ai-panda/experts.webp)}
+.ap-split--assistant .ap-split-art{background-image:url(../assets/ai-panda/assistant.webp)}
+.ap-split-copy{align-self:center;padding:0 14px 0 18px;display:flex;flex-direction:column;
+  align-items:center;gap:24px;text-align:center}
+.ap-split-title{font-size:32px;line-height:1.1;text-wrap:balance}
+.ap-split-text{margin:0;max-width:340px;font-size:14px;line-height:1.2;color:rgba(255,255,255,.7)}
+.ap-chips{list-style:none;margin:0;padding:0;max-width:300px;display:flex;flex-wrap:wrap;
+  justify-content:center;gap:5px}
+.ap-chips li{padding:10px 16px;border-radius:9px;background:var(--ap-chip);box-shadow:var(--wz-hair);
+  font-weight:500;font-size:14px;line-height:1.1;color:#fff;white-space:nowrap}
+
+/* ---------- 5. доступ и реферальная программа ---------- */
+.ap-access{padding-bottom:var(--w2p-block)}
+.ap-access-title{position:relative;z-index:1}
+/* «Доступ в одном» в макете ровно влезает в строку; у браузерного рендера шрифта
+   не хватает 3 px, поэтому трекинг на сотую плотнее, чем у карточек WinZu */
+.ap-cards .wz-card-head h3{letter-spacing:-.02em}
+/* У этих карточек нет иконки: текст всегда прижат к низу, наведение на десктопе
+   меняет только заливку и не поднимает текст к середине */
+.ap-cards .wz-card,
+.ap-cards .wz-card:hover{grid-template-rows:auto 1fr auto}
+.ap-glow-access{left:-59px;top:79px;width:646px;height:620px}
+
+/* ================= мобильный ================= */
+@media (max-width:767px){
+  /* В макете арт 573×523 от x −115, y 300 — высота hero следует за ним */
+  .ap-hero{height:calc(300px + 133.3vw)}
+  .ap-hero .wz-hero-copy{top:78px;bottom:40px}
+  .ap-hero-note{margin-top:-20px;max-width:290px;font-size:14px;color:var(--text-primary)}
+  .ap-hero-art{left:-30.7%;top:300px;width:152.8%;aspect-ratio:573/523}
+  .ap-glow-hero{left:-15%;top:205px;width:229.6%;height:224vw}
+  .ap-models{margin-top:auto;flex-direction:column;align-items:flex-start}
+  .ap-models-list img{width:30px;height:30px}
+
+  .ap-tools{padding-bottom:100px}
+  .ap-tools .cf-tools-view{margin-top:88px}
+  .ap-glow-tools{left:40%;top:-48px;width:701px;height:739px}
+
+  .ap-split{height:auto;display:flex;flex-direction:column}
+  .ap-split-copy{order:-1;min-height:375px;padding:40px 16px;justify-content:center;gap:12px}
+  .ap-split-title{font-size:30px;line-height:1.2}
+  .ap-split--experts .ap-split-copy{gap:12px}
+  .ap-split-text{max-width:343px;font-size:16px;line-height:1.25;color:rgba(249,249,249,.8)}
+  .ap-chips{max-width:280px}
+  .ap-split-art{aspect-ratio:1}
+
+  .ap-access-title{max-width:343px}
+  .ap-glow-access{left:-260px;top:352px;width:701px;height:739px}
+}
+
+/* ================= десктоп: сетка 1440 ================= */
+@media (min-width:1200px){
+  /* hero на весь экран (vh делим на zoom корня .wz); арт и свечение привязаны к низу */
+  .ap-hero{height:max(700px,calc(100vh / var(--wz-zoom,1)))}
+  .ap-hero .wz-hero-copy{left:40px;right:auto;top:98px;bottom:22px}
+  .ap-hero .ap-hero-sub{width:620px;max-width:none}
+  .ap-hero .wz-hero-title{width:auto;white-space:nowrap}
+  .ap-hero-note{max-width:469px}
+  .ap-hero-art{left:auto;right:40px;top:auto;bottom:-6px;width:auto;
+    height:min(702px,calc(100% - 98px));aspect-ratio:768/702}
+  .ap-glow-hero{left:495px;top:auto;bottom:-241px;width:842px;height:497px}
+  .ap-models{margin-top:-28px}
+  /* от «Все продукты» до заголовка в макете 62, общий отступ копии — 40 */
+  .ap-hero .wz-hero-text{margin-top:22px}
+
+  /* лента закреплена: без нижнего поля прогресс в конце прокрутки упирается
+     в блок «Эксперты»; поле — как верхнее у закреплённой ленты (140) */
+  .ap-tools{padding-bottom:140px}
+  .ap-tools .cf-tools-view{margin-top:60px}
+  .ap-tools .cf-progress{margin-top:60px}
+  .ap-glow-tools{display:none}
+  /* Лента: в кадре две карточки целиком, третья — 0.6, дальше — 0.5 (как в макете) */
+  .ap-tools .cf-tool:has(+ .is-next){opacity:.6}
+  .ap-tools .cf-tool.is-next{opacity:.5}
+
+  .ap-split{height:752px;grid-template-columns:720px 720px}
+  .ap-split-copy{padding:0}
+  .ap-split-title{font-size:56px;max-width:720px}
+  .ap-chips{max-width:470px}
+
+  .ap-access{padding:140px 0}
+  .ap-access-title{max-width:990px}
+  .ap-glow-access{left:1337px;top:-177px;width:442px;height:653px}
+}

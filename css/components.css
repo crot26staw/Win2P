@@ -83,9 +83,7 @@ a[href=""],button:disabled,[aria-disabled="true"]{cursor:default}
   background:var(--surface-card-tall);
   -webkit-backdrop-filter:var(--blur-card);backdrop-filter:var(--blur-card);
   box-shadow:var(--shadow-card-border);display:flex;flex-direction:column;gap:32px;
-  padding:24px;align-items:flex-start;
-  transition:box-shadow var(--duration-base) var(--ease-standard)}
-.w2p-tc:hover{box-shadow:var(--shadow-card-border-hover)}
+  padding:24px;align-items:flex-start}
 .w2p-tc-head{display:flex;flex-direction:column;gap:16px;align-self:stretch}
 .w2p-tc-title{display:flex;flex-direction:row;gap:12px;align-items:center;height:32px;align-self:stretch}
 .w2p-tc-name{font-weight:700;font-size:32px;line-height:1;letter-spacing:var(--ls-label);
@@ -119,6 +117,7 @@ a[href=""],button:disabled,[aria-disabled="true"]{cursor:default}
 .w2p-lockup img{height:clamp(18px,1.74vw,34px);width:auto;display:block}
 .w2p-lang{position:relative;align-self:stretch;display:flex}
 .w2p-lang>.w2p-btn{align-self:stretch}
+@media (max-width:1200px){.w2p-lang>.w2p-btn{font-size:14px}} /* figma 768/375: 14px, 104×38 */
 .w2p-lang-menu{position:absolute;top:calc(100% + 8px);right:0;min-width:140px;z-index:20;
   border-radius:13px;overflow:hidden;padding:4px;background:var(--surface-card);
   -webkit-backdrop-filter:var(--blur-card);backdrop-filter:var(--blur-card);
@@ -147,18 +146,43 @@ a[href=""],button:disabled,[aria-disabled="true"]{cursor:default}
 .w2p-footer-legal{font-weight:400;font-size:12px;line-height:1.2;color:var(--text-muted);
   white-space:nowrap;text-decoration:none}
 .w2p-footer-col{position:relative;width:210px;flex-shrink:0;display:flex;flex-direction:column;
-  gap:clamp(28px,4.17vw,60px);justify-content:center;align-items:flex-start}
-.w2p-footer-col>div{display:flex;flex-direction:column;gap:16px;align-self:stretch}
-.w2p-footer-col ul{display:flex;flex-direction:column;gap:16px;align-self:stretch;
+  gap:clamp(28px,4.17vw,60px);justify-content:flex-start;align-items:flex-start;align-self:flex-start}
+/* figma: заголовок → первая ссылка 30px, шаг ссылок 26px (desktop) / 34 и 30 (tablet, mobile) */
+.w2p-footer-col>div{display:flex;flex-direction:column;gap:12px;align-self:stretch}
+.w2p-footer-col ul{display:flex;flex-direction:column;gap:9px;align-self:stretch;
   list-style:none;margin:0;padding:0}
+.w2p-footer-col li{font-size:14px;line-height:16.8px}
 .w2p-footer-h{font-weight:700;font-size:14px;line-height:1;letter-spacing:var(--ls-label);
   color:var(--text-primary);text-transform:uppercase}
 .w2p-footer-col a{font-weight:400;font-size:14px;line-height:1.2;color:var(--text-muted);
   text-decoration:none;transition:color var(--duration-base) var(--ease-standard)}
 .w2p-footer-col a:hover{color:var(--text-primary)}
-.w2p-footer-social{position:relative;width:210px;display:flex;flex-direction:column;gap:16px;
-  justify-content:center;align-items:flex-start;flex-shrink:0}
+.w2p-footer-social{position:relative;width:210px;display:flex;flex-direction:column;gap:12px;
+  justify-content:flex-start;align-items:flex-start;flex-shrink:0;align-self:flex-start}
 .w2p-footer-social a{display:flex;align-items:center;justify-content:center;
-  width:33.333px;height:33.333px;border-radius:var(--radius-pill);overflow:hidden;
+  width:40px;height:40px;border-radius:var(--radius-pill);
   transition:opacity var(--duration-base) var(--ease-standard)}
 .w2p-footer-social a:hover{opacity:.8}
+.w2p-footer-social svg{display:block;width:33.333px;height:33.333px}
+/* Desktop: колонка бренда держит высоту макета (213), © прижат к низу */
+@media (min-width:1201px){.w2p-footer-grid{min-height:213px}}
+/* Tablet (figma Web 768): слева бренд + © под слоганом + соцсети внизу, справа две колонки по 180 */
+@media (max-width:1200px){
+  .w2p-footer{padding:40px var(--site-gutter,32px)}
+  .w2p-footer-grid{display:grid;grid-template-columns:minmax(0,1fr) 180px 180px;
+    grid-template-areas:"brand mk pr" "social mk pr";column-gap:32px;row-gap:40px}
+  .w2p-footer-brand{grid-area:brand;justify-content:flex-start;min-width:0;align-self:start}
+  .w2p-footer-col:nth-of-type(2){grid-area:mk}
+  .w2p-footer-col:nth-of-type(3){grid-area:pr}
+  .w2p-footer-col{width:auto}
+  .w2p-footer-col>div{gap:16px}
+  .w2p-footer-col ul{gap:13px}
+  .w2p-footer-social{grid-area:social;align-self:end;width:auto}
+}
+/* Mobile (figma 375): всё в одну колонку, шаг блоков 32 */
+@media (max-width:767px){
+  .w2p-footer{padding:32px var(--site-gutter,16px)}
+  .w2p-footer-grid{grid-template-columns:minmax(0,1fr);
+    grid-template-areas:"brand" "mk" "pr" "social";row-gap:32px}
+  .w2p-footer-social{align-self:start}
+}
