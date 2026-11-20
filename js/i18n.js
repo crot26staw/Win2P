@@ -58,6 +58,7 @@
     "Контент-завод полного цикла\nдля социальных сетей и рекламы":
       "A full-cycle content factory\nfor social media and ads",
     "Онлайн-казино": "An online casino",
+    "Скоро": "Soon",
     "Платформа сеточных\nбинарных опционов": "A grid-based\nbinary options platform",
 
     /* --- Wintime --- */

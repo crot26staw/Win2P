@@ -61,6 +61,11 @@ a[href=""],button:disabled,[aria-disabled="true"]{cursor:default}
   transition:box-shadow var(--duration-base) var(--ease-standard)}
 .w2p-pc:hover{box-shadow:var(--shadow-card-border-hover)}
 .w2p-pc--static{cursor:default}
+/* плашка «Скоро» вместо шеврона (figma 2259:3737) */
+.w2p-pc-tag{flex-shrink:0;display:inline-flex;align-items:center;justify-content:center;
+  padding:2px 12px 4px;border-radius:100px;background:rgba(217,220,233,.3);
+  font-weight:600;font-size:14px;line-height:normal;letter-spacing:-.02em;
+  color:var(--text-primary);white-space:nowrap}
 .w2p-pc-inner{position:relative;display:flex;flex-direction:row;gap:20px;
   align-items:flex-start;flex-wrap:nowrap;flex-grow:1;align-self:stretch}
 .w2p-pc-media{position:relative;width:136.5px;overflow:hidden;flex-shrink:0;align-self:stretch}
