@@ -19,9 +19,11 @@
   background:radial-gradient(closest-side,var(--w2p-orange) 0%,rgba(243,64,13,.55) 42%,rgba(243,64,13,0) 100%)}
 
 /* ---------- 1. hero ---------- */
-/* Высота считается от ширины: арт растёт вместе с экраном. До 1200 px арт стоит
-   над подписью «15 000+ игр», чтобы она не ложилась на автомат. */
-.wz-hero{position:relative;height:calc(440px + 68vw);overflow:hidden;background:rgb(5,5,5)}
+/* Высота считается от ширины: арт растёт вместе с экраном (общая база с habibi). */
+.wz-hero{position:relative;height:calc(141px + 115vw);overflow:hidden;background:rgb(5,5,5)}
+/* WinZu: арт стоит с top:354px и тянется по ширине, высота подобрана так, что у
+   768 получается 1024, как во фрейме «Web», и низ арта обрезается одинаково. */
+.wzu .wz-hero{height:calc(354px + 87.24vw)}
 .wz-hero-squares{position:absolute;inset:0;z-index:0;display:none}
 .wz-sq{position:absolute;left:var(--x);top:var(--y);width:var(--w);height:var(--h);
   background:rgba(255,255,255,.07)}
@@ -38,10 +40,10 @@
 .wz-hero-title{font-size:72px;line-height:1.1}
 .wz-hero-sub{max-width:385px;font-size:18px;line-height:1.3;color:rgba(249,249,249,.8);margin:0}
 .wz-br-d{display:none}
-/* Арт — вырезка с прозрачным фоном (1686 × 1247, поля обрезаны). Блок повторяет пропорции
-   картинки и стоит на нижнем крае hero, поэтому картинка не искажается ни на одной ширине. */
-.wz-hero-art{position:absolute;z-index:2;right:0;bottom:130px;width:92%;aspect-ratio:1686/1247;
-  background:url(../assets/winzu/hero.webp) 50% 100%/contain no-repeat;pointer-events:none}
+/* Арт — вырезка с прозрачным фоном 1316 × 1195. Блок равен самой картинке (в макете слой
+   с FIT: 1177 × 852 в −99/354 → картинка 938 × 852 в 20/354 на 768), низ режет hero. */
+.wz-hero-art{position:absolute;z-index:2;left:2.65%;top:354px;width:122.17%;aspect-ratio:1316/1195;
+  background:url(../assets/winzu/hero.webp) 0 0/100% 100% no-repeat;pointer-events:none}
 .wz-hero-stat{position:absolute;z-index:4;left:40px;bottom:40px;display:flex;flex-direction:column;gap:2px}
 .wz-hero-stat b{font-size:32px;line-height:1.15;letter-spacing:-.01em;color:var(--w2p-white)}
 .wz-hero-stat span{font-size:18px;line-height:1.3;color:var(--text-primary)}
@@ -93,7 +95,8 @@
   .wz{--wz-g:16px}
   .wz-h2{font-size:30px;line-height:1.2}
 
-  .wz-hero{height:calc(380px + 78.4vw)}
+  .wz-hero{height:calc(315px + 129.3vw)}
+  .wzu .wz-hero{height:calc(296px + 134.4vw)}
   /* левая группа плашек десктопа, ужатая до 425 px ширины, как в макете */
   .wz-hero-squares{display:block;transform:translateY(142.75px) scale(.6875);transform-origin:0 0}
   .wz-sq--d{display:none}
@@ -104,7 +107,8 @@
   .wz-crumb>span:last-child{font-size:14px}
   .wz-hero-title{font-size:36px;line-height:1.1}
   .wz-hero-sub{font-size:16px;line-height:1.25;max-width:343px}
-  .wz-hero-art{right:-4%;bottom:120px;width:106%}
+  /* FIT 698 × 524 в −161/296 → картинка 577 × 524 в −100.5/296 на 375 */
+  .wz-hero-art{left:-26.8%;top:296px;width:153.87%}
   .wz-hero-stat{left:16px;bottom:50px}
 
   .wz-cards{gap:12px}
@@ -121,7 +125,7 @@
 @media (min-width:1200px){
   .wz{--wz-g:40px;width:1440px;margin-inline:auto;zoom:var(--wz-zoom,1);overflow-x:visible}
 
-  .wz-hero{height:800px}
+  .wz-hero,.wzu .wz-hero{height:800px}
   .wz-hero-squares{display:block}
   .wz-glow--hl{left:-673px;top:-88px}
   .wz-glow--hr{display:block;left:972px;top:-25px;width:1027px;height:998px}
@@ -129,7 +133,8 @@
   .wz-hero-title{width:620px;font-size:128px;line-height:1}
   .wz-hero-sub{max-width:none;width:470px;font-size:24px;line-height:1.3}
   .wz-br-d{display:inline}
-  .wz-hero-art{right:20px;bottom:0;width:987px}
+  /* слой 1121 × 754 в 377/130 показывает верхние 74% картинки — та же ширина 1121 */
+  .wz-hero-art{left:377px;top:130px;width:1121px}
   .wz-hero-stat{left:40px;top:704px;bottom:auto}
 
   .wz-feat{padding:70px 0}
