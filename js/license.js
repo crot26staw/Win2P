@@ -136,8 +136,12 @@
     // Планшет и десктоп: уровень по прокрутке закреплённого пина.
     function currentStep() {
       if (chain && mqPhone.matches) {
-        var w = chain.clientWidth || 1;
-        return Math.round(chain.scrollLeft / w) + 1;
+        if (partners.length < 2) return 1;
+        // Последний уровень активен у правого края, даже если не дошёл до точки привязки.
+        var maxScroll = chain.scrollWidth - chain.clientWidth;
+        if (maxScroll > 0 && chain.scrollLeft >= maxScroll - 1) return partners.length;
+        var stride = partners[1].offsetLeft - partners[0].offsetLeft;
+        return Math.round(chain.scrollLeft / (stride || 1)) + 1;
       }
       return Math.floor(progressOf(pin) * 7) + 1;
     }

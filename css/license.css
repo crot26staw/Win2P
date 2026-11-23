@@ -607,7 +607,7 @@
 }
 
 /* Телефон: «Куда идут $6» по мобильному макету — без медведя. Сверху карточки
-   $0.50 и $1, последней — карточка сети с крупным партнёром текущего уровня.
+   $0.50 и $1, последней — карточка сети с превью следующего партнёра.
    Ленту партнёров листают свайпом, независимо от прокрутки страницы. */
 @media (max-width:767px){
   .lic-split-pin .lic-levelart{display:none}
@@ -615,7 +615,8 @@
   .lic-split-pin .lic-head{gap:8px;margin-bottom:58px}
   .lic-split-pin .lic-head h2{font-size:30px}
   .lic-split-pin .lic-head p{font-size:14px}
-  .lic-split-pin .lic-net{order:3;width:100%;max-width:none;margin-top:8px;padding:24px;gap:40px;overflow:hidden}
+  .lic-split-pin .lic-net{order:3;width:100%;max-width:none;margin-top:8px;padding:24px;gap:40px;overflow:hidden;
+    background:linear-gradient(105.09deg,rgb(20,20,21) 43.2%,rgb(43,43,44) 111.35%)}
   .lic-split-pin .lic-split-cards{order:2;display:flex;flex-direction:column;gap:8px;max-width:none}
   .lic-split-cards .lic-split-card{width:100%;max-width:none;height:auto}
   .lic-split-card .top{flex-direction:row;justify-content:space-between;align-items:center}
@@ -623,32 +624,32 @@
   .lic-split-card .l{font-size:16px}
   .lic-split-card .n{color:rgba(255,255,255,.4)}
 
-  .lic-net-chain{order:1;margin:0 -24px;overflow-x:auto;overflow-y:hidden;
+  .lic-net-chain{--lic-partner-size:155px;--lic-partner-gap:clamp(40px,calc(100vw - 289px),86px);
+    margin:0 -24px;overflow-x:auto;overflow-y:hidden;scroll-padding-inline:24px;
     scroll-snap-type:x mandatory;overscroll-behavior-x:contain;scrollbar-width:none;
     -webkit-overflow-scrolling:touch}
   .lic-net-chain::-webkit-scrollbar{display:none}
-  .lic-net-top{order:2;display:grid;grid-template-columns:auto 1fr;gap:10px 8px;align-items:center}
-  .lic-net-top .v{font-size:24px}
+  .lic-net-top{display:grid;grid-template-columns:auto 1fr;gap:10px 8px;align-items:center}
+  .lic-net-top .v{font-size:24px;line-height:1.1}
   .lic-net-top .l{justify-self:end}
   .lic-net-top .n{grid-column:1/-1}
 
-  .lic-net .lic-partners{display:flex;flex-wrap:nowrap;gap:0;justify-content:flex-start;width:100%}
-  .lic-net .lic-partner{flex:0 0 100%;width:100%;gap:12px;padding-top:5px;
-    scroll-snap-align:center;scroll-snap-stop:always}
-  .lic-net .lic-partner .disc{width:155px;height:155px}
+  .lic-net .lic-partners{display:flex;flex-wrap:nowrap;gap:var(--lic-partner-gap);
+    justify-content:flex-start;width:100%;padding-inline-start:24px}
+  .lic-net .lic-partner{flex:0 0 var(--lic-partner-size);width:var(--lic-partner-size);gap:12px;padding-top:5px;
+    scroll-snap-align:start;scroll-snap-stop:always}
+  .lic-net .lic-partner .disc{width:var(--lic-partner-size);height:var(--lic-partner-size);
+    background:linear-gradient(202.02deg,rgb(20,20,21) 2.23%,rgb(43,43,44) 71.86%)}
   .lic-net .lic-partner .disc img{width:109px;height:109px}
-  .lic-net .lic-partner .badge{left:calc(50% + 33px);top:0;width:50px;height:50px;font-size:24px}
+  .lic-net .lic-partner .badge{left:110px;top:0;width:50px;height:50px;font-size:24px}
   .lic-net .lic-partner .meta{gap:12px}
-  .lic-net .lic-partner .meta b{font-size:24px;opacity:1}
-  .lic-net .lic-partner .meta i{font-size:16px;font-weight:700;color:var(--lic-fg);text-transform:uppercase}
-  /* Нить между партнёрами: от края диска до края ленты, у пройденных — оранжевая. */
-  .lic-net .lic-partner::before,.lic-net .lic-partner::after{content:"";position:absolute;
-    top:calc(5px + 77.5px - 4px);height:8px;background:rgb(43,43,44);
+  .lic-net .lic-partner .meta b{font-size:20px;opacity:1}
+  .lic-net .lic-partner .meta i{color:rgba(255,255,255,.5)}
+  .lic-net .lic-partner:not(:last-child)::after{content:"";position:absolute;
+    top:calc(5px + var(--lic-partner-size) / 2 - 4px);left:100%;
+    width:var(--lic-partner-gap);height:8px;background:rgb(43,43,44);
     transition:background 320ms var(--ease-standard)}
-  .lic-net .lic-partner::after{left:calc(50% + 77.5px);right:0;border-radius:100px 0 0 100px}
-  .lic-net .lic-partner::before{left:0;right:calc(50% + 77.5px);border-radius:0 100px 100px 0}
-  .lic-net .lic-partner:first-child::before,.lic-net .lic-partner:last-child::after{display:none}
-  .lic-net .lic-partner.is-on::before,.lic-net .lic-partner.is-on::after{background:var(--lic-accent)}
+  .lic-net .lic-partner.is-on::after{background:var(--lic-accent)}
 }
 
 /* ---- сверка отступов с макетом (09.11): Lite и Pro ----
