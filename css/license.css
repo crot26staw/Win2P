@@ -634,8 +634,9 @@
   .lic-net-top .l{justify-self:end}
   .lic-net-top .n{grid-column:1/-1}
 
+  /* Значок выступает на 5px за диск: справа оставляем 24px от края значка. */
   .lic-net .lic-partners{display:flex;flex-wrap:nowrap;gap:var(--lic-partner-gap);
-    justify-content:flex-start;width:100%;padding-inline-start:24px}
+    justify-content:flex-start;width:max-content;padding-inline:24px 29px}
   .lic-net .lic-partner{flex:0 0 var(--lic-partner-size);width:var(--lic-partner-size);gap:12px;padding-top:5px;
     scroll-snap-align:start;scroll-snap-stop:always}
   .lic-net .lic-partner .disc{width:var(--lic-partner-size);height:var(--lic-partner-size);
