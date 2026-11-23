@@ -110,10 +110,8 @@
     "в возможности": "into opportunity",
 
     /* --- лицензии --- */
-    "старт всего за $6": "start for just $6",
-    "старт": "start",
-    "всего за $24": "for just $24",
-    "всего за $6": "for just $6",
+    "старт за $6": "start for $6",
+    "старт за $24": "start for $24",
     "Партнёрская сеть с доходом до $507 000": "A partner network with income of up to $507,000",
     "Куда идут $24?": "Where does the $24 go?",
     "Партнёрская сеть с доходом до $127 000": "A partner network with income of up to $127,000",
@@ -128,7 +126,7 @@
     "Автоматический перелив": "Automatic spillover",
     "После подключения новые участники автоматически размещаются в структуре сверху вниз и слева направо":
       "Once they join, new members are placed into the structure automatically — top to bottom, left to right",
-    "Вы": "You",
+    "Участник": "Participant",
     "Доход растёт вместе с линией": "Income grows with your line",
     "Уровень": "Level",
     "Доход": "Income",

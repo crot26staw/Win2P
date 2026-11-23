@@ -34,8 +34,8 @@
 .lic-hero-objects i{position:absolute;display:block;background-color:rgba(255,255,255,.07)}
 .lic-hero-bear{position:absolute;left:481px;top:324px;width:504px;height:794px;z-index:2;
   background-position:center;background-repeat:no-repeat;background-size:contain}
-.lic-hero-title{position:absolute;left:255px;top:238px;width:1055px;height:257px;
-  font-size:128px;line-height:1;text-align:center;z-index:1}
+.lic-hero-title{position:absolute;left:240px;top:238px;width:1120px;
+  font-size:128px;line-height:1;text-align:center;white-space:nowrap;z-index:1}
 .lic-hero-fade{position:absolute;left:0;top:536px;width:100%;height:412px;z-index:3;
   background:linear-gradient(180deg,rgba(11,1,0,0),rgb(11,1,0),rgb(11,1,0))}
 .lic-crumb{position:absolute;left:40px;top:98px;height:32px;z-index:4;display:flex;
@@ -512,12 +512,7 @@
 .lic-gift-sec--plain .lic-gift-card .art{height:auto;aspect-ratio:1}
 
 @media (min-width:1200px){
-  /* Без «твой» строка короче и влезала бы в одну; в макете колонка 930 по центру
-     (слой плашек сдвинут на −80, отсюда 255 + 80). */
-  .lic-hero-title--short{left:335px;width:930px}
   .lic-hero-copy--note{top:714px;width:215px}
-  /* Pro: «$24» длиннее, колонка 1030 и явный перенос после «старт», как в макете. */
-  .lic-hero-title--pro{left:285px;width:1030px}
   .lic-hero-copy--pro{top:713px;width:204px}
   .lic-split-pin--net .lic-levelart{top:249px}
   .lic-net{position:absolute;left:186px;top:648px;width:1068px}
@@ -738,7 +733,7 @@
 
   .lic-crumb span{font-size:14px}
   .lic-tag b{font-size:14px}
-  .lic-hero-title{font-size:36px}
+  .lic-hero-title{font-size:min(36px,9vw)}
   .lic-hero-copy--note p{font-size:16px}
 
   /* Заголовки блоков 30, подзаголовки 14 — как в мобильном макете. */
